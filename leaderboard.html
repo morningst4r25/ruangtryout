@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papan Peringkat Klasemen - Ruang Tryout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
+
+    <!-- Header Navbar -->
+    <header class="bg-white border-b border-slate-200 py-4 px-4 sm:px-8 flex justify-between items-center sticky top-0 z-50">
+        <a href="index.html" class="flex items-center space-x-2">
+            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white text-base">
+                R
+            </div>
+            <span class="text-lg font-bold text-slate-900">Ruang<span class="text-blue-600">Tryout</span></span>
+        </a>
+        <a href="index.html" class="text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl border border-slate-300 transition">
+            🏠 Kembali ke Beranda
+        </a>
+    </header>
+
+    <!-- Content Utama -->
+    <main class="max-w-4xl w-full mx-auto p-4 sm:p-6 my-6 flex-1">
+        <div class="text-center mb-8">
+            <span class="bg-blue-50 text-blue-600 text-xs font-bold px-3 py-1 rounded-full border border-blue-100 uppercase tracking-wider">Papan Peringkat Real-Time</span>
+            <h1 class="text-3xl font-black text-slate-900 mt-3 mb-2">🏆 Klasemen Skor Peserta</h1>
+            <p class="text-slate-600 text-sm">Peringkat tertinggi peserta yang telah menyelesaikan simulasi kuis BKN & SNPMB.</p>
+        </div>
+
+        <!-- Filter Kategori -->
+        <div class="flex justify-center gap-3 mb-6">
+            <button onclick="loadLeaderboard('cpns')" id="btn-cpns" class="px-5 py-2.5 rounded-xl font-bold text-xs bg-blue-600 text-white shadow-md transition">🏛️ CPNS & PPPK</button>
+            <button onclick="loadLeaderboard('utbk')" id="btn-utbk" class="px-5 py-2.5 rounded-xl font-bold text-xs bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition">🎓 UTBK SNBT</button>
+        </div>
+
+        <!-- Tabel Klasemen -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-slate-100 text-slate-600 text-xs uppercase font-bold border-b border-slate-200">
+                        <tr>
+                            <th class="py-3.5 px-4 text-center">Rank</th>
+                            <th class="py-3.5 px-4">Nama Peserta</th>
+                            <th class="py-3.5 px-4 text-center">Skor Akhir</th>
+                            <th class="py-3.5 px-4 text-center">Persentase</th>
+                            <th class="py-3.5 px-4 text-center">Waktu Tempuh</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body" class="divide-y divide-slate-100">
+                        <tr>
+                            <td colspan="5" class="text-center py-12 text-slate-400 font-medium animate-pulse">Menghubungkan ke Cloud Database...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-4 text-center text-xs text-slate-500 border-t border-slate-200 bg-white">
+        &copy; 2026 Ruang Tryout. Papan Peringkat Resmi Terintegrasi Cloud Firebase.
+    </footer>
+
+    <!-- Firebase SDK Compat -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+
+    <script>
+        function loadLeaderboard(categoryKey) {
+            const body = document.getElementById("leaderboard-body");
+            body.innerHTML = `<tr><td colspan="5" class="text-center py-12 text-slate-400 font-medium animate-pulse">Memuat daftar peringkat terbaru...</td></tr>`;
+
+            document.getElementById("btn-cpns").className = categoryKey === 'cpns' ? "px-5 py-2.5 rounded-xl font-bold text-xs bg-blue-600 text-white shadow-md transition" : "px-5 py-2.5 rounded-xl font-bold text-xs bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition";
+            document.getElementById("btn-utbk").className = categoryKey === 'utbk' ? "px-5 py-2.5 rounded-xl font-bold text-xs bg-blue-600 text-white shadow-md transition" : "px-5 py-2.5 rounded-xl font-bold text-xs bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition";
+
+            db.collection("leaderboard")
+                .where("category", "==", categoryKey)
+                .orderBy("score", "desc")
+                .orderBy("timeSpentSeconds", "asc")
+                .limit(50)
+                .get()
+                .then((querySnapshot) => {
+                    if (querySnapshot.empty) {
+                        body.innerHTML = `<tr><td colspan="5" class="text-center py-12 text-slate-400">Belum ada skor peserta yang tercatat untuk kategori ini.</td></tr>`;
+                        return;
+                    }
+
+                    let html = "";
+                    let rank = 1;
+
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        let badge = `#${rank}`;
+                        if (rank === 1) badge = "🥇";
+                        if (rank === 2) badge = "🥈";
+                        if (rank === 3) badge = "🥉";
+
+                        const minutes = Math.floor(data.timeSpentSeconds / 60);
+                        const seconds = data.timeSpentSeconds % 60;
+                        const timeStr = `${minutes}m ${seconds}s`;
+
+                        html += `
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="py-3.5 px-4 text-center font-extrabold text-base">${badge}</td>
+                                <td class="py-3.5 px-4 flex items-center gap-3">
+                                    <img src="${data.userPhoto || 'https://via.placeholder.com/40'}" class="w-8 h-8 rounded-full border border-slate-200" alt="avatar">
+                                    <span class="font-bold text-slate-900">${data.userName}</span>
+                                </td>
+                                <td class="py-3.5 px-4 text-center font-black text-blue-600 text-base">${data.score} / ${data.totalQuestions}</td>
+                                <td class="py-3.5 px-4 text-center font-bold text-emerald-600">${data.percentage}%</td>
+                                <td class="py-3.5 px-4 text-center text-xs font-semibold text-slate-500">${timeStr}</td>
+                            </tr>
+                        `;
+                        rank++;
+                    });
+
+                    body.innerHTML = html;
+                })
+                .catch((error) => {
+                    console.error("Error fetching leaderboard:", error);
+                    body.innerHTML = `<tr><td colspan="5" class="text-center py-12 text-red-500">Gagal memuat papan peringkat. Pastikan koneksi aman.</td></tr>`;
+                });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            loadLeaderboard('cpns');
+        });
+    </script>
+</body>
+</html>
