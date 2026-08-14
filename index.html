@@ -13,10 +13,9 @@
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
 
-    <!-- 1. NAVBAR HEADER GLASSMORPHISM -->
+    <!-- NAVBAR HEADER -->
     <header class="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <!-- Logo -->
             <a href="#" class="flex items-center space-x-2.5">
                 <div class="w-9 h-9 bg-gradient-to-tr from-blue-600 to-indigo-500 rounded-xl flex items-center justify-center font-black text-white text-lg shadow-lg shadow-blue-500/20 border border-blue-400/30">
                     R
@@ -26,173 +25,154 @@
                 </span>
             </a>
 
-            <!-- Nav Links Desktop -->
             <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-400">
-                <a href="#tryout-section" class="hover:text-white transition">Simulasi Kuis</a>
+                <a href="#pilihan-program" class="hover:text-white transition">Program Ujian</a>
                 <a href="#keunggulan" class="hover:text-white transition">Keunggulan</a>
                 <a href="#testimoni" class="hover:text-white transition">Testimoni</a>
             </nav>
 
-            <!-- CTA Button -->
-            <div class="flex items-center space-x-3">
-                <a href="#tryout-section" class="text-xs sm:text-sm font-bold bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl shadow-lg shadow-blue-600/25 border border-blue-400/30 transition-all">
-                    Mulai Ujian Sekarang
+            <div>
+                <a href="#pilihan-program" class="text-xs sm:text-sm font-bold bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl shadow-lg shadow-blue-600/25 border border-blue-400/30 transition-all">
+                    Pilih Kategori Kuis
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- 2. HERO BANNER MODERN -->
+    <!-- HERO BANNER -->
     <section class="relative pt-16 pb-12 overflow-hidden">
-        <!-- Glow Effects Ambient -->
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-b from-blue-600/15 via-indigo-600/10 to-transparent blur-3xl pointer-events-none rounded-full"></div>
 
         <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-            <!-- Badge Top -->
             <div class="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold px-4 py-1.5 rounded-full backdrop-blur-md">
                 <span class="inline-block w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
                 <span>100% GRATIS • TANPA BIAYA TERSEMBUNYI</span>
             </div>
 
-            <!-- Main Heading -->
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-white">
                 Simulasi Ujian CAT CPNS & UTBK SNBT <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-sky-400">Terlengkap</span>
             </h1>
 
-            <!-- Subtitle -->
             <p class="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
                 Asah kemampuanmu dengan bank soal HOTS standar BKN & SNPMB, dilengkapi sistem timer real-time, evaluasi jawaban instan, dan pembahasan komprehensif.
             </p>
-
-            <!-- Key Features Micro Pills -->
-            <div class="pt-4 flex flex-wrap justify-center items-center gap-3 text-xs font-semibold text-slate-300">
-                <span class="bg-slate-900 border border-slate-800 px-4 py-2 rounded-xl flex items-center gap-2">
-                    🎯 200+ Soal HOTS Terbaru
-                </span>
-                <span class="bg-slate-900 border border-slate-800 px-4 py-2 rounded-xl flex items-center gap-2">
-                    ⏱️ Timer 90 Menit Real-Time
-                </span>
-                <span class="bg-slate-900 border border-slate-800 px-4 py-2 rounded-xl flex items-center gap-2">
-                    💡 Pembahasan Kunci Jawaban
-                </span>
-            </div>
         </div>
     </section>
 
-    <!-- 3. KONTEN ENGINE SIMULASI KUIS (APP.JS CONTAINER) -->
-    <main id="tryout-section" class="max-w-4xl mx-auto px-4 py-6 relative z-20 w-full">
-        <div id="quiz-card" class="bg-slate-900/90 backdrop-blur-xl rounded-3xl p-6 sm:p-10 shadow-2xl shadow-blue-950/40 border border-slate-800/90 transition-all">
-            <p class="text-center text-slate-400 font-medium animate-pulse">Memuat aplikasi tryout...</p>
+    <!-- PILIHAN PROGRAM KUIS (REDIRECT TO EXAM.HTML) -->
+    <main id="pilihan-program" class="max-w-4xl mx-auto px-4 py-8 relative z-20 w-full">
+        <div class="text-center mb-8">
+            <h2 class="text-2xl font-bold text-white mb-2">Pilih Program Simulasi CAT</h2>
+            <p class="text-slate-400 text-sm">Klik salah satu program di bawah ini untuk membuka Lembar Ujian Khusus:</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Card CPNS -->
+            <a href="exam.html?cat=cpns" class="block bg-slate-900 border border-slate-800 hover:border-blue-500 p-6 rounded-2xl transition-all hover:-translate-y-1 group">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-3xl bg-blue-500/10 p-3 rounded-xl border border-blue-500/20">🏛️</span>
+                    <span class="bg-blue-500/10 text-blue-400 text-xs font-bold px-3 py-1 rounded-full border border-blue-500/20">100 Soal HOTS</span>
+                </div>
+                <h3 class="text-xl font-extrabold text-white mb-2 group-hover:text-blue-400 transition">CPNS & PPPK (Soal HOTS)</h3>
+                <p class="text-xs text-slate-400 leading-relaxed mb-6">Latihan Soal SKD Lengkap: TWK (Nasionalisme), TIU (Penalaran/Numerik), & TKP Berstandar BKN.</p>
+                <div class="flex justify-between items-center pt-4 border-t border-slate-800/80 text-xs font-bold text-blue-400">
+                    <span>⏱️ Waktu: 90 Menit</span>
+                    <span>Buka Lembar Ujian →</span>
+                </div>
+            </a>
+
+            <!-- Card UTBK -->
+            <a href="exam.html?cat=utbk" class="block bg-slate-900 border border-slate-800 hover:border-emerald-500 p-6 rounded-2xl transition-all hover:-translate-y-1 group">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-3xl bg-emerald-500/10 p-3 rounded-xl border border-emerald-500/20">🎓</span>
+                    <span class="bg-emerald-500/10 text-emerald-400 text-xs font-bold px-3 py-1 rounded-full border border-emerald-500/20">100 Soal HOTS</span>
+                </div>
+                <h3 class="text-xl font-extrabold text-white mb-2 group-hover:text-emerald-400 transition">UTBK / SNBT (TPS & Literasi)</h3>
+                <p class="text-xs text-slate-400 leading-relaxed mb-6">Latihan Soal Tes Potensi Skolastik (TPS), Penalaran Kuantitatif, & Literasi Bahasa Indonesia/Inggris.</p>
+                <div class="flex justify-between items-center pt-4 border-t border-slate-800/80 text-xs font-bold text-emerald-400">
+                    <span>⏱️ Waktu: 90 Menit</span>
+                    <span>Buka Lembar Ujian →</span>
+                </div>
+            </a>
         </div>
     </main>
 
-    <!-- 4. SECTION KOMITMEN BEBAS BIAYA & KEUNGGULAN -->
-    <section id="keunggulan" class="py-20 bg-slate-950 border-t border-slate-900 relative">
+    <!-- SECTION KEUNGGULAN -->
+    <section id="keunggulan" class="py-16 bg-slate-950 border-t border-slate-900 mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Komitmen Akses Terbuka</h2>
-                <p class="text-slate-400 text-sm sm:text-base">Kami percaya setiap pejuang NIP dan calon mahasiswa berhak mendapatkan sarana belajar berkualitas tanpa terhalang biaya.</p>
+            <div class="text-center max-w-2xl mx-auto mb-12 space-y-2">
+                <h2 class="text-3xl font-extrabold text-white">Komitmen Akses Terbuka</h2>
+                <p class="text-slate-400 text-sm">Setiap calon peserta berhak mendapatkan sarana latihan ujian standar nasional secara gratis.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Card 1 -->
-                <div class="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-blue-500/40 transition-all group">
-                    <div class="w-12 h-12 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">⚡</div>
-                    <h3 class="text-lg font-bold text-white mb-2">100% Gratis Akses</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">Seluruh bank soal, simulasi timer, hingga pembahasan instan dapat kamu nikmati secara cuma-cuma.</p>
+                <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl">
+                    <div class="text-2xl mb-3">⚡</div>
+                    <h3 class="text-base font-bold text-white mb-1">100% Akses Gratis</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Akses penuh ke seluruh bank soal dan pembahasan tanpa ada biaya tersembunyi.</p>
                 </div>
-
-                <!-- Card 2 -->
-                <div class="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-amber-500/40 transition-all group">
-                    <div class="w-12 h-12 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">📚</div>
-                    <h3 class="text-lg font-bold text-white mb-2">Soal Standar HOTS</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">Dirancang merujuk pada kisi-kisi resmi BKN untuk CPNS/PPPK serta SNPMB untuk UTBK TPS & Literasi.</p>
+                <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl">
+                    <div class="text-2xl mb-3">📚</div>
+                    <h3 class="text-base font-bold text-white mb-1">Soal Standar HOTS</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Dirancang berdasarkan pola kisi-kisi BKN dan SNPMB terbaru.</p>
                 </div>
-
-                <!-- Card 3 -->
-                <div class="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-emerald-500/40 transition-all group">
-                    <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">📊</div>
-                    <h3 class="text-lg font-bold text-white mb-2">Evaluasi Instan</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">Begitu waktu habis atau tes diselesaikan, skor akhir dan analisis kunci jawaban langsung ditampilkan.</p>
+                <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl">
+                    <div class="text-2xl mb-3">📊</div>
+                    <h3 class="text-base font-bold text-white mb-1">Evaluasi Instan</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Hasil skor dan kunci jawaban langsung terbuka secara lengkap saat kuis selesai.</p>
                 </div>
-
-                <!-- Card 4 -->
-                <div class="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-indigo-500/40 transition-all group">
-                    <div class="w-12 h-12 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">📱</div>
-                    <h3 class="text-lg font-bold text-white mb-2">Teknologi PWA Fast</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">Aplikasi ringan, responsif di HP maupun laptop, serta mendukung pengerjaan cepat tanpa hambatan.</p>
+                <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl">
+                    <div class="text-2xl mb-3">📱</div>
+                    <h3 class="text-base font-bold text-white mb-1">Responsif & Ringan</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Nyaman digunakan dari perangkat HP, tablet, maupun laptop.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 5. TESTIMONI ALUMNI -->
-    <section id="testimoni" class="py-20 bg-slate-900/40 border-t border-slate-900">
+    <!-- TESTIMONI -->
+    <section id="testimoni" class="py-16 bg-slate-900/40 border-t border-slate-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Apa Kata Pengguna?</h2>
-                <p class="text-slate-400 text-sm sm:text-base">Pengalaman mereka berlatih soal bersama Ruang Tryout.</p>
+            <div class="text-center max-w-2xl mx-auto mb-12 space-y-2">
+                <h2 class="text-3xl font-extrabold text-white">Ulasan Pengguna</h2>
+                <p class="text-slate-400 text-sm">Pengalaman peserta yang berlatih menggunakan simulasi CAT Ruang Tryout.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Testimoni 1 -->
-                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
-                    <div class="flex text-amber-400 text-sm">★★★★★</div>
-                    <p class="text-xs text-slate-300 italic leading-relaxed">
-                        "Aplikasi tryout paling clean dan tanpa iklan yang mengganggu! Simulasi timer 90 menitnya membantu melatih manajemen waktu saya untuk TIU."
-                    </p>
-                    <div class="flex items-center space-x-3 pt-2">
-                        <div class="w-10 h-10 bg-blue-600/20 text-blue-400 border border-blue-500/30 font-bold rounded-full flex items-center justify-center text-sm">
-                            RH
-                        </div>
-                        <div>
-                            <h4 class="text-sm font-bold text-white">Rian Hidayat</h4>
-                            <p class="text-xs text-blue-400 font-medium">Pejuang SKD CPNS</p>
-                        </div>
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-3">
+                    <div class="text-amber-400 text-xs">★★★★★</div>
+                    <p class="text-xs text-slate-300 italic leading-relaxed">"Tampilan lembar ujian khususnya sangat fokus. Tidak mengganggu dan timer 90 menitnya membantu melatih ritme pengerjaan soal."</p>
+                    <div class="pt-2">
+                        <h4 class="text-xs font-bold text-white">Rian Hidayat</h4>
+                        <p class="text-[10px] text-blue-400 font-medium">Peserta CPNS</p>
                     </div>
                 </div>
 
-                <!-- Testimoni 2 -->
-                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
-                    <div class="flex text-amber-400 text-sm">★★★★★</div>
-                    <p class="text-xs text-slate-300 italic leading-relaxed">
-                        "Keren banget gratis tapi kuis dan pembahasannya lengkap. Soal HOTS TPS-nya sangat pas untuk persiapan UTBK SNBT!"
-                    </p>
-                    <div class="flex items-center space-x-3 pt-2">
-                        <div class="w-10 h-10 bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 font-bold rounded-full flex items-center justify-center text-sm">
-                            SR
-                        </div>
-                        <div>
-                            <h4 class="text-sm font-bold text-white">Siti Rahma</h4>
-                            <p class="text-xs text-emerald-400 font-medium">Siswa UTBK SNBT</p>
-                        </div>
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-3">
+                    <div class="text-amber-400 text-xs">★★★★★</div>
+                    <p class="text-xs text-slate-300 italic leading-relaxed">"Navigasi nomor soal di sebelah kanan sangat praktis untuk melompati soal yang panjang."</p>
+                    <div class="pt-2">
+                        <h4 class="text-xs font-bold text-white">Siti Rahma</h4>
+                        <p class="text-[10px] text-emerald-400 font-medium">Siswa UTBK SNBT</p>
                     </div>
                 </div>
 
-                <!-- Testimoni 3 -->
-                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
-                    <div class="flex text-amber-400 text-sm">★★★★★</div>
-                    <p class="text-xs text-slate-300 italic leading-relaxed">
-                        "Sangat praktis dibuka di HP. Tampilannya tidak bikin pusing dan pembahasannya langsung kelihatan pas selesai kuis."
-                    </p>
-                    <div class="flex items-center space-x-3 pt-2">
-                        <div class="w-10 h-10 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 font-bold rounded-full flex items-center justify-center text-sm">
-                            BP
-                        </div>
-                        <div>
-                            <h4 class="text-sm font-bold text-white">Budi Pratama</h4>
-                            <p class="text-xs text-indigo-400 font-medium">Peserta PPPK 2026</p>
-                        </div>
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-3">
+                    <div class="text-amber-400 text-xs">★★★★★</div>
+                    <p class="text-xs text-slate-300 italic leading-relaxed">"Simple, cepat, dan pembahasannya langsung dapat dipelajari setelah tombol selesaikan ujian diklik."</p>
+                    <div class="pt-2">
+                        <h4 class="text-xs font-bold text-white">Budi Pratama</h4>
+                        <p class="text-[10px] text-indigo-400 font-medium">Peserta PPPK</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 6. FOOTER & LEGAL LINKS (WAJIB ADSENSE) -->
-    <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-900">
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-400 py-10 border-t border-slate-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-6">
                 <div>
                     <a href="#" class="flex items-center space-x-2">
                         <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white text-base">
@@ -200,10 +180,9 @@
                         </div>
                         <span class="text-base font-bold text-white">RuangTryout</span>
                     </a>
-                    <p class="text-xs text-slate-500 mt-2">Platform Simulasi Ujian CAT CPNS, PPPK & UTBK SNBT Gratis.</p>
+                    <p class="text-xs text-slate-500 mt-1">Platform Simulasi Ujian CAT CPNS, PPPK & UTBK SNBT Gratis.</p>
                 </div>
 
-                <!-- Tautan Legalitas Wajib AdSense -->
                 <div class="flex flex-wrap gap-6 text-xs font-semibold text-slate-400">
                     <a href="about.html" class="hover:text-white transition">Tentang Kami</a>
                     <a href="privacy.html" class="hover:text-white transition">Kebijakan Privasi</a>
@@ -211,14 +190,10 @@
                 </div>
             </div>
 
-            <div class="pt-8 border-t border-slate-900 text-center text-xs text-slate-600">
+            <div class="pt-6 border-t border-slate-900 text-center text-xs text-slate-600">
                 &copy; 2026 Ruang Tryout. All rights reserved.
             </div>
         </div>
     </footer>
-
-    <!-- Script Utama Kuis -->
-    <script src="questions.js"></script>
-    <script src="app.js"></script>
 </body>
 </html>
