@@ -1,10 +1,10 @@
-// Bank Soal Berdasarkan Kategori (CPNS HOTS & UTBK TPS) - Total Tepat 60 Soal (30 CPNS & 30 UTBK)
+// Bank Soal Berdasarkan Kategori (CPNS HOTS & UTBK TPS) - Batch 5 (Total 120 Soal: 60 CPNS & 60 UTBK)
 const quizCategories = {
     cpns: {
         title: "CPNS & PPPK (Soal HOTS)",
         description: "Latihan Soal SKD: TWK (Nasionalisme/Integritas/Bela Negara), TIU (Penalaran/Numerik), & TKP",
         questions: [
-            // --- TWK (Tes Wawasan Kebangsaan - 10 Soal) ---
+            // --- TWK (Tes Wawasan Kebangsaan - 20 Soal) ---
             {
                 question: "Indonesia menghadapi era digitalisasi di mana budaya asing sangat cepat masuk. Sebagai seorang ASN, langkah konkret yang paling mencerminkan pengamalan Pancasila Sila ke-3 dalam menjaga integrasi bangsa di era digital adalah...",
                 options: [
@@ -115,8 +115,118 @@ const quizCategories = {
                 answer: 0,
                 explanation: "Pancasila dirumuskan oleh pendiri bangsa sebagai dasar negara serta landasan filsafat hidup berbangsa dan bernegara."
             },
+            {
+                question: "Wujud pengamalan Sila ke-4 Pancasila dalam pembuatan kebijakan publik di tingkat desa/kelurahan adalah...",
+                options: [
+                    "Pengambilan keputusan melalui musyawarah mufakat dengan melibatkan warga",
+                    "Penetapan aturan secara sepihak oleh kepala desa",
+                    "Menyerahkan seluruh keputusan kepada kelompok terkaya di desa",
+                    "Mengabaikan pendapat warga yang berbeda pandangan"
+                ],
+                answer: 0,
+                explanation: "Sila ke-4 menekankan kerakyatan yang dipimpin oleh hikmat kebijaksanaan dalam permusyawaratan/perwakilan."
+            },
+            {
+                question: "Semboyan Bhinneka Tunggal Ika yang terdapat pada lambang negara Garuda Pancasila diambil dari kitab kakawin Jawa Kuno karya Empu Tantular, yaitu...",
+                options: [
+                    "Kitab Negara Kertagama",
+                    "Kitab Sutasoma",
+                    "Kitab Arjunawiwaha",
+                    "Kitab Pararaton"
+                ],
+                answer: 1,
+                explanation: "Frasa Bhinneka Tunggal Ika dipetik dari Kitab Sutasoma karangan Empu Tantular pada zaman Kerajaan Majapahit."
+            },
+            {
+                question: "Hak Asasi Manusia (HAM) di Indonesia diatur secara tegas dalam UUD 1945, khususnya pada pasal...",
+                options: [
+                    "Pasal 27 sampai Pasal 34",
+                    "Pasal 28A sampai Pasal 28J",
+                    "Pasal 29 sampai Pasal 31",
+                    "Pasal 33 sampai Pasal 37"
+                ],
+                answer: 1,
+                explanation: "Jaminan Hak Asasi Manusia secara komprehensif tertuang dalam Pasal 28A hingga 28J UUD 1945 hasil amandemen."
+            },
+            {
+                question: "Sistem pemerintahan Indonesia menurut UUD 1945 menegaskan bahwa presiden memegang kekuasaan pemerintahan (eksekutif). Dalam hal ini presiden dibantu oleh...",
+                options: [
+                    "Menteri-menteri negara yang diangkat dan diberhentikan oleh presiden",
+                    "Ketiga pimpinan DPR RI",
+                    "Ketua Mahkamah Agung",
+                    "Gubernur di tiap-tiap provinsi"
+                ],
+                answer: 0,
+                explanation: "Berdasarkan Pasal 17 UUD 1945, Presiden dibantu oleh menteri-menteri negara yang diangkat dan diberhentikan oleh Presiden."
+            },
+            {
+                question: "Pengawasan terhadap pelaksanaan Undang-Undang dan APBN oleh pemerintah dilakukan oleh lembaga legislatif, yaitu...",
+                options: [
+                    "Dewan Perwakilan Rakyat (DPR)",
+                    "Mahkamah Konstitusi (MK)",
+                    "Badan Pemeriksa Keuangan (BPK)",
+                    "Dewan Pertimbangan Presiden"
+                ],
+                answer: 0,
+                explanation: "DPR memiliki tiga fungsi utama: Fungsi Legislasi, Anggaran (Budgeting), dan Pengawasan (Interpelasi/Angket)."
+            },
+            {
+                question: "Lembaga negara yang berwenang menguji undang-undang terhadap UUD 1945 (Judicial Review) adalah...",
+                options: [
+                    "Mahkamah Agung (MA)",
+                    "Mahkamah Konstitusi (MK)",
+                    "Komisi Yudisial (KY)",
+                    "Dewan Perwakilan Daerah (DPD)"
+                ],
+                answer: 1,
+                explanation: "MK berwenang menguji undang-undang terhadap UUD 1945, sedangkan MA menguji peraturan di bawah UU terhadap UU."
+            },
+            {
+                question: "Penyusunan APBN harus disetujui bersama antara Presiden dan...",
+                options: [
+                    "DPR",
+                    "BPK",
+                    "MPR",
+                    "DPD"
+                ],
+                answer: 0,
+                explanation: "Rancangan APBN diajukan oleh Presiden dan dibahas bersama DPR untuk mendapatkan persetujuan (Pasal 23 UUD 1945)."
+            },
+            {
+                question: "Bentuk negara Indonesia adalah Negara Kesatuan yang berbentuk Republik, sebagaimana tercantum dalam UUD 1945 pasal...",
+                options: [
+                    "Pasal 1 Ayat (1)",
+                    "Pasal 1 Ayat (2)",
+                    "Pasal 2 Ayat (1)",
+                    "Pasal 3 Ayat (1)"
+                ],
+                answer: 0,
+                explanation: "Pasal 1 Ayat (1) UUD 1945 berbunyi: 'Negara Indonesia ialah Negara Kesatuan, yang berbentuk Republik'."
+            },
+            {
+                question: "Bela Negara tidak hanya dilakukan dalam bentuk pengangkatan senjata, melainkan dapat diwujudkan oleh ASN melalui...",
+                options: [
+                    "Pengabdian yang tulus dan profesional sesuai profesi untuk kemajuan bangsa",
+                    "Mengkritik pemerintah di media sosial tanpa memberikan solusi",
+                    "Menuntut kenaikan gaji tanpa meningkatkan kinerja",
+                    "Mementingkan kelompok pribadi di atas tugas instansi"
+                ],
+                answer: 0,
+                explanation: "Bela negara non-fisik di era modern diwujudkan melalui pengabdian profesi secara jujur, kompeten, dan penuh integritas."
+            },
+            {
+                question: "Tujuan nasional bangsa Indonesia yang tercantum dalam Pembukaan UUD 1945 alinea IV mencakup hal-hal berikut, KECUALI...",
+                options: [
+                    "Melindungi segenap bangsa Indonesia dan seluruh tumpah darah Indonesia",
+                    "Memajukan kesejahteraan umum dan mencerdaskan kehidupan bangsa",
+                    "Ikut melaksanakan ketertiban dunia yang berdasarkan kemerdekaan",
+                    "Menguasai wilayah perekonomian negara-negara berkembang"
+                ],
+                answer: 3,
+                explanation: "Tujuan nasional berfokus pada perlindungan, kesejahteraan, kecerdasan bangsa, dan ketertiban dunia, bukan ekspansi ekonomi imperialis."
+            },
 
-            // --- TIU (Tes Inteligensia Umum - 10 Soal) ---
+            // --- TIU (Tes Inteligensia Umum - 20 Soal) ---
             {
                 question: "Jika semua ASN profesional berpakaian rapi. Sebagian orang yang berpakaian rapi memiliki integritas tinggi. Berdasarkan dua pernyataan tersebut, kesimpulan yang paling tepat adalah...",
                 options: [
@@ -227,8 +337,118 @@ const quizCategories = {
                 answer: 2,
                 explanation: "Urutan tinggi siswa dari yang tertinggi: A > D > B > C. Maka yang paling pendek adalah C."
             },
+            {
+                question: "Deret angka: 2, 4, 8, 16, 32, ... Angka berikutnya adalah...",
+                options: [
+                    "48",
+                    "50",
+                    "64",
+                    "128"
+                ],
+                answer: 2,
+                explanation: "Pola deret geometri dikali 2 berurutan: 32 x 2 = 64."
+            },
+            {
+                question: "Deret angka: 100, 95, 85, 70, 50, ... Angka berikutnya adalah...",
+                options: [
+                    "20",
+                    "25",
+                    "30",
+                    "35"
+                ],
+                answer: 1,
+                explanation: "Pola pengurangan bertahap: -5, -10, -15, -20, maka berikutnya -25 (50 - 25 = 25)."
+            },
+            {
+                question: "APOTEKER : OBAT = KOKI : ...",
+                options: [
+                    "DAPUR",
+                    "RESEP",
+                    "MASAKAN",
+                    "RESTORAN"
+                ],
+                answer: 2,
+                explanation: "Apoteker menghasilkan/mengelola Obat. Koki menghasilkan Masakan."
+            },
+            {
+                question: "Jika 15% dari x adalah 45, berapakah nilai x?",
+                options: [
+                    "200",
+                    "250",
+                    "300",
+                    "350"
+                ],
+                answer: 2,
+                explanation: "0,15x = 45 => x = 45 / 0,15 = 300."
+            },
+            {
+                question: "Harga 3 kg apel dan 2 kg jeruk adalah Rp 90.000. Jika harga 1 kg apel Rp 20.000, berapakah harga 1 kg jeruk?",
+                options: [
+                    "Rp 10.000",
+                    "Rp 12.500",
+                    "Rp 15.000",
+                    "Rp 20.000"
+                ],
+                answer: 2,
+                explanation: "Total apel = 3 x Rp 20.000 = Rp 60.000. Sisa untuk 2 kg jeruk = Rp 90.000 - Rp 60.000 = Rp 30.000. Harga 1 kg jeruk = Rp 15.000."
+            },
+            {
+                question: "Semua bunga di taman berwarna cerah. Sebagian bunga di taman berbau harum. Kesimpulan yang sah adalah...",
+                options: [
+                    "Semua bunga berwarna cerah berbau harum",
+                    "Sebagian bunga yang berbau harum berwarna cerah",
+                    "Tidak ada bunga berwarna cerah yang tidak berbau harum",
+                    "Semua bunga tidak berbau harum"
+                ],
+                answer: 1,
+                explanation: "Karena sebagian bunga berbau harum ada di taman, dan semua bunga taman berwarna cerah, maka sebagian bunga harum pasti berwarna cerah."
+            },
+            {
+                question: "Jika nilai x = 4 dan y = 3, maka nilai dari (2x + y)^2 adalah...",
+                options: [
+                    "121",
+                    "144",
+                    "169",
+                    "225"
+                ],
+                answer: 0,
+                explanation: "(2(4) + 3)^2 = (8 + 3)^2 = 11^2 = 121."
+            },
+            {
+                question: "Hutang A adalah Rp 1.500.000. Ia membayar Rp 600.000. Berapa persen sisa hutang A dari hutang awal?",
+                options: [
+                    "40%",
+                    "50%",
+                    "60%",
+                    "70%"
+                ],
+                answer: 2,
+                explanation: "Sisa hutang = Rp 900.000. Persentase sisa = (900.000 / 1.500.000) x 100% = 60%."
+            },
+            {
+                question: "Si A bergerak 10 meter ke timur, lalu 24 meter ke utara. Jarak terdekat posisi A sekarang dari titik awal adalah...",
+                options: [
+                    "26 meter",
+                    "28 meter",
+                    "30 meter",
+                    "34 meter"
+                ],
+                answer: 0,
+                explanation: "Gunakan Pyhtagoras: c = √(10^2 + 24^2) = √(100 + 576) = √676 = 26 meter."
+            },
+            {
+                question: "LARI : SEHAT = BELAJAR : ...",
+                options: [
+                    "PINTAR",
+                    "UJI",
+                    "BUKU",
+                    "SEKOLAH"
+                ],
+                answer: 0,
+                explanation: "Lari menyebabkan kondisi Sehat. Belajar menyebabkan kondisi Pintar."
+            },
 
-            // --- TKP (Tes Karakteristik Pribadi - 10 Soal) ---
+            // --- TKP (Tes Karakteristik Pribadi - 20 Soal) ---
             {
                 question: "Anda adalah ketua tim proyek digitalisasi instansi. Salah satu anggota senior kesulitan mengoperasikan sistem baru sehingga progres tim terhambat. Sikap terbaik Anda sebagai ASN adalah...",
                 options: [
@@ -338,6 +558,116 @@ const quizCategories = {
                 ],
                 answer: 1,
                 explanation: "Kepemimpinan & Perekat Bangsa: Mampu merangkul keberagaman, membangun sinergi, dan mengoptimalkan potensi tim multikultural."
+            },
+            {
+                question: "Anda ditugaskan mendadak ke unit pelayanan yang memiliki standar kerja sangat cepat dan disiplin tinggi, berbeda dengan unit lama Anda. Sikap Anda adalah...",
+                options: [
+                    "Cepat mengamati pola kerja rekan di unit baru dan segera mengadaptasi kecepatan kerja sesuai standar mereka",
+                    "Mengeluh kepada atasan karena dipindahkan ke unit kerja yang berat",
+                    "Membawa cara kerja santai dari unit lama ke unit baru",
+                    "Meminta rekan kerja unit baru memaklumi kelambatan Anda"
+                ],
+                answer: 0,
+                explanation: "Indikator Adaptabilitas Tinggi: Cepat menyesuaikan diri dengan dinamika lingkungan kerja baru."
+            },
+            {
+                question: "Keluarga Anda mengadakan acara penting di rumah bersamaan dengan tenggat waktu proyek pelayanan instansi yang mendesak. Sikap Anda adalah...",
+                options: [
+                    "Meninggalkan tugas kantor sepenuhnya demi acara keluarga",
+                    "Menyelesaikan tugas kantor terlebih dahulu/mengatur pembagian waktu secara profesional agar keduanya terlaksana",
+                    "Meminta rekan kantor menggantikan seluruh tugas Anda",
+                    "Mematikan HP agar tidak dihubungi kantor"
+                ],
+                answer: 1,
+                explanation: "Indikator Tanggung Jawab & Integritas Kerja: Mampu mengelola prioritas profesional tanpa mengabaikan aspek personal."
+            },
+            {
+                question: "Pimpinan meminta masukan dari seluruh pegawai untuk perbaikan sistem kerja tahun depan. Sikap Anda adalah...",
+                options: [
+                    "Aktif memberikan gagasan konstruktif berbasis data efisiensi pelayanan yang selama ini ditemui di lapangan",
+                    "Pasif dan memilih diam karena merasa suara tidak akan didengar",
+                    "Mengusulkan hal-hal yang hanya menguntungkan diri sendiri",
+                    "Mengkritik pimpinan tanpa memberikan solusi konkret"
+                ],
+                answer: 0,
+                explanation: "Inisiatif & Kontribusi Aktif: ASN diharapkan proaktif dalam menyumbang ide perbaikan organisasi."
+            },
+            {
+                question: "Dalam sebuah tim kerja, ada dua anggota yang berkonflik pribadi sehingga komunikasi tim terganggu. Sikap Anda sebagai rekan kerja adalah...",
+                options: [
+                    "Memicu permusuhan dengan membela salah satu pihak",
+                    "Menjadi mediator netral yang mengajak keduanya berfokus pada profesionalisme target tim",
+                    "Apatis dan membiarkan konflik merusak kerja tim",
+                    "Melaporkan ke media sosial kantor"
+                ],
+                answer: 1,
+                explanation: "Indikator Kerjasama & Perekat Tim: Mampu meredam potensi konflik demi kelancaran tugas bersama."
+            },
+            {
+                question: "Seorang warga yang kurang memahami prosedur administrasi terus-menerus bertanya hal yang sama kepada Anda. Sikap Anda adalah...",
+                options: [
+                    "Menjelaskannya kembali dengan tenang, bahasa yang mudah dipahami, serta memberikan analogi/petunjuk visual sederhana",
+                    "Menyuruh warga membaca sendiri papan petunjuk di dinding",
+                    "Acuh tak acuh dan melayani warga berikutnya",
+                    "Meminta petugas lain untuk mengambil alih dengan nada kesal"
+                ],
+                answer: 0,
+                explanation: "Indikator Pelayanan Publik & Kesabaran Empatis: Melayani seluruh lapisan masyarakat dengan ramah dan tuntas."
+            },
+            {
+                question: "Instansi Anda menerapkan evaluasi kinerja berbasis digital. Nilai evaluasi bulan ini menunjukkan penurunan dari bulan lalu. Sikap Anda adalah...",
+                options: [
+                    "Melakukan introspeksi diri, mengevaluasi titik kelemahan kerja, serta membuat target perbaikan bulanan",
+                    "Menuduh sistem evaluasi digital mengalami error",
+                    "Menyalahkan pimpinan yang memberikan penilaian subyektif",
+                    "Mundur dari pekerjaan"
+                ],
+                answer: 0,
+                explanation: "Indikator Orientasi pada Evaluasi & Pembelajaran Diri: Terbuka terhadap kritik dan berkomitmen meningkatkan performa."
+            },
+            {
+                question: "Anda ditunjuk menjadi pimpinan tim kecil untuk proyek riset masyarakat. Salah satu anggota tim bekerja sangat lambat. Sikap Anda adalah...",
+                options: [
+                    "Mencari tahu kendala utamanya, memberikan bimbingan teknis, serta membagi target tugas menjadi skala harian yang terukur",
+                    "Mengejeknya di depan anggota tim lain",
+                    "Mengeluarkan anggota tersebut dari tim",
+                    "Mengerjakan semua tugas anggota tersebut sendirian"
+                ],
+                answer: 0,
+                explanation: "Indikator Kemampuan Memimpin & Mengembangkan Orang Lain: Mampu memotivasi dan memberdayakan anggota tim."
+            },
+            {
+                question: "Masyarakat di daerah tempat Anda bertugas menolak program penyuluhan kesehatan karena mitos lokal. Sikap Anda adalah...",
+                options: [
+                    "Berpendekatan halus dengan merangkul tokoh masyarakat lokal terlebih dahulu untuk menjelaskan manfaat program secara persuasif",
+                    "Memaksa warga mengikuti program dengan ancaman hukuman",
+                    "Membatalkan program dan pergi dari daerah tersebut",
+                    "Menghina kepercayaan masyarakat lokal"
+                ],
+                answer: 0,
+                explanation: "Indikator Sosiokultural & Komunikasi Publik: Menghargai kearifan lokal serta menggunakan strategi pendampingan persuasif."
+            },
+            {
+                question: "Unit kerja Anda mendapatkan penghargaan sebagai unit pelayanan terbaik nasional. Sikap Anda adalah...",
+                options: [
+                    "Tetap rendah hati dan menjadikan prestasi ini sebagai standar minimal pelayanan yang wajib dipertahankan bahkan ditingkatkan",
+                    "Pamer berlebihan dan menjadi malas bekerja",
+                    "Menuntut bonus tunjangan dinaikkan sepuluh kali lipat",
+                    "Merasakan bahwa kerja keras sudah selesai"
+                ],
+                answer: 0,
+                explanation: "Indikator Semangat Berprestasi Berkelanjutan: Tidak cepat puas diri dan konsisten menjaga standar tinggi."
+            },
+            {
+                question: "Ketika listrik kantor padam di pertengahan pelayanan publik, tindakan cepat Anda adalah...",
+                options: [
+                    "Mengarahkan warga untuk berteduh nyaman, beralih sementara ke formulir manual jika memungkinkan, dan menginformasikan perkiraan waktu penanganan secara jujur",
+                    "Langsung pulang ke rumah karena AC mati",
+                    "Menyuruh warga pulang semua dan datang besok",
+                    "Duduk santai di luar sambil mengobrol"
+                ],
+                answer: 0,
+                explanation: "Indikator Tanggap Darurat & Solutif: Menjaga kenyamanan dan kepastian informasi pelayanan masyarakat dalam kondisi darurat."
             }
         ]
     },
@@ -345,7 +675,7 @@ const quizCategories = {
         title: "UTBK / SNBT (TPS & Literasi)",
         description: "Latihan Soal Tes Potensi Skolastik (TPS), Penalaran Kuantitatif, & Literasi Bahasa",
         questions: [
-            // --- Penalaran Kuantitatif & Matematika Dasar (10 Soal) ---
+            // --- Penalaran Kuantitatif & Matematika Dasar (20 Soal) ---
             {
                 question: "Rata-rata nilai kuis dari 5 orang siswa adalah 80. Jika nilai satu siswa dengan nilai terkecil dikeluarkan, rata-rata nilai 4 siswa sisanya menjadi 84. Berapakah nilai siswa yang dikeluarkan tersebut?",
                 options: [
@@ -456,8 +786,118 @@ const quizCategories = {
                 answer: 1,
                 explanation: "Total siswa menyukai minimal satu pelajaran = 30 - 5 = 25. Jumlah (M + B) = 18 + 15 = 33. Suka keduanya = 33 - 25 = 8 orang."
             },
+            {
+                question: "Jika 2^(a) = 8 dan 3^(b) = 81, berapakah nilai dari a x b?",
+                options: [
+                    "7",
+                    "12",
+                    "16",
+                    "24"
+                ],
+                answer: 1,
+                explanation: "2^a = 2^3 => a = 3. 3^b = 3^4 => b = 4. Maka a x b = 3 x 4 = 12."
+            },
+            {
+                question: "Hasil dari √50 + √18 - √32 adalah...",
+                options: [
+                    "2√2",
+                    "3√2",
+                    "4√2",
+                    "5√2"
+                ],
+                answer: 2,
+                explanation: "√50 = 5√2, √18 = 3√2, √32 = 4√2. (5√2 + 3√2 - 4√2) = 4√2."
+            },
+            {
+                question: "Garis 2x + 3y = 12 memotong sumbu X di titik (a, 0) dan memotong sumbu Y di titik (0, b). Nilai a + b adalah...",
+                options: [
+                    "8",
+                    "10",
+                    "12",
+                    "14"
+                ],
+                answer: 1,
+                explanation: "Potong sumbu X (y=0): 2a = 12 => a = 6. Potong sumbu Y (x=0): 3b = 12 => b = 4. Nilai a + b = 6 + 4 = 10."
+            },
+            {
+                question: "Sebuah wadah berbentuk tabung memiliki jari-jari alas 7 cm dan tinggi 10 cm. Volume wadah tersebut adalah... (π = 22/7)",
+                options: [
+                    "1.540 cm³",
+                    "1.600 cm³",
+                    "1.720 cm³",
+                    "1.840 cm³"
+                ],
+                answer: 0,
+                explanation: "Volume = π x r^2 x t = (22/7) x 7 x 7 x 10 = 22 x 7 x 10 = 1.540 cm³."
+            },
+            {
+                question: "Suku ke-5 suatu barisan aritmetika adalah 18 dan suku ke-9 adalah 34. Beda (b) barisan tersebut adalah...",
+                options: [
+                    "3",
+                    "4",
+                    "5",
+                    "6"
+                ],
+                answer: 1,
+                explanation: "U9 - U5 = 4b => 34 - 18 = 16 => 4b = 16 => b = 4."
+            },
+            {
+                question: "Nilai dari lim (x->3) (x^2 - 9)/(x - 3) adalah...",
+                options: [
+                    "0",
+                    "3",
+                    "6",
+                    "9"
+                ],
+                answer: 2,
+                explanation: "Faktorkan pembilang: (x-3)(x+3)/(x-3) = x + 3. Masukkan x = 3 => 3 + 3 = 6."
+            },
+            {
+                question: "Dua buah dadu dilempar bersamaan satu kali. Peluang muncul jumlah kedua mata dadu sama dengan 7 adalah...",
+                options: [
+                    "1/6",
+                    "1/9",
+                    "5/36",
+                    "1/12"
+                ],
+                answer: 0,
+                explanation: "Pasangan jumlah 7: (1,6),(2,5),(3,4),(4,3),(5,2),(6,1) -> ada 6 pasangan. Total sampel = 36. Peluang = 6/36 = 1/6."
+            },
+            {
+                question: "Jika f(x) = 3x - 5 dan g(x) = 2x + 1, maka rumus fungsi komposisi (f o g)(x) adalah...",
+                options: [
+                    "6x - 2",
+                    "6x - 5",
+                    "6x + 3",
+                    "6x - 8"
+                ],
+                answer: 0,
+                explanation: "(f o g)(x) = f(g(x)) = 3(2x + 1) - 5 = 6x + 3 - 5 = 6x - 2."
+            },
+            {
+                question: "Manakah nilai pecahan terkecil di antara pilihan berikut?",
+                options: [
+                    "3/8",
+                    "2/5",
+                    "1/3",
+                    "4/9"
+                ],
+                answer: 2,
+                explanation: "Desimal: 3/8 = 0,375; 2/5 = 0,40; 1/3 = 0,333; 4/9 = 0,444. Terkecil adalah 1/3 (0,333)."
+            },
+            {
+                question: "Sebuah mobil membutuhkan 12 liter bensin untuk menempuh jarak 108 km. Berapa liter bensin yang dibutuhkan untuk menempuh jarak 180 km?",
+                options: [
+                    "18 liter",
+                    "20 liter",
+                    "22 liter",
+                    "24 liter"
+                ],
+                answer: 1,
+                explanation: "Konsumsi = 108 km / 12 liter = 9 km/liter. Kebutuhan untuk 180 km = 180 / 9 = 20 liter."
+            },
 
-            // --- Penalaran Logis & Analitis (5 Soal) ---
+            // --- Penalaran Logis & Analitis (10 Soal) ---
             {
                 question: "Lima orang mahasiswa (D, C, E, A, B) antre di kasir. B berada tepat di belakang A. C berada di antara D dan E. D berada di posisi paling depan. Jika E berada di depan A, siapa yang berada di urutan ke-3 antrean?",
                 options: [
@@ -513,8 +953,63 @@ const quizCategories = {
                 answer: 1,
                 explanation: "Karena hanya sebagian perangkat kantor yang merupakan komputer canggih, maka hanya sebagian perangkat kantor tersebut yang memerlukan daya listrik stabil."
             },
+            {
+                question: "Premis 1: Jika Ani rajin belajar, maka nilai Ujiannya tinggi.\nPremis 2: Nilai Ujian Ani tidak tinggi.\nKesimpulan yang sah adalah...",
+                options: [
+                    "Ani rajin belajar",
+                    "Ani tidak rajin belajar",
+                    "Ani sakit saat ujian",
+                    "Ujian Ani terlalu sulit"
+                ],
+                answer: 1,
+                explanation: "Hukum Modus Tollens: p -> q, ~q, maka kesimpulannya ~p (Ani tidak rajin belajar)."
+            },
+            {
+                question: "Semua unggas bereproduksi dengan bertelur. Bebek adalah jenis unggas. Kesimpulan yang pasti adalah...",
+                options: [
+                    "Bebek bereproduksi dengan bertelur",
+                    "Sebagian bebek bertelur sebagian melahirkan",
+                    "Bebek tidak bereproduksi",
+                    "Tidak semua unggas bertelur"
+                ],
+                answer: 0,
+                explanation: "Hukum Modus Ponens: Semua A adalah B. C adalah A. Maka C adalah B (Bebek bertelur)."
+            },
+            {
+                question: "Dalam tes lari: X lebih cepat dari Y. Y lebih lambat dari Z. Z lebih cepat dari X. Urutan pelari dari yang paling CEPAT adalah...",
+                options: [
+                    "Z, X, Y",
+                    "X, Z, Y",
+                    "Y, X, Z",
+                    "Z, Y, X"
+                ],
+                answer: 0,
+                explanation: "Pertidaksamaan: Z > X > Y. Maka pelari tercepat adalah Z, lalu X, dan Y."
+            },
+            {
+                question: "Semua kendaraan umum memerlukan bahan bakar. Sebagian kendaraan umum bertenaga listrik. Kesimpulan yang sah adalah...",
+                options: [
+                    "Sebagian kendaraan bertenaga listrik memerlukan bahan bakar",
+                    "Semua kendaraan bertenaga listrik tidak butuh bahan bakar",
+                    "Semua kendaraan umum bertenaga listrik",
+                    "Tidak ada kendaraan umum yang ramah lingkungan"
+                ],
+                answer: 0,
+                explanation: "Karena seluruh kendaraan umum butuh bahan bakar dan sebagiannya bertenaga listrik, maka sebagian kendaraan bertenaga listrik tersebut memerlukan bahan bakar."
+            },
+            {
+                question: "Jika x > y dan y > z, maka hubungan antara x dan z adalah...",
+                options: [
+                    "x < z",
+                    "x = z",
+                    "x > z",
+                    "x dan z tidak bisa dibandingkan"
+                ],
+                answer: 2,
+                explanation: "Hukum Transitif: x > y > z, maka pasti x > z."
+            },
 
-            // --- Literasi Bahasa Indonesia & Bahasa Inggris (15 Soal) ---
+            // --- Literasi Bahasa Indonesia & Bahasa Inggris (30 Soal) ---
             {
                 question: "Bacalah kalimat berikut:\n'Upaya pemerintah dalam menekan angka inflasi perlu diapresiasi, [...] dampaknya belum sepenuhnya dirasakan oleh masyarakat di lapisan bawah.'\n\nKata hubung (konjungsi) yang paling tepat untuk mengisi bagian rumpang tersebut adalah...",
                 options: [
@@ -679,6 +1174,171 @@ const quizCategories = {
                 ],
                 answer: 1,
                 explanation: "Consensus artinya kesepakatan bersama (general agreement)."
+            },
+            {
+                question: "Penulisan judul karangan ilmiah berikut yang TEPAT sesuai PUEBI adalah...",
+                options: [
+                    "Pengaruh Era Digital Terhadap Pola Komunikasi Remaja Di Medan",
+                    "Pengaruh Era Digital terhadap Pola Komunikasi Remaja di Medan",
+                    "Pengaruh era digital terhadap pola komunikasi remaja di Medan",
+                    "PENGARUH ERA DIGITAL Terhadap Pola Komunikasi Remaja Di Medan"
+                ],
+                answer: 1,
+                explanation: "Huruf pertama setiap kata dalam judul diawali huruf kapital, KECUALI kata hubung/depresi seperti 'terhadap' dan 'di' jika tidak terletak di awal kalimat."
+            },
+            {
+                question: "Kalimat yang menggunakan kata bercetak miring bermakna DENOTATIF adalah...",
+                options: [
+                    "Ia menyeduh kopi hitam di pagi hari.",
+                    "Kasus tersebut dibawa ke meja hijau.",
+                    "Politikus itu dikenal sebagai kambing hitam.",
+                    "Anak itu adalah anak emas di keluarganya."
+                ],
+                answer: 0,
+                explanation: "Denotatif berarti makna sebenarnya (kopi berwarna hitam), sedangkan pilihan lain bermakna kiasan/konotatif."
+            },
+            {
+                question: "The main reason scientists study climate change models is to predict future environmental risks. The word 'predict' is synonymous with...",
+                options: [
+                    "Forecast",
+                    "Ignore",
+                    "Create",
+                    "Prevent"
+                ],
+                answer: 0,
+                explanation: "Predict artinya meramalkan / memprediksi (forecast)."
+            },
+            {
+                question: "Ungkapan 'Gulung tikar' dalam konteks dunia usaha memiliki arti...",
+                options: [
+                    "Mengalami kebangkrutan",
+                    "Pindah lokasi kantor",
+                    "Mendapatkan keuntungan besar",
+                    "Melakukan renovasi gedung"
+                ],
+                answer: 0,
+                explanation: "Gulung tikar adalah kiasan untuk perusahaan yang bangkrut/tutup usaha."
+            },
+            {
+                question: "Kalimat pasif yang TEPAT di bawah ini adalah...",
+                options: [
+                    "Laporan analisis data telah diselesaikan oleh tim proyek.",
+                    "Tim proyek menyelesaikan laporan analisis data.",
+                    "Laporan analisis data menyelesaikan tim proyek.",
+                    "Tim proyek dianalisis oleh laporan."
+                ],
+                answer: 0,
+                explanation: "Kalimat pasif ditandai oleh subjek yang dikenai tindakan dan kata kerja berimbuhan di- / ter- diikuti oleh 'oleh'."
+            },
+            {
+                question: "Bentuk baku dari kata yang sering salah ditulis 'hirarki' adalah...",
+                options: [
+                    "Hierarki",
+                    "Hirarki",
+                    "Herarki",
+                    "Hirarkis"
+                ],
+                answer: 0,
+                explanation: "Berdasarkan KBBI, bentuk baku kata tersebut adalah 'Hierarki'."
+            },
+            {
+                question: "Despite the heavy rain, the students continued their outdoor physical test. The word 'Despite' indicates...",
+                options: [
+                    "Concession / Contrast",
+                    "Cause and Effect",
+                    "Addition",
+                    "Time order"
+                ],
+                answer: 0,
+                explanation: "Despite digunakan untuk menyatakan pertentangan / pengandaian walau ada hambatan (contrast/concession)."
+            },
+            {
+                question: "Kata dasar dari kata berimbuhan 'mempertanyakan' adalah...",
+                options: [
+                    "Tanya",
+                    "Pertanya",
+                    "Tanyakan",
+                    "Pertanyakan"
+                ],
+                answer: 0,
+                explanation: "Kata dasarnya adalah 'tanya', mendapat imbuhan mem-per-kan."
+            },
+            {
+                question: "Simpulan paragraf yang baik harus memenuhi kriteria berikut, KECUALI...",
+                options: [
+                    "Mewakili seluruh isi bacaan secara objektif",
+                    "Menggunakan kata-kata yang memprovokasi pembaca",
+                    "Tidak bertentangan dengan fakta dalam teks",
+                    "Disusun secara singkat, padat, dan jelas"
+                ],
+                answer: 1,
+                explanation: "Simpulan ilmiah harus objektif dan bebas dari bahasa provokatif."
+            },
+            {
+                question: "Pilihan kata yang tepat untuk menggambarkan suasana yang sangat tenang dan sunyi adalah...",
+                options: [
+                    "Hening",
+                    "Gaduh",
+                    "Ramai",
+                    "Bising"
+                ],
+                answer: 0,
+                explanation: "Hening bermakna sunyi, tenang, dan tidak ada suara."
+            },
+            {
+                question: "Digital literacy is essential for modern citizens to critically evaluate online information. The opposite of 'essential' is...",
+                options: [
+                    "Unnecessary",
+                    "Important",
+                    "Crucial",
+                    "Vital"
+                ],
+                answer: 0,
+                explanation: "Essential berarti sangat penting. Lawan katanya adalah Unnecessary (tidak diperlukan)."
+            },
+            {
+                question: "Istilah 'rekayasa lalu lintas' dalam wacana perkotaan mengandung arti...",
+                options: [
+                    "Pengaturan kembali alur lalu lintas untuk mengurai kemacetan",
+                    "Pembuatan jalan tol baru secara ilegal",
+                    "Kecelakaan lalu lintas yang disengaja",
+                    "Pemberhentian total seluruh angkutan umum"
+                ],
+                answer: 0,
+                explanation: "Rekayasa lalu lintas adalah upaya manajemen lalu lintas untuk mengoptimalkan kapasitas jalan."
+            },
+            {
+                question: "Rangkaian peristiwa dalam cerita yang memiliki hubungan sebab-akibat disebut...",
+                options: [
+                    "Alur / Plot",
+                    "Latar / Setting",
+                    "Amanat",
+                    "Penokohan"
+                ],
+                answer: 0,
+                explanation: "Alur (plot) adalah jalinan peristiwa yang disusun berdasarkan kausalitas (sebab-akibat)."
+            },
+            {
+                question: "The term 'carbon footprint' refers to...",
+                options: [
+                    "The total amount of greenhouse gases generated by human activities",
+                    "The mark left by shoes on dirty surfaces",
+                    "A new type of renewable energy source",
+                    "The price of coal in global trade"
+                ],
+                answer: 0,
+                explanation: "Jejak karbon (carbon footprint) adalah total emisi gas rumah kaca yang dihasilkan oleh aktivitas manusia."
+            },
+            {
+                question: "Kalimat di bawah ini yang menggunakan majas METAFORA adalah...",
+                options: [
+                    "Perpustakaan adalah gudang ilmu bagi para siswa.",
+                    "Nyiur melambai-lambai di tepi pantai.",
+                    "Suaranya menggelegar membelah angkasa.",
+                    "Ia membeli lima ekor kambing."
+                ],
+                answer: 0,
+                explanation: "Metafora membandingkan dua hal secara langsung tanpa kata pembanding ('Perpustakaan adalah gudang ilmu')."
             }
         ]
     }
