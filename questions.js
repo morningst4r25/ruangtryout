@@ -1,7 +1,8 @@
+// Bank Soal Berdasarkan Kategori (CPNS HOTS & UTBK TPS) - Batch 1 & 2
 const quizCategories = {
     cpns: {
         title: "CPNS & PPPK (Soal HOTS)",
-        description: "Latihan Soal SKD: TWK (Nasionalisme/Integritas), TIU (Penalaran/Numerik), & TKP",
+        description: "Latihan Soal SKD: TWK (Nasionalisme/Integritas/Bela Negara), TIU (Penalaran/Numerik), & TKP",
         questions: [
             // --- TWK (Tes Wawasan Kebangsaan) ---
             {
@@ -37,6 +38,17 @@ const quizCategories = {
                 answer: 1,
                 explanation: "Sumpah Pemuda menegaskan kesadaran kolektif untuk menyatukan beragam latar belakang suku dan daerah menjadi satu identitas nasional Indonesia."
             },
+            {
+                question: "Pelaksanaan politik luar negeri Indonesia yang 'Bebas Aktif' dalam menghadapi konflik geopolitik global terkini ditunjukkan dengan sikap...",
+                options: [
+                    "Mendukung salah satu blok kekuatan dunia demi keuntungan ekonomi nasional",
+                    "Proaktif mendorong perdamaian dunia melalui diplomasi mulitilateral dan penegakan hukum internasional tanpa terikat pakta militer",
+                    "Bersikap netral pasif dengan tidak memberikan dorongan atau pendapat dalam forum PBB",
+                    "Memutus hubungan diplomatik dengan negara-negara yang berkonflik"
+                ],
+                answer: 1,
+                explanation: "Politik Bebas Aktif berarti 'Bebas' dari ikatan paktamiliter/blok mana pun, dan 'Aktif' menyumbangkan pikiran serta tindakan untuk perdamaian dunia."
+            },
             // --- TIU (Tes Inteligensia Umum) ---
             {
                 question: "Jika semua ASN profesional berpakaian rapi. Sebagian orang yang berpakaian rapi memiliki integritas tinggi. Berdasarkan dua pernyataan tersebut, kesimpulan yang paling tepat adalah...",
@@ -71,6 +83,17 @@ const quizCategories = {
                 answer: 2,
                 explanation: "Pola selisih antar angka berlanjut dengan kelipatan 3: +3, +6, +9, +12, maka berikutnya adalah +15. Sehingga 33 + 15 = 48."
             },
+            {
+                question: "KONTRAK : ABROGASI = JANJI : ...",
+                options: [
+                    "PEMBATALAN",
+                    "PELANGGARAN",
+                    "SANKSI",
+                    "PIUTANG"
+                ],
+                answer: 0,
+                explanation: "Analogi Padanan Kata: Pembatalan suatu 'Kontrak' disebut 'Abrogasi'. Pembatalan suatu 'Janji' disebut 'Pembatalan' (atau wanprestasi/ingkar)."
+            },
             // --- TKP (Tes Karakteristik Pribadi) ---
             {
                 question: "Anda adalah ketua tim proyek digitalisasi instansi. Salah satu anggota senior kesulitan mengoperasikan sistem baru sehingga progres tim terhambat. Sikap terbaik Anda sebagai ASN adalah...",
@@ -98,7 +121,7 @@ const quizCategories = {
     },
     utbk: {
         title: "UTBK / SNBT (TPS & Literasi)",
-        description: "Latihan Soal Tes Potensi Skolastik (TPS), Penalaran Kuantitatif, & Literasi",
+        description: "Latihan Soal Tes Potensi Skolastik (TPS), Penalaran Kuantitatif, & Literasi Bahasa",
         questions: [
             // --- Penalaran Kuantitatif & Matematika Dasar ---
             {
@@ -134,6 +157,17 @@ const quizCategories = {
                 answer: 0,
                 explanation: "Misalkan harga awal = 100. Diskon I (20%) -> Sisa harga = 80. Diskon II (10% dari 80) = 8. Total harga bayar = 80 - 8 = 72. Total diskon efektif = 100 - 72 = 28%."
             },
+            {
+                question: "Jika x^2 - y^2 = 36 dan x - y = 4, maka nilai rata-rata dari x dan y adalah...",
+                options: [
+                    "4.5",
+                    "5.0",
+                    "6.0",
+                    "9.0"
+                ],
+                answer: 0,
+                explanation: "Ingat rumus selisih kuadrat: x^2 - y^2 = (x - y)(x + y). Maka 36 = 4(x + y) => x + y = 9. Rata-rata dari x dan y adalah (x + y)/2 = 9/2 = 4.5."
+            },
             // --- Penalaran Logis & Analitis ---
             {
                 question: "Lima orang mahasiswa (D, C, E, A, B) antre di kasir. B berada tepat di belakang A. C berada di antara D dan E. D berada di posisi paling depan. Jika E berada di depan A, siapa yang berada di urutan ke-3 antrean?",
@@ -168,6 +202,17 @@ const quizCategories = {
                 ],
                 answer: 1,
                 explanation: "Kalimat tersebut memiliki struktur perbandingan/pertentangan (however): memuji peningkatan produktivitas AI sekaligus menggarisbawahi kekhawatiran etis terkait privasi data."
+            },
+            {
+                question: "Penggunaan tanda baca koma (,) yang paling TEPAT menurut ejaan bahasa Indonesia terdapat pada kalimat...",
+                options: [
+                    "Ibu membeli buah pisang, apel, dan jeruk di pasar.",
+                    "Karena hari hujan deras, maka kami tidak pergi ke museum.",
+                    "Dia anak yang rajin, tetapi, kurang teliti.",
+                    "Di Medan kami mengunjungi Danau Toba dan Istana Maimun."
+                ],
+                answer: 0,
+                explanation: "Aturan rincian tiga unsur atau lebih wajib menggunakan tanda baca koma sebelum kata hubung 'dan' (misal: pisang, apel, dan jeruk)."
             }
         ]
     }
