@@ -1,10 +1,10 @@
-// Bank Soal Berdasarkan Kategori (CPNS HOTS & UTBK TPS) - Batch 1 s.d 4 (Total 60 Soal)
+// Bank Soal Berdasarkan Kategori (CPNS HOTS & UTBK TPS) - Total Tepat 60 Soal (30 CPNS & 30 UTBK)
 const quizCategories = {
     cpns: {
         title: "CPNS & PPPK (Soal HOTS)",
         description: "Latihan Soal SKD: TWK (Nasionalisme/Integritas/Bela Negara), TIU (Penalaran/Numerik), & TKP",
         questions: [
-            // --- TWK (Tes Wawasan Kebangsaan) ---
+            // --- TWK (Tes Wawasan Kebangsaan - 10 Soal) ---
             {
                 question: "Indonesia menghadapi era digitalisasi di mana budaya asing sangat cepat masuk. Sebagai seorang ASN, langkah konkret yang paling mencerminkan pengamalan Pancasila Sila ke-3 dalam menjaga integrasi bangsa di era digital adalah...",
                 options: [
@@ -83,7 +83,7 @@ const quizCategories = {
                 explanation: "Good Governance berdiri di atas pilar keterbukaan informasi (transparansi), pertanggungjawaban (akuntabilitas), serta pengawasan bersama."
             },
             {
-                question: "KeputusanPanitia Sembilan pada 22 Juni 1945 yang menghasilkan Piagam Jakarta menjadi rumusan awal Pembukaan UUD 1945. Nilai utama yang ditunjukkan para tokoh pendiri bangsa dalam perubahan frasa Sila Pertama pada 18 Agustus 1945 adalah...",
+                question: "Keputusan Panitia Sembilan pada 22 Juni 1945 yang menghasilkan Piagam Jakarta menjadi rumusan awal Pembukaan UUD 1945. Nilai utama yang ditunjukkan para tokoh pendiri bangsa dalam perubahan frasa Sila Pertama pada 18 Agustus 1945 adalah...",
                 options: [
                     "Sikap mempertahankan pendapat pribadi sampai akhir",
                     "Jiwa besar dan mengutamakan persatuan dan kesatuan nasional di atas kepentingan kelompok",
@@ -104,8 +104,19 @@ const quizCategories = {
                 answer: 0,
                 explanation: "UUD 1945 merupakan hukum dasar tertulis dan norma hukum tertinggi dalam hierarki peraturan perundang-undangan di Indonesia."
             },
+            {
+                question: "Peringatan Hari Lahir Pancasila setiap tanggal 1 Juni merujuk pada peristiwa bersejarah saat Soekarno menyampaikan pidatonya dalam sidang BPUPKI. Maksud utama perumusan Pancasila oleh para pendiri bangsa saat itu adalah sebagai...",
+                options: [
+                    "Dasar negara dan dasar filsafat (Philosofische Grondslag) Indonesia merdeka",
+                    "Program kerja jangka pendek kementerian pemerintahan",
+                    "Pedoman pelaksanaan pemilu pertama",
+                    "Perjanjian kerja sama internasional dengan negara tetangga"
+                ],
+                answer: 0,
+                explanation: "Pancasila dirumuskan oleh pendiri bangsa sebagai dasar negara serta landasan filsafat hidup berbangsa dan bernegara."
+            },
 
-            // --- TIU (Tes Inteligensia Umum) ---
+            // --- TIU (Tes Inteligensia Umum - 10 Soal) ---
             {
                 question: "Jika semua ASN profesional berpakaian rapi. Sebagian orang yang berpakaian rapi memiliki integritas tinggi. Berdasarkan dua pernyataan tersebut, kesimpulan yang paling tepat adalah...",
                 options: [
@@ -217,7 +228,7 @@ const quizCategories = {
                 explanation: "Urutan tinggi siswa dari yang tertinggi: A > D > B > C. Maka yang paling pendek adalah C."
             },
 
-            // --- TKP (Tes Karakteristik Pribadi) ---
+            // --- TKP (Tes Karakteristik Pribadi - 10 Soal) ---
             {
                 question: "Anda adalah ketua tim proyek digitalisasi instansi. Salah satu anggota senior kesulitan mengoperasikan sistem baru sehingga progres tim terhambat. Sikap terbaik Anda sebagai ASN adalah...",
                 options: [
@@ -334,7 +345,7 @@ const quizCategories = {
         title: "UTBK / SNBT (TPS & Literasi)",
         description: "Latihan Soal Tes Potensi Skolastik (TPS), Penalaran Kuantitatif, & Literasi Bahasa",
         questions: [
-            // --- Penalaran Kuantitatif & Matematika Dasar ---
+            // --- Penalaran Kuantitatif & Matematika Dasar (10 Soal) ---
             {
                 question: "Rata-rata nilai kuis dari 5 orang siswa adalah 80. Jika nilai satu siswa dengan nilai terkecil dikeluarkan, rata-rata nilai 4 siswa sisanya menjadi 84. Berapakah nilai siswa yang dikeluarkan tersebut?",
                 options: [
@@ -446,7 +457,7 @@ const quizCategories = {
                 explanation: "Total siswa menyukai minimal satu pelajaran = 30 - 5 = 25. Jumlah (M + B) = 18 + 15 = 33. Suka keduanya = 33 - 25 = 8 orang."
             },
 
-            // --- Penalaran Logis & Analitis ---
+            // --- Penalaran Logis & Analitis (5 Soal) ---
             {
                 question: "Lima orang mahasiswa (D, C, E, A, B) antre di kasir. B berada tepat di belakang A. C berada di antara D dan E. D berada di posisi paling depan. Jika E berada di depan A, siapa yang berada di urutan ke-3 antrean?",
                 options: [
@@ -503,7 +514,7 @@ const quizCategories = {
                 explanation: "Karena hanya sebagian perangkat kantor yang merupakan komputer canggih, maka hanya sebagian perangkat kantor tersebut yang memerlukan daya listrik stabil."
             },
 
-            // --- Literasi Bahasa Indonesia & Bahasa Inggris ---
+            // --- Literasi Bahasa Indonesia & Bahasa Inggris (15 Soal) ---
             {
                 question: "Bacalah kalimat berikut:\n'Upaya pemerintah dalam menekan angka inflasi perlu diapresiasi, [...] dampaknya belum sepenuhnya dirasakan oleh masyarakat di lapisan bawah.'\n\nKata hubung (konjungsi) yang paling tepat untuk mengisi bagian rumpang tersebut adalah...",
                 options: [
