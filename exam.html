@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi CAT - Ruang Tryout</title>
+    <meta name="theme-color" content="#0f172a">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
+
+    <!-- Header Ujian Khusus -->
+    <header class="bg-slate-900 border-b border-slate-800 py-3.5 px-4 sm:px-8">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white text-base">
+                    R
+                </div>
+                <span class="text-base font-bold text-white">Ruang<span class="text-blue-400">Tryout</span></span>
+            </a>
+            <a href="index.html" class="text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 px-3.5 py-1.5 rounded-lg border border-slate-700 transition">
+                🏠 Kembali ke Beranda
+            </a>
+        </div>
+    </header>
+
+    <!-- Area Khusus Ujian CAT -->
+    <main class="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6 my-auto">
+        <div id="quiz-card" class="bg-slate-900 rounded-2xl shadow-2xl border border-slate-800 overflow-hidden">
+            <p class="text-center text-slate-400 py-12 font-medium animate-pulse">Menyiapkan lembar ujian CAT...</p>
+        </div>
+    </main>
+
+    <!-- Footer Ringkas Ujian -->
+    <footer class="py-4 text-center text-xs text-slate-600 border-t border-slate-900">
+        &copy; 2026 Ruang Tryout. Mode Simulasi CAT Resmi.
+    </footer>
+
+    <!-- Script Utama -->
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
