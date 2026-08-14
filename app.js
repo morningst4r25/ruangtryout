@@ -234,6 +234,7 @@ function updateTimerDisplay() {
     timerElement.innerText = `⏱️ ${timeString}`;
 }
 
+// Tambahkan baris pemanggilan simpan ke Firebase di dalam fungsi calculateAndShowResults(isTimeOut = false)
 function calculateAndShowResults(isTimeOut = false) {
     stopTimer();
 
@@ -244,6 +245,28 @@ function calculateAndShowResults(isTimeOut = false) {
         }
     });
 
+    // Simpan Skor ke Cloud Firestore jika Peserta Login
+    const currentUser = typeof auth !== 'undefined' ? auth.currentUser : null;
+    const timeSpentSeconds = QUIZ_DURATION_SECONDS - timeRemaining;
+
+    if (currentUser && typeof db !== 'undefined') {
+        db.collection("leaderboard").add({
+            userId: currentUser.uid,
+            userName: currentUser.displayName || "Peserta Anonim",
+            userPhoto: currentUser.photoURL || "",
+            category: currentCategoryKey,
+            score: score,
+            totalQuestions: currentQuizData.length,
+            percentage: Math.round((score / currentQuizData.length) * 100),
+            timeSpentSeconds: timeSpentSeconds,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        }).then(() => {
+            console.log("Skor berhasil terkirim ke Klasemen Global!");
+        }).catch((err) => {
+            console.error("Gagal mengirim skor:", err);
+        });
+    }
+
     let resultHTML = `
         <div class="p-6 sm:p-10 text-center space-y-6">
             <div>
@@ -253,6 +276,12 @@ function calculateAndShowResults(isTimeOut = false) {
                     <span class="text-xs text-slate-400">Skor Akhir Anda:</span>
                     <p class="text-3xl sm:text-4xl font-black text-blue-400">${score} / ${currentQuizData.length} <span class="text-xs text-slate-400 font-normal">(${Math.round((score/currentQuizData.length)*100)}%)</span></p>
                 </div>
+            </div>
+
+            <div class="flex justify-center">
+                <a href="leaderboard.html" class="bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-bold px-6 py-2.5 rounded-xl transition border border-blue-400/40 shadow-lg">
+                    🏆 Lihat Posisi Anda di Papan Peringkat Global →
+                </a>
             </div>
 
             <hr class="border-slate-800">
