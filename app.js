@@ -1,4 +1,4 @@
-// app.js - Logika Kuis + Fitur Timer Real-Time
+// app.js - Logika Kuis + Premium Landing UI & Real-Time Timer
 
 let currentCategoryKey = null;
 let currentQuizData = [];
@@ -6,16 +6,15 @@ let currentQuestion = 0;
 let score = 0;
 let userAnswers = [];
 
-// Variabel Timer
 let timerInterval = null;
-let timeRemaining = 0; // dalam detik (default 90 menit = 5400 detik)
+let timeRemaining = 0;
 const QUIZ_DURATION_SECONDS = 90 * 60; // 90 Menit
 
 const quizCard = document.getElementById("quiz-card");
 
-// 1. Tampilan Menu Pemilihan Kategori
+// 1. Tampilan Menu Pemilihan Kategori (Elegan & Modern UI)
 function showCategoryMenu() {
-    stopTimer(); // Hentikan timer jika kembali ke menu utama
+    stopTimer();
 
     if (typeof quizCategories === 'undefined') {
         quizCard.innerHTML = "<p style='text-align:center;'>Gagal memuat bank soal. Pastikan questions.js terhubung.</p>";
@@ -23,27 +22,71 @@ function showCategoryMenu() {
     }
 
     let menuHTML = `
-        <h2 style="margin-bottom: 8px; text-align: center; color: #1a73e8;">Pilih Kategori Kuis</h2>
-        <p style="margin-bottom: 24px; text-align: center; color: #666; font-size: 0.95rem;">Pilih program latihan yang ingin Anda ikuti hari ini:</p>
-        <div style="display: flex; flex-direction: column; gap: 16px;">
+        <!-- Hero Header -->
+        <div style="text-align: center; margin-bottom: 28px;">
+            <span style="display: inline-block; background: #eff6ff; color: #2563eb; font-size: 0.8rem; font-weight: 700; padding: 6px 14px; border-radius: 20px; margin-bottom: 12px; border: 1px solid #dbeafe;">
+                ✨ Simulasi Ujian Standar CAT BKN & SNPMB
+            </span>
+            <h2 style="font-size: 1.65rem; font-weight: 800; color: #0f172a; letter-spacing: -0.5px; margin-bottom: 10px;">
+                Siapkan Karir & Pendidikan Masa Depanmu
+            </h2>
+            <p style="color: #64748b; font-size: 0.95rem; max-width: 580px; margin: 0 auto; line-height: 1.6;">
+                Pilih program tryout interaktif berwaktu, uji kemampuanmu dengan soal-soal HOTS terbaru, dan dapatkan pembahasan instan secara gratis.
+            </p>
+        </div>
+
+        <!-- Highlight Features Bar -->
+        <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; padding: 12px; background: #f8fafc; border-radius: 12px; border: 1px solid #f1f5f9;">
+            <span style="font-size: 0.85rem; font-weight: 600; color: #334155;">🎯 200 Soal HOTS</span>
+            <span style="font-size: 0.85rem; font-weight: 600; color: #334155;">⏱️ Real-time Timer</span>
+            <span style="font-size: 0.85rem; font-weight: 600; color: #334155;">💡 Kunci & Pembahasan</span>
+        </div>
+
+        <!-- Category Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
     `;
 
     for (const key in quizCategories) {
         const cat = quizCategories[key];
+        const isCPNS = key === 'cpns';
+        
         menuHTML += `
             <div onclick="selectCategory('${key}')" style="
-                border: 2px solid #e0e0e0;
-                border-radius: 10px;
-                padding: 18px;
+                border: 2px solid #e2e8f0;
+                border-radius: 14px;
+                padding: 24px;
                 cursor: pointer;
-                transition: all 0.2s ease;
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
                 background: #ffffff;
-                text-align: left;
-            " onmouseover="this.style.borderColor='#1a73e8'; this.style.backgroundColor='#f8fafd';" 
-               onmouseout="this.style.borderColor='#e0e0e0'; this.style.backgroundColor='#ffffff';">
-                <h3 style="color: #202124; margin-bottom: 6px;">🎯 ${cat.title}</h3>
-                <p style="color: #5f6368; font-size: 0.9rem; line-height: 1.4; margin-bottom: 8px;">${cat.description}</p>
-                <span style="display: inline-block; background: #e8f0fe; color: #1a73e8; font-size: 0.78rem; font-weight: 600; padding: 4px 8px; border-radius: 4px;">⏱️ Waktu: 90 Menit</span>
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                position: relative;
+            " onmouseover="this.style.borderColor='#2563eb'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 24px -6px rgba(37, 99, 235, 0.12)';" 
+               onmouseout="this.style.borderColor='#e2e8f0'; this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                
+                <div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+                        <span style="font-size: 1.8rem; background: ${isCPNS ? '#eff6ff' : '#f0fdf4'}; padding: 10px; border-radius: 12px; display: inline-flex;">
+                            ${isCPNS ? '🏛️' : '🎓'}
+                        </span>
+                        <span style="background: #f1f5f9; color: #475569; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;">
+                            ${cat.questions.length} Soal
+                        </span>
+                    </div>
+
+                    <h3 style="color: #0f172a; font-size: 1.15rem; font-weight: 700; margin-bottom: 8px;">${cat.title}</h3>
+                    <p style="color: #64748b; font-size: 0.88rem; line-height: 1.5; margin-bottom: 20px;">${cat.description}</p>
+                </div>
+
+                <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px dashed #e2e8f0;">
+                    <span style="color: #2563eb; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 4px;">
+                        ⏱️ 90 Menit
+                    </span>
+                    <span style="color: #2563eb; font-size: 0.88rem; font-weight: 700; display: flex; align-items: center; gap: 4px;">
+                        Mulai Tryout →
+                    </span>
+                </div>
             </div>
         `;
     }
@@ -61,23 +104,23 @@ function selectCategory(categoryKey) {
     userAnswers = [];
 
     renderQuizStructure();
-    startTimer(QUIZ_DURATION_SECONDS); // Jalankan timer 90 menit
+    startTimer(QUIZ_DURATION_SECONDS);
     loadQuiz();
 }
 
-// 3. Menyiapkan Elemen HTML Kuis (Termasuk Tampilan Timer)
+// 3. Menyiapkan Elemen HTML Kuis
 function renderQuizStructure() {
     quizCard.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
-            <span id="question-number" style="font-size: 0.85rem; font-weight: 600; color: #1a73e8;"></span>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #f1f5f9; padding-bottom: 14px;">
+            <span id="question-number" style="font-size: 0.88rem; font-weight: 700; color: #2563eb;"></span>
             <div style="display: flex; align-items: center; gap: 12px;">
-                <span id="timer-display" style="font-size: 0.85rem; font-weight: 700; color: #d93025; background: #fce8e6; padding: 4px 10px; border-radius: 20px;">⏱️ 90:00</span>
-                <button onclick="showCategoryMenu()" style="background: none; border: none; color: #666; cursor: pointer; font-size: 0.85rem;">← Ganti Kategori</button>
+                <span id="timer-display" style="font-size: 0.85rem; font-weight: 700; color: #2563eb; background: #eff6ff; padding: 6px 14px; border-radius: 20px; border: 1px solid #dbeafe;">⏱️ 01:30:00</span>
+                <button onclick="showCategoryMenu()" style="background: #f8fafc; border: 1px solid #e2e8f0; color: #475569; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.82rem; font-weight: 600;">← Ganti Kategori</button>
             </div>
         </div>
-        <div id="question-text" style="font-size: 1.05rem; font-weight: 500; margin-bottom: 20px; line-height: 1.6; color: #202124; white-space: pre-line; text-align: left;"></div>
-        <div id="options-container" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;"></div>
-        <button id="next-btn" class="btn primary-btn" style="display: none;">Selanjutnya</button>
+        <div id="question-text" style="font-size: 1.08rem; font-weight: 600; margin-bottom: 24px; line-height: 1.6; color: #0f172a; white-space: pre-line; text-align: left;"></div>
+        <div id="options-container" style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;"></div>
+        <button id="next-btn" class="btn primary-btn" style="display: none; width: 100%; padding: 14px;">Selanjutnya →</button>
     `;
 
     document.getElementById("next-btn").addEventListener("click", handleNextQuestion);
@@ -96,7 +139,7 @@ function startTimer(seconds) {
         if (timeRemaining <= 0) {
             stopTimer();
             alert("⏰ Waktu ujian telah habis! Kuis Anda akan otomatis dikumpulkan.");
-            showResults(true); // Auto-submit
+            showResults(true);
         }
     }, 1000);
 }
@@ -116,22 +159,17 @@ function updateTimerDisplay() {
     const minutes = Math.floor((timeRemaining % 3600) / 60);
     const seconds = timeRemaining % 60;
 
-    let timeString = "";
-    if (hours > 0) {
-        timeString = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    } else {
-        timeString = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    }
-
+    let timeString = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     timerElement.innerText = `⏱️ ${timeString}`;
 
-    // Ubah warna latar timer jika waktu tersisa < 5 menit
     if (timeRemaining < 300) {
-        timerElement.style.backgroundColor = "#fce8e6";
-        timerElement.style.color = "#d93025";
+        timerElement.style.backgroundColor = "#fef2f2";
+        timerElement.style.borderColor = "#fecaca";
+        timerElement.style.color = "#dc2626";
     } else {
-        timerElement.style.backgroundColor = "#e8f0fe";
-        timerElement.style.color = "#1a73e8";
+        timerElement.style.backgroundColor = "#eff6ff";
+        timerElement.style.borderColor = "#dbeafe";
+        timerElement.style.color = "#2563eb";
     }
 }
 
@@ -165,8 +203,9 @@ function selectOption(index) {
     userAnswers[currentQuestion] = index;
     const buttons = document.querySelectorAll(".option-btn");
     buttons.forEach((btn, idx) => {
-        btn.style.backgroundColor = idx === index ? "#e8f0fe" : "#fff";
-        btn.style.borderColor = idx === index ? "#1a73e8" : "#dadce0";
+        btn.style.backgroundColor = idx === index ? "#eff6ff" : "#ffffff";
+        btn.style.borderColor = idx === index ? "#2563eb" : "#e2e8f0";
+        btn.style.color = idx === index ? "#1e40af" : "#334155";
     });
     document.getElementById("next-btn").style.display = "block";
 }
@@ -185,31 +224,36 @@ function showResults(isTimeOut = false) {
     stopTimer();
 
     let resultHTML = `
-        <h2 style="color: #202124;">Kuis ${quizCategories[currentCategoryKey].title} Selesai! 🎉</h2>
-        ${isTimeOut ? '<p style="color: #d93025; font-weight: bold;">⚠️ Sesi berakhir karena waktu ujian telah habis.</p>' : ''}
-        <p style="font-size: 1.2rem; margin: 15px 0;">Skor Anda: <strong>${score} / ${currentQuizData.length}</strong> (${Math.round((score/currentQuizData.length)*100)}%)</p>
-        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
-        <h3 style="margin-bottom: 15px; text-align: left;">Pembahasan Soal:</h3>
+        <div style="text-align: center; margin-bottom: 24px;">
+            <h2 style="color: #0f172a; font-size: 1.5rem; font-weight: 800; margin-bottom: 8px;">Kuis ${quizCategories[currentCategoryKey].title} Selesai! 🎉</h2>
+            ${isTimeOut ? '<p style="color: #dc2626; font-weight: 600; font-size: 0.9rem;">⚠️ Sesi berakhir karena waktu ujian telah habis.</p>' : ''}
+            <div style="display: inline-block; background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px 24px; border-radius: 12px; margin-top: 10px;">
+                <span style="font-size: 0.9rem; color: #64748b;">Skor Anda:</span>
+                <p style="font-size: 1.8rem; font-weight: 800; color: #2563eb;">${score} / ${currentQuizData.length} <span style="font-size: 1rem; color: #475569;">(${Math.round((score/currentQuizData.length)*100)}%)</span></p>
+            </div>
+        </div>
+        <hr style="margin: 24px 0; border: 0; border-top: 1px solid #f1f5f9;">
+        <h3 style="margin-bottom: 16px; text-align: left; color: #0f172a; font-size: 1.1rem;">Pembahasan Soal:</h3>
         <div style="text-align: left;">
     `;
 
     currentQuizData.forEach((data, i) => {
         const isCorrect = userAnswers[i] === data.answer;
         resultHTML += `
-            <div style="margin-bottom: 20px; padding: 14px; background: ${isCorrect ? '#e6f4ea' : '#fce8e6'}; border-radius: 8px;">
-                <p style="margin-bottom: 6px; white-space: pre-line;"><strong>${i + 1}. ${data.question}</strong></p>
-                <p style="margin-bottom: 4px;">Jawaban Anda: ${userAnswers[i] !== undefined ? data.options[userAnswers[i]] : 'Tidak dijawab'} ${isCorrect ? '✅' : '❌'}</p>
-                <p style="margin-bottom: 6px;">Kunci Jawaban: <strong>${data.options[data.answer]}</strong></p>
-                <p style="font-size: 0.9rem; color: #555;"><em>💡 Pembahasan: ${data.explanation}</em></p>
+            <div style="margin-bottom: 18px; padding: 16px; background: ${isCorrect ? '#f0fdf4' : '#fef2f2'}; border: 1px solid ${isCorrect ? '#bbf7d0' : '#fecaca'}; border-radius: 12px;">
+                <p style="margin-bottom: 8px; color: #0f172a; white-space: pre-line;"><strong>${i + 1}. ${data.question}</strong></p>
+                <p style="margin-bottom: 4px; font-size: 0.92rem; color: ${isCorrect ? '#166534' : '#991b1b'};">Jawaban Anda: <strong>${userAnswers[i] !== undefined ? data.options[userAnswers[i]] : 'Tidak dijawab'}</strong> ${isCorrect ? '✅' : '❌'}</p>
+                <p style="margin-bottom: 8px; font-size: 0.92rem; color: #1e293b;">Kunci Jawaban: <strong>${data.options[data.answer]}</strong></p>
+                <p style="font-size: 0.88rem; color: #475569; background: rgba(255,255,255,0.7); padding: 8px 12px; border-radius: 8px;"><em>💡 Pembahasan: ${data.explanation}</em></p>
             </div>
         `;
     });
 
     resultHTML += `
         </div>
-        <div style="display: flex; gap: 10px; margin-top: 20px;">
-            <button onclick="selectCategory('${currentCategoryKey}')" class="btn primary-btn">Ulangi Kuis Ini</button>
-            <button onclick="showCategoryMenu()" class="btn" style="background: #f1f3f4; color: #3c4043;">Pilih Kategori Lain</button>
+        <div style="display: flex; gap: 12px; margin-top: 24px;">
+            <button onclick="selectCategory('${currentCategoryKey}')" class="btn primary-btn" style="flex: 1;">Ulangi Kuis Ini</button>
+            <button onclick="showCategoryMenu()" class="btn" style="flex: 1; background: #f1f5f9; color: #334155;">Pilih Kategori Lain</button>
         </div>
     `;
 
