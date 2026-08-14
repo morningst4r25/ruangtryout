@@ -1,4 +1,4 @@
-// app.js - Engine Logika CAT BKN untuk exam.html
+// app.js - Engine Logika CAT BKN Full Screen Mode
 
 let currentCategoryKey = null;
 let currentQuizData = [];
@@ -12,7 +12,6 @@ const QUIZ_DURATION_SECONDS = 90 * 60; // 90 Menit
 
 const quizCard = document.getElementById("quiz-card");
 
-// Inisialisasi Kuis Otomatis berdasarkan Parameter URL (?cat=cpns / ?cat=utbk)
 document.addEventListener("DOMContentLoaded", () => {
     if (!quizCard) return;
 
@@ -23,8 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
         initQuiz(categoryParam);
     } else {
         quizCard.innerHTML = `
-            <div class="text-center py-12 space-y-4">
-                <p class="text-slate-400 text-sm">Program kuis tidak ditemukan atau telah kadaluarsa.</p>
+            <div class="text-center py-20 space-y-4">
+                <p class="text-slate-400 text-sm">Program kuis tidak ditemukan.</p>
                 <a href="index.html" class="inline-block bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition">
                     Kembali ke Beranda
                 </a>
@@ -50,43 +49,43 @@ function renderQuizStructure() {
 
     quizCard.innerHTML = `
         <!-- Top Bar CAT Header -->
-        <div class="bg-blue-600 text-white px-5 py-3.5 flex justify-between items-center font-bold text-xs sm:text-sm border-b border-blue-500">
-            <span id="question-header">SOAL NO. 1</span>
+        <div class="bg-blue-600 text-white px-6 py-3.5 flex justify-between items-center font-bold text-xs sm:text-sm border-b border-blue-500 shrink-0">
+            <span id="question-header" class="text-sm sm:text-base">SOAL NO. 1</span>
             <div class="flex items-center gap-3">
-                <span id="timer-display" class="bg-blue-800/90 border border-blue-400/40 px-3 py-1 rounded-lg font-mono text-xs">⏱️ 01:30:00</span>
-                <span class="hidden sm:inline-block text-[11px] bg-blue-700/80 px-2.5 py-1 rounded-md font-semibold">${catTitle}</span>
+                <span id="timer-display" class="bg-blue-900/90 border border-blue-400/40 px-3.5 py-1 rounded-lg font-mono text-xs sm:text-sm">⏱️ 01:30:00</span>
+                <span class="hidden md:inline-block text-xs bg-blue-700/80 px-3 py-1 rounded-md font-semibold">${catTitle}</span>
             </div>
         </div>
 
-        <!-- Body 2 Kolom (Kiri: Soal | Kanan: Grid Nomor) -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-5 sm:p-6 bg-slate-900 text-slate-100">
+        <!-- Full Width Layout 2 Kolom -->
+        <div class="flex-1 grid grid-cols-1 lg:grid-cols-4 gap-6 p-6 bg-slate-900 text-slate-100">
             
-            <!-- Kolom Kiri: Teks Soal & Opsi -->
-            <div class="md:col-span-2 flex flex-col justify-between space-y-6">
+            <!-- Kolom Kiri: Teks Soal & Opsi Jawaban (Memakan 3/4 Layar) -->
+            <div class="lg:col-span-3 flex flex-col justify-between space-y-6 bg-slate-950/60 p-6 rounded-xl border border-slate-800/80">
                 <div>
-                    <p id="question-text" class="text-sm sm:text-base font-semibold leading-relaxed text-slate-100 mb-6 white-space-pre-line text-left"></p>
-                    <div id="options-container" class="space-y-3 text-left"></div>
+                    <p id="question-text" class="text-base sm:text-lg font-semibold leading-relaxed text-slate-100 mb-8 white-space-pre-line text-left"></p>
+                    <div id="options-container" class="space-y-3.5 text-left"></div>
                 </div>
 
                 <!-- Navigasi Bawah -->
-                <div class="flex flex-wrap justify-between items-center gap-3 pt-4 border-t border-slate-800">
-                    <button id="prev-btn" onclick="handlePrevQuestion()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-xl transition">
+                <div class="flex flex-wrap justify-between items-center gap-4 pt-6 border-t border-slate-800">
+                    <button id="prev-btn" onclick="handlePrevQuestion()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs sm:text-sm font-semibold rounded-xl transition">
                         ← Sebelumnya
                     </button>
-                    <button id="next-btn" onclick="handleNextQuestion()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-emerald-600/20 transition">
+                    <button id="next-btn" onclick="handleNextQuestion()" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-bold rounded-xl shadow-lg shadow-emerald-600/20 transition">
                         Simpan & Lanjutkan →
                     </button>
                 </div>
             </div>
 
-            <!-- Kolom Kanan: Grid Navigasi Nomor Soal -->
-            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+            <!-- Kolom Kanan: Grid Navigasi 100 Nomor Soal -->
+            <div class="lg:col-span-1 bg-slate-950 p-5 rounded-xl border border-slate-800 flex flex-col justify-between">
                 <div>
-                    <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3 text-center">Navigasi Nomor Soal</h4>
-                    <div id="question-grid" class="grid grid-cols-5 gap-2 max-h-[320px] overflow-y-auto pr-1"></div>
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 text-center">Navigasi Nomor Soal</h4>
+                    <div id="question-grid" class="grid grid-cols-5 sm:grid-cols-10 lg:grid-cols-5 gap-2 max-h-[420px] overflow-y-auto pr-1"></div>
                 </div>
 
-                <button onclick="confirmSubmit()" class="w-full mt-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl shadow-md transition border border-blue-400/30">
+                <button onclick="confirmSubmit()" class="w-full mt-6 py-3 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl shadow-md transition border border-blue-400/30">
                     Selesaikan Ujian 🏁
                 </button>
             </div>
@@ -111,11 +110,11 @@ function loadQuiz() {
             btn.style.cssText = `
                 width: 100%; 
                 text-align: left; 
-                padding: 12px 16px; 
+                padding: 14px 18px; 
                 background: ${isSelected ? 'rgba(59, 130, 246, 0.2)' : '#0f172a'}; 
                 border: 1px solid ${isSelected ? '#3b82f6' : '#334155'}; 
                 border-radius: 12px; 
-                font-size: 0.88rem; 
+                font-size: 0.95rem; 
                 color: ${isSelected ? '#ffffff' : '#cbd5e1'}; 
                 cursor: pointer; 
                 transition: all 0.2s;
@@ -155,7 +154,7 @@ function renderQuestionGrid() {
         let bgStyle = isAnswered ? "bg-emerald-600 text-white border-emerald-500 font-bold" : "bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800";
         let ringStyle = isCurrent ? "ring-2 ring-blue-500 border-blue-400 font-black scale-105" : "";
 
-        btn.className = `h-8 rounded-lg text-xs border flex items-center justify-center transition-all ${bgStyle} ${ringStyle}`;
+        btn.className = `h-9 rounded-lg text-xs border flex items-center justify-center transition-all ${bgStyle} ${ringStyle}`;
         btn.innerText = i + 1;
 
         gridContainer.appendChild(btn);
@@ -246,13 +245,13 @@ function calculateAndShowResults(isTimeOut = false) {
     });
 
     let resultHTML = `
-        <div class="p-6 sm:p-8 text-center space-y-6">
+        <div class="p-6 sm:p-10 text-center space-y-6">
             <div>
-                <h2 class="text-2xl font-extrabold text-white mb-1">Simulasi CAT Selesai! 🎉</h2>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-2">Simulasi CAT Selesai! 🎉</h2>
                 ${isTimeOut ? '<p class="text-xs text-red-400 font-semibold">⚠️ Waktu ujian telah habis.</p>' : ''}
-                <div class="inline-block bg-slate-950 border border-slate-800 px-6 py-3 rounded-xl mt-4">
+                <div class="inline-block bg-slate-950 border border-slate-800 px-8 py-4 rounded-xl mt-4">
                     <span class="text-xs text-slate-400">Skor Akhir Anda:</span>
-                    <p class="text-3xl font-black text-blue-400">${score} / ${currentQuizData.length} <span class="text-xs text-slate-400 font-normal">(${Math.round((score/currentQuizData.length)*100)}%)</span></p>
+                    <p class="text-3xl sm:text-4xl font-black text-blue-400">${score} / ${currentQuizData.length} <span class="text-xs text-slate-400 font-normal">(${Math.round((score/currentQuizData.length)*100)}%)</span></p>
                 </div>
             </div>
 
@@ -260,7 +259,7 @@ function calculateAndShowResults(isTimeOut = false) {
 
             <div class="text-left space-y-4">
                 <h3 class="text-base font-bold text-white">Pembahasan Soal Lengkap:</h3>
-                <div class="space-y-4 max-h-[450px] overflow-y-auto pr-2">
+                <div class="space-y-4 max-h-[480px] overflow-y-auto pr-2">
     `;
 
     currentQuizData.forEach((data, i) => {
@@ -279,9 +278,9 @@ function calculateAndShowResults(isTimeOut = false) {
                 </div>
             </div>
 
-            <div class="flex flex-col sm:flex-row gap-3 pt-4">
-                <button onclick="window.location.reload()" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-xl text-xs transition">Ulangi Ujian Ini</button>
-                <a href="index.html" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2.5 rounded-xl text-xs text-center border border-slate-700 transition">Kembali ke Beranda</a>
+            <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                <button onclick="window.location.reload()" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl text-xs sm:text-sm transition">Ulangi Ujian Ini</button>
+                <a href="index.html" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-3 rounded-xl text-xs sm:text-sm text-center border border-slate-700 transition">Kembali ke Beranda</a>
             </div>
         </div>
     `;
@@ -289,7 +288,6 @@ function calculateAndShowResults(isTimeOut = false) {
     quizCard.innerHTML = resultHTML;
 }
 
-// Service Worker Registration
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js')
