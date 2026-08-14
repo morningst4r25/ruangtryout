@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ruangtryout-v19'; // Naikkan versi ke v4
+const CACHE_NAME = 'ruangtryout-v20'; // Naikkan versi ke v4
 const urlsToCache = [
   '/',
   '/index.html',
