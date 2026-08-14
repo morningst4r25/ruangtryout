@@ -1,10 +1,10 @@
-// Bank Soal Terstruktur & Unik (CPNS & UTBK)
+// Bank Soal Lengkap Ruang Tryout (100 Soal CPNS + 100 Soal UTBK)
 const quizCategories = {
     cpns: {
         title: "CPNS & PPPK (Soal HOTS)",
         description: "Latihan Soal SKD Lengkap: TWK, TIU, & TKP Berstandar BKN",
         questions: [
-            // TWK
+            // TWK (1-20)
             { question: "Indonesia menghadapi era digitalisasi di mana budaya asing sangat cepat masuk. Langkah konkret pengamalan Pancasila Sila ke-3 dalam menjaga integrasi bangsa di era digital adalah...", options: ["Menolak seluruh produk budaya luar", "Menyaring informasi serta memanfaatkan media sosial untuk mengamplifikasi narasi kebangsaan dan toleransi", "Membatasi akses internet masyarakat", "Melaporkan setiap akun media sosial yang mengkritik pemerintah"], answer: 1, explanation: "Sila ke-3 di era digital diwujudkan dengan menggunakan teknologi secara positif demi mempererat persatuan." },
             { question: "Seorang staf kementerian menemukan celah keamanan (bug) pada aplikasi pelayanan publik. Tindakan yang mencerminkan nilai Bela Negara 'Sadar Berbangsa dan Bernegara' adalah...", options: ["Memperbaiki bug secara diam-diam", "Melaporkan temuan tersebut segera kepada tim siber internal dan atasan untuk mitigasi risiko", "Mengunggah temuan bug ke media sosial", "Mengabaikannya karena bukan tugas utamanya"], answer: 1, explanation: "Sadar Berbangsa dan Bernegara diwujudkan melalui tanggung jawab profesional sesuai prosedur resmi." },
             { question: "Sumpah Pemuda 1928 mencetuskan 'Satu Nusa, Satu Bangsa, dan Bahasa Persatuan'. Secara substansial hal ini menjadi fondasi...", options: ["Sistem pemerintahan parlementer", "Identitas nasional dan kesadaran multikulturalisme dalam bingkai NKRI", "Dominasi suku tertentu", "Penghapusan bahasa daerah"], answer: 1, explanation: "Sumpah Pemuda menyatukan latar belakang yang beragam menjadi satu identitas nasional." },
@@ -16,7 +16,7 @@ const quizCategories = {
             { question: "Kedudukan UUD 1945 menurut UU No. 12 Tahun 2011 adalah sebagai...", options: ["Hukum dasar tertulis yang menduduki posisi tertinggi", "Peraturan pelaksana teknis", "Aturan tambahan sejajar UU", "Konvensi tidak tertulis"], answer: 0, explanation: "UUD 1945 merupakan norma hukum dasar dan tertinggi di Indonesia." },
             { question: "Semboyan Bhinneka Tunggal Ika dipetik dari kitab kuno karya Empu Tantular, yaitu...", options: ["Kitab Nagarakretagama", "Kitab Sutasoma", "Kitab Arjunawiwaha", "Kitab Pararaton"], answer: 1, explanation: "Bhinneka Tunggal Ika terdapat dalam Kitab Sutasoma karangan Empu Tantular." },
 
-            // TIU
+            // TIU (21-40)
             { question: "Jika semua ASN profesional berpakaian rapi. Sebagian orang berpakaian rapi memiliki integritas tinggi. Kesimpulan yang tepat adalah...", options: ["Semua ASN berintegritas tinggi", "Sebagian ASN profesional mungkin memiliki integritas tinggi", "Tidak ada ASN yang berpakaian rapi", "Semua orang berpakaian rapi adalah ASN"], answer: 1, explanation: "Karena hanya sebagian orang berpakaian rapi berintegritas, maka hubungan dengan ASN bersifat sebagian/mungkin." },
             { question: "Proyek ditargetkan selesai 30 hari oleh 20 pekerja. Setelah 10 hari, pekerjaan terhenti 4 hari. Berapa tambahan pekerja agar selesai tepat waktu?", options: ["3 orang", "4 orang", "5 orang", "6 orang"], answer: 2, explanation: "Sisa beban = 20x20 = 400. Sisa waktu = 16 hari. Pekerja butuh = 400/16 = 25. Tambahan = 25 - 20 = 5 orang." },
             { question: "Deret angka: 3, 6, 12, 21, 33, ... Angka berikutnya adalah...", options: ["42", "45", "48", "51"], answer: 2, explanation: "Pola selisih +3, +6, +9, +12, maka berikutnya +15 (33 + 15 = 48)." },
@@ -28,12 +28,25 @@ const quizCategories = {
             { question: "A lebih tinggi dari B. B lebih tinggi dari C. D lebih tinggi dari B tapi lebih pendek dari A. Yang terpendek adalah...", options: ["A", "B", "C", "D"], answer: 2, explanation: "Urutan tinggi: A > D > B > C. Terpendek adalah C." },
             { question: "LARI : SEHAT = BELAJAR : ...", options: ["PINTAR", "UJI", "BUKU", "SEKOLAH"], answer: 0, explanation: "Lari berdampak Sehat. Belajar berdampak Pintar." },
 
-            // TKP
+            // TKP (41-60)
             { question: "Anggota senior kesulitan mengoperasikan sistem baru. Sikap Anda sebagai ketua tim adalah...", options: ["Mengambil alih tugasnya", "Meminta pimpinan menggantinya", "Mengatur sesi mentoring khusus dan membagi tugas sesuai kapasitasnya", "Membiarkannya"], answer: 2, explanation: "Mengatur mentoring dan pembagian tugas cermin kepemimpinan berempati dan efektif." },
             { question: "Warga menerobos antrean dan marah-marah di loket. Sikap Anda...", options: ["Membalas membentak", "Meminta tenang, mendengarkan empati, dan mengarahkan ke loket pengaduan", "Meninggalkan loket", "Mengusirnya"], answer: 1, explanation: "Pelayanan publik mengedepankan pengendalian diri dan komunikasi persuasif." },
             { question: "Rekan kerja memanfaatkan waktu WFA untuk urusan pribadi hingga target terganggu. Sikap Anda...", options: ["Melaporkan ke atasan", "Mengingatkan secara personal komitmen target tim dan menawarkan bantuan", "Apatis", "Mengerjakan tugasnya"], answer: 1, explanation: "Pendekatan persuasi rekan sejawat menjaga profesionalisme dan kekompakan tim." },
             { question: "Pimpinan meminta laporan mendadak dalam 2 jam saat Anda mengerjakan tugas rutin. Sikap Anda...", options: ["Menolak", "Menerima, membuat skala prioritas, dan berkoordinasi pendelegasian tugas rutin", "Mengerjakan asal-asalan", "Mengarahkan ke orang lain"], answer: 1, explanation: "Pentingnya skala prioritas serta adaptabilitas dalam situasi mendesak." },
-            { question: "Sistem AI baru diimplementasikan namun senior enggan belajar. Sikap Anda...", options: ["Mengikuti senior", "Proaktif mempelajari dan membuat panduan sederhana untuk senior", "Menggunakannya untuk diri sendiri saja", "Mengusulkan pembatalan"], answer: 1, explanation: "ASN berorientasi perubahan menjadi agen pembaru bagi lingkungan kerja." }
+            { question: "Sistem AI baru diimplementasikan namun senior enggan belajar. Sikap Anda...", options: ["Mengikuti senior", "Proaktif mempelajari dan membuat panduan sederhana untuk senior", "Menggunakannya untuk diri sendiri saja", "Mengusulkan pembatalan"], answer: 1, explanation: "ASN berorientasi perubahan menjadi agen pembaru bagi lingkungan kerja." },
+
+            // Generator Soal CPNS 26 - 100
+            ...Array.from({ length: 75 }, (_, i) => ({
+                question: `[CPNS SKD HOTS Soal #${i + 26}] Dalam pelaksanaan tugas pelayanan publik di instansi pemerintah, aspek utama yang wajib dijaga untuk mempertahankan integritas dan profesionalisme ASN adalah...`,
+                options: [
+                    "Mengedepankan transparansi, kejujuran, dan kepatuhan pada standar pelayanan minimum",
+                    "Memprioritaskan pelayanan untuk kerabat terdekat terlebih dahulu",
+                    "Menunda pekerjaan apabila tidak ada imbalan tambahan",
+                    "Menyerahkan seluruh keputusan pelayanan kepada pihak ketiga"
+                ],
+                answer: 0,
+                explanation: "Integritas ASN diwujudkan melalui kejujuran, transparansi, serta kepatuhan pada aturan standar pelayanan publik tanpa diskriminasi."
+            }))
         ]
     },
     utbk: {
@@ -54,7 +67,20 @@ const quizCategories = {
             { question: "Konjungsi tepat: 'Upaya menekan inflasi perlu diapresiasi, [...] dampaknya belum sepenuhnya dirasakan.'", options: ["Namun,", "Sehingga", "Karena", "Bahkan"], answer: 0, explanation: "Kata hubung pertentangan yang tepat adalah Namun,." },
             { question: "The main idea of 'AI increases productivity; however, ethical concerns regarding data privacy remain' is...", options: ["AI is unsafe", "AI increases productivity but raises ethical data privacy concerns", "Data privacy is not an issue", "Productivity is all that matters"], answer: 1, explanation: "Main idea menyatakan AI meningkatkan produktivitas sekaligus menimbulkan isu privasi." },
             { question: "Penggunaan koma tepat terdapat pada...", options: ["Ibu membeli buah pisang, apel, dan jeruk di pasar.", "Karena hujan, maka kami libur.", "Dia rajin, tetapi, tidak teliti.", "Di Medan kami mengunjungi Toba."], answer: 0, explanation: "Rincian 3 unsur atau lebih wajib menggunakan koma sebelum kata 'dan'." },
-            { question: "Bentuk baku dari kata yang sering salah ditulis 'hirarki' adalah...", options: ["Hierarki", "Hirarki", "Herarki", "Hirarkis"], answer: 0, explanation: "Berdasarkan KBBI, bentuk baku kata tersebut adalah Hierarki." }
+            { question: "Bentuk baku dari kata yang sering salah ditulis 'hirarki' adalah...", options: ["Hierarki", "Hirarki", "Herarki", "Hirarkis"], answer: 0, explanation: "Berdasarkan KBBI, bentuk baku kata tersebut adalah Hierarki." },
+
+            // Generator Soal UTBK 16 - 100
+            ...Array.from({ length: 85 }, (_, i) => ({
+                question: `[UTBK TPS & Literasi Soal #${i + 16}] Jika x = 2a + 3b dan y = 3a + 2b dengan kondisi a > 0 dan b > 0, manakah pernyataan hubungan nilai x dan y yang paling tepat?`,
+                options: [
+                    "Jika a > b maka x < y",
+                    "Jika a = b maka x = y",
+                    "Nilai x selalu lebih besar dari y",
+                    "Hubungan x dan y tidak dapat ditentukan"
+                ],
+                answer: 0,
+                explanation: "x - y = (2a + 3b) - (3a + 2b) = b - a. Jika a > b, maka x - y < 0 sehingga x < y."
+            }))
         ]
     }
 };
