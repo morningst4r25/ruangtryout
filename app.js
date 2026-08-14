@@ -97,18 +97,18 @@ function showResults() {
         <h2>Kuis Selesai! 🎉</h2>
         <p style="font-size: 1.2rem; margin: 15px 0;">Skor Anda: <strong>${score} / ${quizData.length}</strong> (${Math.round((score/quizData.length)*100)}%)</p>
         <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
-        <h3>Pembahasan Soal:</h3>
-        <div style="text-align: left; margin-top: 15px;">
+        <h3 style="margin-bottom: 15px;">Pembahasan Soal:</h3>
+        <div style="text-align: left;">
     `;
 
     quizData.forEach((data, i) => {
         const isCorrect = userAnswers[i] === data.answer;
         resultHTML += `
-            <div style="margin-bottom: 20px; padding: 12px; background: ${isCorrect ? '#e6f4ea' : '#fce8e6'}; border-radius: 6px;">
-                <p><strong>${i + 1}. ${data.question}</strong></p>
-                <p>Jawaban Anda: ${userAnswers[i] !== undefined ? data.options[userAnswers[i]] : 'Tidak dijawab'} ${isCorrect ? '✅' : '❌'}</p>
-                <p>Kunci Jawaban: <strong>${data.options[data.answer]}</strong></p>
-                <p style="font-size: 0.9rem; color: #555; margin-top: 5px;"><em>💡 Pembahasan: ${data.explanation}</em></p>
+            <div style="margin-bottom: 20px; padding: 14px; background: ${isCorrect ? '#e6f4ea' : '#fce8e6'}; border-radius: 8px;">
+                <p style="margin-bottom: 6px;"><strong>${i + 1}. ${data.question}</strong></p>
+                <p style="margin-bottom: 4px;">Jawaban Anda: ${userAnswers[i] !== undefined ? data.options[userAnswers[i]] : 'Tidak dijawab'} ${isCorrect ? '✅' : '❌'}</p>
+                <p style="margin-bottom: 6px;">Kunci Jawaban: <strong>${data.options[data.answer]}</strong></p>
+                <p style="font-size: 0.9rem; color: #555;"><em>💡 Pembahasan: ${data.explanation}</em></p>
             </div>
         `;
     });
