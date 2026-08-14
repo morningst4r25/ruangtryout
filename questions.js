@@ -1,4 +1,4 @@
-// Bank Soal Berdasarkan Kategori (CPNS HOTS & UTBK TPS) - Batch 1, 2 & 3 (Total 40 Soal)
+// Bank Soal Berdasarkan Kategori (CPNS HOTS & UTBK TPS) - Batch 1 s.d 4 (Total 60 Soal)
 const quizCategories = {
     cpns: {
         title: "CPNS & PPPK (Soal HOTS)",
@@ -82,6 +82,28 @@ const quizCategories = {
                 answer: 1,
                 explanation: "Good Governance berdiri di atas pilar keterbukaan informasi (transparansi), pertanggungjawaban (akuntabilitas), serta pengawasan bersama."
             },
+            {
+                question: "KeputusanPanitia Sembilan pada 22 Juni 1945 yang menghasilkan Piagam Jakarta menjadi rumusan awal Pembukaan UUD 1945. Nilai utama yang ditunjukkan para tokoh pendiri bangsa dalam perubahan frasa Sila Pertama pada 18 Agustus 1945 adalah...",
+                options: [
+                    "Sikap mempertahankan pendapat pribadi sampai akhir",
+                    "Jiwa besar dan mengutamakan persatuan dan kesatuan nasional di atas kepentingan kelompok",
+                    "Keinginan mempercepat masa persidangan",
+                    "Penyerahan seluruh keputusan kepada pihak asing"
+                ],
+                answer: 1,
+                explanation: "Perubahan frasa sila pertama demi menjaga keutuhan Indonesia yang majemuk mencerminkan sikap toleransi dan jiwa besar pendiri bangsa."
+            },
+            {
+                question: "Kedudukan UUD 1945 dalam hierarki peraturan perundang-undangan di Indonesia menurut UU No. 12 Tahun 2011 adalah sebagai...",
+                options: [
+                    "Hukum dasar tertulis yang menduduki posisi tertinggi",
+                    "Peraturan pelaksana teknis operasional",
+                    "Aturan tambahan yang sejajar dengan Undang-Undang",
+                    "Konvensi ketatanegaraan tidak tertulis"
+                ],
+                answer: 0,
+                explanation: "UUD 1945 merupakan hukum dasar tertulis dan norma hukum tertinggi dalam hierarki peraturan perundang-undangan di Indonesia."
+            },
 
             // --- TIU (Tes Inteligensia Umum) ---
             {
@@ -161,6 +183,39 @@ const quizCategories = {
                 answer: 1,
                 explanation: "Kriteria dilarang masuk spesifik hanya untuk yang 'terlambat'. Kelengkapan dokumen adalah variabel terpisah, sehingga peserta yang membawa dokumen tidak lengkap tetap boleh masuk selama tidak terlambat."
             },
+            {
+                question: "Sebuah bus berangkat dari kota A pukul 07.15 dengan kecepatan rata-rata 60 km/jam menuju kota B yang berjarak 180 km. Di perjalanan bus istirahat selama 30 menit. Pukul berapa bus tiba di kota B?",
+                options: [
+                    "10.15",
+                    "10.45",
+                    "11.15",
+                    "11.45"
+                ],
+                answer: 1,
+                explanation: "Waktu tempuh murni = 180 / 60 = 3 jam. Total waktu perjalanan = 3 jam + 30 menit = 3 jam 30 menit. Tiba di kota B = 07.15 + 03.30 = 10.45."
+            },
+            {
+                question: "Jika 5 x a = 45 dan b = a - 3, maka nilai dari a^2 + b^2 adalah...",
+                options: [
+                    "81",
+                    "117",
+                    "125",
+                    "144"
+                ],
+                answer: 1,
+                explanation: "5a = 45 => a = 9. Maka b = 9 - 3 = 6. Nilai a^2 + b^2 = 9^2 + 6^2 = 81 + 36 = 117."
+            },
+            {
+                question: "Siswa A lebih tinggi dari B. B lebih tinggi dari C. D lebih tinggi dari B tetapi lebih pendek dari A. Siapakah siswa yang paling pendek?",
+                options: [
+                    "A",
+                    "B",
+                    "C",
+                    "D"
+                ],
+                answer: 2,
+                explanation: "Urutan tinggi siswa dari yang tertinggi: A > D > B > C. Maka yang paling pendek adalah C."
+            },
 
             // --- TKP (Tes Karakteristik Pribadi) ---
             {
@@ -228,6 +283,50 @@ const quizCategories = {
                 ],
                 answer: 1,
                 explanation: "Indikator Semangat Berprestasi & Inisiatif: Mampu memecahkan masalah (problem solving) mandiri dalam keterbatasan sarana prasana kerja."
+            },
+            {
+                question: "Anda menemukan bahwa rekan satu tim membuat laporan anggaran operasional yang tidak sesuai dengan data riil di lapangan. Sikap Anda adalah...",
+                options: [
+                    "Membiarkannya karena tidak ingin merusak hubungan pertemanan",
+                    "Mengingatkan rekan tersebut secara baik-baik untuk memperbaiki laporan sesuai data riil dan melaporkannya ke pimpinan jika tidak diindahkan",
+                    "Ikut mengambil keuntungan dari ketidaksesuaian anggaran tersebut",
+                    "Menyebarkan informasi ketidaksesuaian tersebut kepada rekan kantor lainnya"
+                ],
+                answer: 1,
+                explanation: "Integritas tinggi membutuhkan kejujuran, ketegasan menolak penyelewengan, serta pendekatan profesional."
+            },
+            {
+                question: "Saat presentasi proyek pelayanan publik di depan pemangku kepentingan, pimpinan Anda keliru menyampaikan data statistik utama. Tindakan Anda adalah...",
+                options: [
+                    "Langsung memotong pembicaraan pimpinan dan mengoreksinya di depan umum",
+                    "Menunggu pimpinan selesai berbicara, lalu melengkapi data secara sopan dan diplomatis saat sesi tanggapan",
+                    "Diam saja dan membiarkan kesalahan data tersebut",
+                    "Tertawa melihat kekeliruan pimpinan"
+                ],
+                answer: 1,
+                explanation: "Orientasi Komunikasi & Etika Kerja: Menjaga kehormatan tim/pimpinan sekaligus memastikan akurasi data tersampaikan dengan cara diplomatis."
+            },
+            {
+                question: "Sistem pelayanan dinas tempat Anda bekerja mengalami fluktuasi beban antrean ekstrem pada jam-jam tertentu. Inisiatif terbaik Anda adalah...",
+                options: [
+                    "Mengusulkan sistem nomor antrean online dan pembagian jam kedatangan warga kepada tim",
+                    "Menambah jam kerja karyawan tanpa kompensasi",
+                    "Membatasi jumlah warga yang boleh datang setiap hari",
+                    "Meminta warga datang kembali di hari berikutnya"
+                ],
+                answer: 0,
+                explanation: "Inovasi Pelayanan Publik: Mencari solusi efisien berbasis sistem untuk mengurai kemacetan antrean tanpa merugikan hak warga."
+            },
+            {
+                question: "Anda diminta memimpin tim kerja berskala besar yang terdiri dari anggota dari berbagai latar belakang budaya dan disiplin ilmu. Langkah awal Anda adalah...",
+                options: [
+                    "Menerapkan aturan kerja pribadi tanpa kompromi",
+                    "Membangun komunikasi terbuka, memetakan potensi tiap anggota, serta menyepakati tujuan dan aturan main bersama",
+                    "Membagi tugas hanya kepada anggota yang satu daerah saja",
+                    "Mewajibkan anggota menyesuaikan diri dengan gaya kerja Anda sepenuhnya"
+                ],
+                answer: 1,
+                explanation: "Kepemimpinan & Perekat Bangsa: Mampu merangkul keberagaman, membangun sinergi, dan mengoptimalkan potensi tim multikultural."
             }
         ]
     },
@@ -288,7 +387,7 @@ const quizCategories = {
                     "66 cm²",
                     "72 cm²"
                 ],
-                answer: 1,
+                answer: 0,
                 explanation: "Keliling = 2(p + l) => 32 = 2((2x+3) + (x+1)) => 16 = 3x + 4 => 3x = 12 => x = 4. Maka p = 2(4)+3 = 11 cm dan l = 4+1 = 5 cm. Luas = 11 x 5 = 55 cm²."
             },
             {
@@ -312,6 +411,39 @@ const quizCategories = {
                 ],
                 answer: 2,
                 explanation: "3^(x+1) = 3^4 => x + 1 = 4 => x = 3. Nilai 2^(2(3) - 1) = 2^5 = 32."
+            },
+            {
+                question: "Persamaan garis yang melalui titik (2, 5) dan tegak lurus terhadap garis y = 2x - 3 adalah...",
+                options: [
+                    "y = -1/2 x + 6",
+                    "y = -2x + 9",
+                    "y = 1/2 x + 4",
+                    "y = -1/2 x + 4"
+                ],
+                answer: 0,
+                explanation: "Gradien garis asal m1 = 2. Karena tegak lurus, m2 = -1/m1 = -1/2. Persamaan garis: y - 5 = -1/2(x - 2) => y = -1/2 x + 1 + 5 => y = -1/2 x + 6."
+            },
+            {
+                question: "Nilai median dari data berurutan: 4, 5, 7, 8, x, 12, 14 adalah 8. Nilai x yang mungkin agar jangkauan data tersebut adalah 10 adalah...",
+                options: [
+                    "8",
+                    "9",
+                    "10",
+                    "11"
+                ],
+                answer: 0,
+                explanation: "Urutan 7 data: median ada di suku ke-4 yaitu 8. Jangkauan = Nilai Maksimum - Nilai Minimum = 14 - 4 = 10. Maka x bisa bernilai 8 (posisi ke-5) sehingga nilai median tetap 8 dan jangkauan 10."
+            },
+            {
+                question: "Dalam suatu kelompok terdiri dari 30 siswa, 18 siswa menyukai matematika, 15 siswa menyukai bahasa Inggris, dan 5 siswa tidak menyukai keduanya. Banyak siswa yang menyukai KEDUANYA adalah...",
+                options: [
+                    "5 orang",
+                    "8 orang",
+                    "10 orang",
+                    "12 orang"
+                ],
+                answer: 1,
+                explanation: "Total siswa menyukai minimal satu pelajaran = 30 - 5 = 25. Jumlah (M + B) = 18 + 15 = 33. Suka keduanya = 33 - 25 = 8 orang."
             },
 
             // --- Penalaran Logis & Analitis ---
@@ -347,6 +479,28 @@ const quizCategories = {
                 ],
                 answer: 1,
                 explanation: "Urutan lokal: Anton > Budi > Candra. Dedi > Candra. Terlihat jelas bahwa Candra dikalahkan oleh Budi maupun Dedi, sehingga posisi Candra terbawah di antara grup tersebut."
+            },
+            {
+                question: "Jika hari ini hujan deras, maka jalanan macet. Jika jalanan macet, maka Budi datang terlambat ke sekolah. Kesimpulan yang sah berdasarkan logika matematika adalah...",
+                options: [
+                    "Jika hari ini tidak hujan, maka jalanan tidak macet",
+                    "Jika hari ini hujan deras, maka Budi datang terlambat ke sekolah",
+                    "Jika Budi tidak terlambat, maka hari ini hujan deras",
+                    "Budi tidak pernah terlambat ke sekolah"
+                ],
+                answer: 1,
+                explanation: "Hukum Silogisme: p -> q dan q -> r, maka kesimpulannya adalah p -> r (Jika hari ini hujan deras, maka Budi datang terlambat ke sekolah)."
+            },
+            {
+                question: "Semua komputer canggih memerlukan daya listrik stabil. Sebagian perangkat kantor adalah komputer canggih. Kesimpulan yang tepat adalah...",
+                options: [
+                    "Semua perangkat kantor memerlukan daya listrik stabil",
+                    "Sebagian perangkat kantor memerlukan daya listrik stabil",
+                    "Tidak ada perangkat kantor yang memerlukan daya listrik stabil",
+                    "Semua perangkat kantor bukan komputer canggih"
+                ],
+                answer: 1,
+                explanation: "Karena hanya sebagian perangkat kantor yang merupakan komputer canggih, maka hanya sebagian perangkat kantor tersebut yang memerlukan daya listrik stabil."
             },
 
             // --- Literasi Bahasa Indonesia & Bahasa Inggris ---
@@ -459,6 +613,61 @@ const quizCategories = {
                 ],
                 answer: 1,
                 explanation: "Bentuk baku: kualitas (bukan kwalitas), analisis (bukan analisa), perizinan (bukan perijinan), teknik (bukan tehnik)."
+            },
+            {
+                question: "Gagasan utama paragraf ditentukan oleh letak kalimat utamanya. Paragraf yang kalimat utamanya terletak di awal paragraf disebut paragraf...",
+                options: [
+                    "Induktif",
+                    "Deduktif",
+                    "Campuran",
+                    "Naratif"
+                ],
+                answer: 1,
+                explanation: "Paragraf Deduktif adalah paragraf yang gagasan utamanya terletak di awal paragraf."
+            },
+            {
+                question: "The author's primary purpose in writing a scientific research paper is to...",
+                options: [
+                    "Entertain readers with fictional stories",
+                    "Persuade readers to buy a specific commercial product",
+                    "Present empirical evidence and objective findings to inform the scientific community",
+                    "Express personal emotional experiences"
+                ],
+                answer: 2,
+                explanation: "Tujuan utama artikel ilmiah adalah menyajikan bukti empiris dan temuan obyektif kepada komunitas ilmiah."
+            },
+            {
+                question: "Antonim (lawan kata) yang paling tepat untuk kata 'SKEPTIS' adalah...",
+                options: [
+                    "Apatis",
+                    "Optimis / Yakin",
+                    "Ragu-ragu",
+                    "Kritis"
+                ],
+                answer: 1,
+                explanation: "Skeptis berarti kurang percaya atau ragu-ragu. Lawan katanya adalah yakin / percaya / optimis."
+            },
+            {
+                question: "Di antara kata-kata berikut, manakah penulisan kata berimbuhan yang BAKU?",
+                options: [
+                    "Mempratikkannya",
+                    "Mempraktikkannya",
+                    "Memperatikkannya",
+                    "Memraktekannya"
+                ],
+                answer: 1,
+                explanation: "Kata dasar 'praktik' (baku). Imbuhan me-kan pada kata berawalan p meluluh menjadi m: mempraktikkannya."
+            },
+            {
+                question: "Although the negotiation was lengthy and full of debates, both parties finally reached a consensus. The word 'consensus' means...",
+                options: [
+                    "A total disagreement",
+                    "A general agreement",
+                    "A financial loss",
+                    "A sudden cancellation"
+                ],
+                answer: 1,
+                explanation: "Consensus artinya kesepakatan bersama (general agreement)."
             }
         ]
     }
