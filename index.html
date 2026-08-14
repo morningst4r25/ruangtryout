@@ -1,38 +1,63 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ruang Tryout - CPNS & UTBK</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#2563eb">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruang Tryout - CPNS & UTBK</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <style>
+        footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+        .footer-links {
+            margin-top: 8px;
+        }
+        .footer-links a {
+            color: #1a73e8;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <div class="header-container">
+            <h1>Ruang Tryout</h1>
+            <nav>
+                <a href="index.html">Latihan Soal</a>
+            </nav>
+        </div>
+    </header>
 
-  <header class="app-header">
-    <h1>Ruang Tryout</h1>
-    <div id="timer">Latihan Soal</div>
-  </header>
+    <main class="container">
+        <div id="quiz-card" class="card">
+            <div id="quiz-header">
+                <span id="question-number">Soal 1</span>
+            </div>
+            <div id="question-text">Memuat soal...</div>
+            <div id="options-container"></div>
+            <button id="next-btn" class="btn primary-btn">Selanjutnya</button>
+        </div>
+    </main>
 
-  <main class="quiz-container">
-    <div id="quiz-box">
-      <div id="question-number">Soal 1</div>
-      <p id="question-text">Memuat soal...</p>
-      <div id="options-container" class="options-group"></div>
-      
-      <div class="nav-buttons">
-        <button id="next-btn" onclick="nextQuestion()">Selanjutnya</button>
-      </div>
-    </div>
+    <footer>
+        <p>&copy; 2026 Ruang Tryout. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="about.html">Tentang Kami</a> | 
+            <a href="privacy.html">Kebijakan Privasi</a> | 
+            <a href="contact.html">Kontak Kami</a>
+        </div>
+    </footer>
 
-    <div id="result-box" class="hidden">
-      <h2>Hasil Simulasi</h2>
-      <p id="score-text">Skor Anda: 0</p>
-      <button onclick="restartQuiz()">Coba Lagi</button>
-    </div>
-  </main>
-
-  <script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
