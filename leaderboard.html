@@ -4,54 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Papan Peringkat Klasemen - Ruang Tryout</title>
+    <meta name="theme-color" content="#ffffff">
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
 
-    <!-- Header Navbar -->
-    <header class="bg-white border-b border-slate-200 py-4 px-4 sm:px-8 flex justify-between items-center sticky top-0 z-50">
-        <a href="index.html" class="flex items-center space-x-2">
-            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white text-base">
-                R
-            </div>
-            <span class="text-lg font-bold text-slate-900">Ruang<span class="text-blue-600">Tryout</span></span>
-        </a>
-        <a href="index.html" class="text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl border border-slate-300 transition">
-            🏠 Kembali ke Beranda
-        </a>
+    <!-- NAVBAR HEADER -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="index.html" class="flex items-center space-x-2.5">
+                <div class="w-9 h-9 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center font-black text-white text-lg shadow-md shadow-blue-500/20">
+                    R
+                </div>
+                <span class="text-xl font-black tracking-tight text-slate-900">
+                    Ruang<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Tryout</span>
+                </span>
+            </a>
+            <a href="index.html" class="text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-2 rounded-xl border border-slate-300 transition flex items-center gap-1.5">
+                🏠 Kembali ke Beranda
+            </a>
+        </div>
     </header>
 
-    <!-- Content Utama -->
-    <main class="max-w-4xl w-full mx-auto p-4 sm:p-6 my-6 flex-1">
-        <div class="text-center mb-8">
-            <span class="bg-blue-50 text-blue-600 text-xs font-bold px-3 py-1 rounded-full border border-blue-100 uppercase tracking-wider">Papan Peringkat Real-Time</span>
-            <h1 class="text-3xl font-black text-slate-900 mt-3 mb-2">🏆 Klasemen Skor Peserta</h1>
-            <p class="text-slate-600 text-sm">Peringkat tertinggi peserta yang telah menyelesaikan simulasi kuis BKN & SNPMB.</p>
+    <!-- MAIN CONTENT -->
+    <main class="max-w-5xl mx-auto px-4 py-10 w-full flex-1">
+        <div class="text-center space-y-3 mb-8">
+            <span class="bg-blue-50 border border-blue-200 text-blue-700 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                PAPAN PERINGKAT REAL-TIME
+            </span>
+            <h1 class="text-3xl sm:text-4xl font-black text-slate-900">🏆 Klasemen Skor Peserta</h1>
+            <p class="text-xs sm:text-sm text-slate-500 max-w-md mx-auto">
+                Peringkat tertinggi peserta yang telah menyelesaikan simulasi kuis BKN & SNPMB.
+            </p>
         </div>
 
-        <!-- Filter Kategori -->
-        <div class="flex justify-center gap-3 mb-6">
-            <button onclick="loadLeaderboard('cpns')" id="btn-cpns" class="px-5 py-2.5 rounded-xl font-bold text-xs bg-blue-600 text-white shadow-md transition">🏛️ CPNS & PPPK</button>
-            <button onclick="loadLeaderboard('utbk')" id="btn-utbk" class="px-5 py-2.5 rounded-xl font-bold text-xs bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition">🎓 UTBK SNBT</button>
+        <!-- TAB TOGGLE KATEGORI -->
+        <div class="flex justify-center gap-3 mb-8">
+            <button id="btn-cpns" onclick="switchCategory('CPNS')" class="px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all bg-blue-600 text-white shadow-md">
+                🏛️ CPNS & PPPK
+            </button>
+            <button id="btn-utbk" onclick="switchCategory('UTBK')" class="px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all bg-white text-slate-600 border border-slate-200 hover:bg-slate-100">
+                🎓 UTBK SNBT
+            </button>
         </div>
 
-        <!-- Tabel Klasemen -->
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <!-- TABEL KLASEMEN -->
+        <div class="bg-white border border-slate-200/80 rounded-2xl shadow-sm overflow-hidden">
             <div class="overflow-x-auto">
-                <table class="w-full text-left text-sm">
-                    <thead class="bg-slate-100 text-slate-600 text-xs uppercase font-bold border-b border-slate-200">
-                        <tr>
-                            <th class="py-3.5 px-4 text-center">Rank</th>
-                            <th class="py-3.5 px-4">Nama Peserta</th>
-                            <th class="py-3.5 px-4 text-center">Skor Akhir</th>
-                            <th class="py-3.5 px-4 text-center">Persentase</th>
-                            <th class="py-3.5 px-4 text-center">Waktu Tempuh</th>
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                            <th class="py-3.5 px-4 text-center w-16">RANK</th>
+                            <th class="py-3.5 px-4">NAMA PESERTA</th>
+                            <th class="py-3.5 px-4 text-center">SKOR AKHIR</th>
+                            <th class="py-3.5 px-4 text-center">PERSENTASE</th>
+                            <th class="py-3.5 px-4 text-center">WAKTU TANGGAL</th>
                         </tr>
                     </thead>
-                    <tbody id="leaderboard-body" class="divide-y divide-slate-100">
+                    <tbody id="leaderboard-body" class="divide-y divide-slate-100 text-xs sm:text-sm">
                         <tr>
-                            <td colspan="5" class="text-center py-12 text-slate-400 font-medium animate-pulse">Menghubungkan ke Cloud Database...</td>
+                            <td colspan="5" class="text-center py-10 text-slate-400 animate-pulse font-medium">
+                                Memuat data papan peringkat...
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -59,8 +75,8 @@
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="py-4 text-center text-xs text-slate-500 border-t border-slate-200 bg-white">
+    <!-- FOOTER MINIMALIS -->
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-400">
         &copy; 2026 Ruang Tryout. Papan Peringkat Resmi Terintegrasi Cloud Firebase.
     </footer>
 
@@ -71,64 +87,106 @@
     <script src="firebase-config.js"></script>
 
     <script>
-        function loadLeaderboard(categoryKey) {
-            const body = document.getElementById("leaderboard-body");
-            body.innerHTML = `<tr><td colspan="5" class="text-center py-12 text-slate-400 font-medium animate-pulse">Memuat daftar peringkat terbaru...</td></tr>`;
+        let currentCategory = "CPNS";
 
-            document.getElementById("btn-cpns").className = categoryKey === 'cpns' ? "px-5 py-2.5 rounded-xl font-bold text-xs bg-blue-600 text-white shadow-md transition" : "px-5 py-2.5 rounded-xl font-bold text-xs bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition";
-            document.getElementById("btn-utbk").className = categoryKey === 'utbk' ? "px-5 py-2.5 rounded-xl font-bold text-xs bg-blue-600 text-white shadow-md transition" : "px-5 py-2.5 rounded-xl font-bold text-xs bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition";
+        function switchCategory(cat) {
+            currentCategory = cat;
+            
+            const btnCpns = document.getElementById("btn-cpns");
+            const btnUtbk = document.getElementById("btn-utbk");
 
+            if (cat === "CPNS") {
+                btnCpns.className = "px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all bg-blue-600 text-white shadow-md";
+                btnUtbk.className = "px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all bg-white text-slate-600 border border-slate-200 hover:bg-slate-100";
+            } else {
+                btnUtbk.className = "px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all bg-emerald-600 text-white shadow-md";
+                btnCpns.className = "px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all bg-white text-slate-600 border border-slate-200 hover:bg-slate-100";
+            }
+
+            fetchLeaderboardData();
+        }
+
+        function fetchLeaderboardData() {
+            const tableBody = document.getElementById("leaderboard-body");
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="5" class="text-center py-10 text-slate-400 animate-pulse font-medium">
+                        Memuat data papan peringkat...
+                    </td>
+                </tr>
+            `;
+
+            // Ambil data tanpa orderBy di Firestore agar TIDAK melempar error Missing Index
             db.collection("leaderboard")
-                .where("category", "==", categoryKey)
-                .orderBy("score", "desc")
-                .orderBy("timeSpentSeconds", "asc")
-                .limit(50)
+                .where("category", "==", currentCategory)
                 .get()
                 .then((querySnapshot) => {
                     if (querySnapshot.empty) {
-                        body.innerHTML = `<tr><td colspan="5" class="text-center py-12 text-slate-400">Belum ada skor peserta yang tercatat untuk kategori ini.</td></tr>`;
+                        tableBody.innerHTML = `
+                            <tr>
+                                <td colspan="5" class="text-center py-10 text-slate-400 font-medium">
+                                    Belum ada skor yang tercatat untuk kategori ini.
+                                </td>
+                            </tr>
+                        `;
                         return;
                     }
 
-                    let html = "";
-                    let rank = 1;
-
+                    let records = [];
                     querySnapshot.forEach((doc) => {
-                        const data = doc.data();
-                        let badge = `#${rank}`;
-                        if (rank === 1) badge = "🥇";
-                        if (rank === 2) badge = "🥈";
-                        if (rank === 3) badge = "🥉";
-
-                        const minutes = Math.floor(data.timeSpentSeconds / 60);
-                        const seconds = data.timeSpentSeconds % 60;
-                        const timeStr = `${minutes}m ${seconds}s`;
-
-                        html += `
-                            <tr class="hover:bg-slate-50 transition">
-                                <td class="py-3.5 px-4 text-center font-extrabold text-base">${badge}</td>
-                                <td class="py-3.5 px-4 flex items-center gap-3">
-                                    <img src="${data.userPhoto || 'https://via.placeholder.com/40'}" class="w-8 h-8 rounded-full border border-slate-200" alt="avatar">
-                                    <span class="font-bold text-slate-900">${data.userName}</span>
-                                </td>
-                                <td class="py-3.5 px-4 text-center font-black text-blue-600 text-base">${data.score} / ${data.totalQuestions}</td>
-                                <td class="py-3.5 px-4 text-center font-bold text-emerald-600">${data.percentage}%</td>
-                                <td class="py-3.5 px-4 text-center text-xs font-semibold text-slate-500">${timeStr}</td>
-                            </tr>
-                        `;
-                        rank++;
+                        records.push(doc.data());
                     });
 
-                    body.innerHTML = html;
+                    // Urutkan skor tertinggi ke terendah secara lokal (Client-Side)
+                    records.sort((a, b) => (b.score || 0) - (a.score || 0));
+
+                    let htmlContent = "";
+                    records.forEach((data, index) => {
+                        const rank = index + 1;
+                        let rankBadge = `<span class="font-bold text-slate-400">#${rank}</span>`;
+                        if (rank === 1) rankBadge = `<span class="text-xl">🥇</span>`;
+                        else if (rank === 2) rankBadge = `<span class="text-xl">🥈</span>`;
+                        else if (rank === 3) rankBadge = `<span class="text-xl">🥉</span>`;
+
+                        let formattedDate = "-";
+                        if (data.timestamp && data.timestamp.toDate) {
+                            const dateObj = data.timestamp.toDate();
+                            formattedDate = dateObj.toLocaleDateString("id-ID", { day: 'numeric', month: 'short', year: 'numeric' });
+                        }
+
+                        htmlContent += `
+                            <tr class="hover:bg-slate-50/80 transition-colors">
+                                <td class="py-4 px-4 text-center font-bold">${rankBadge}</td>
+                                <td class="py-4 px-4">
+                                    <div class="flex items-center gap-3">
+                                        <img src="${data.photoURL || 'https://via.placeholder.com/32'}" class="w-8 h-8 rounded-full border border-slate-200 shrink-0" alt="Avatar">
+                                        <span class="font-bold text-slate-800">${data.name || 'Peserta Anonim'}</span>
+                                    </div>
+                                </td>
+                                <td class="py-4 px-4 text-center font-black text-blue-600 text-base">${data.score || 0}</td>
+                                <td class="py-4 px-4 text-center font-bold text-slate-600">${data.score || 0}%</td>
+                                <td class="py-4 px-4 text-center text-slate-400 text-xs">${formattedDate}</td>
+                            </tr>
+                        `;
+                    });
+
+                    tableBody.innerHTML = htmlContent;
                 })
                 .catch((error) => {
-                    console.error("Error fetching leaderboard:", error);
-                    body.innerHTML = `<tr><td colspan="5" class="text-center py-12 text-red-500">Gagal memuat papan peringkat. Pastikan koneksi aman.</td></tr>`;
+                    console.error("Firestore Error:", error);
+                    tableBody.innerHTML = `
+                        <tr>
+                            <td colspan="5" class="text-center py-10 text-red-500 font-medium">
+                                Gagal memuat data: ${error.message}
+                            </td>
+                        </tr>
+                    `;
                 });
         }
 
+        // Jalankan saat halaman siap
         document.addEventListener("DOMContentLoaded", () => {
-            loadLeaderboard('cpns');
+            fetchLeaderboardData();
         });
     </script>
 </body>
