@@ -64,15 +64,16 @@
         </div>
     </section>
 
-    <!-- PILIHAN PROGRAM KUIS -->
+    <!-- PILIHAN PROGRAM KUIS (PROTECTED LINKS) -->
     <main id="pilihan-program" class="max-w-4xl mx-auto px-4 py-8 relative z-20 w-full">
         <div class="text-center mb-8">
             <h2 class="text-2xl font-bold text-slate-900 mb-2">Pilih Program Simulasi CAT</h2>
-            <p class="text-slate-600 text-sm">Klik salah satu program di bawah ini untuk membuka Lembar Ujian Khusus:</p>
+            <p class="text-slate-600 text-sm">Login Google diperlukan untuk memulai dan mencatat skor simulasi:</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <a href="exam.html?cat=cpns" class="block bg-white border border-slate-200 hover:border-blue-500 shadow-sm hover:shadow-xl p-6 rounded-2xl transition-all hover:-translate-y-1 group">
+            <!-- Card CPNS -->
+            <div onclick="startProtectedExam('cpns')" class="cursor-pointer bg-white border border-slate-200 hover:border-blue-500 shadow-sm hover:shadow-xl p-6 rounded-2xl transition-all hover:-translate-y-1 group">
                 <div class="flex justify-between items-center mb-4">
                     <span class="text-3xl bg-blue-50 p-3 rounded-xl border border-blue-100">🏛️</span>
                     <span class="bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1 rounded-full border border-blue-100">100 Soal HOTS</span>
@@ -81,11 +82,12 @@
                 <p class="text-xs text-slate-600 leading-relaxed mb-6">Latihan Soal SKD Lengkap: TWK, TIU, & TKP Berstandar BKN.</p>
                 <div class="flex justify-between items-center pt-4 border-t border-slate-100 text-xs font-bold text-blue-600">
                     <span>⏱️ Waktu: 90 Menit</span>
-                    <span>Buka Lembar Ujian →</span>
+                    <span>Buka Lembar Ujian 🔒 →</span>
                 </div>
-            </a>
+            </div>
 
-            <a href="exam.html?cat=utbk" class="block bg-white border border-slate-200 hover:border-emerald-500 shadow-sm hover:shadow-xl p-6 rounded-2xl transition-all hover:-translate-y-1 group">
+            <!-- Card UTBK -->
+            <div onclick="startProtectedExam('utbk')" class="cursor-pointer bg-white border border-slate-200 hover:border-emerald-500 shadow-sm hover:shadow-xl p-6 rounded-2xl transition-all hover:-translate-y-1 group">
                 <div class="flex justify-between items-center mb-4">
                     <span class="text-3xl bg-emerald-50 p-3 rounded-xl border border-emerald-100">🎓</span>
                     <span class="bg-emerald-50 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full border border-emerald-100">100 Soal HOTS</span>
@@ -94,9 +96,9 @@
                 <p class="text-xs text-slate-600 leading-relaxed mb-6">Latihan Soal TPS, Penalaran Kuantitatif, & Literasi.</p>
                 <div class="flex justify-between items-center pt-4 border-t border-slate-100 text-xs font-bold text-emerald-600">
                     <span>⏱️ Waktu: 90 Menit</span>
-                    <span>Buka Lembar Ujian →</span>
+                    <span>Buka Lembar Ujian 🔒 →</span>
                 </div>
-            </a>
+            </div>
         </div>
     </main>
 
@@ -147,8 +149,10 @@
     <script src="firebase-config.js"></script>
 
     <script>
-        // Deteksi Status Login Peserta
+        let currentUserState = null;
+
         auth.onAuthStateChanged((user) => {
+            currentUserState = user;
             const authContainer = document.getElementById("auth-container");
             if (user) {
                 authContainer.innerHTML = `
@@ -160,8 +164,24 @@
                         </button>
                     </div>
                 `;
+            } else {
+                authContainer.innerHTML = `
+                    <button onclick="loginWithGoogle()" class="text-xs sm:text-sm font-bold bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl shadow-md transition-all flex items-center gap-2">
+                        🔑 Masuk / Login Google
+                    </button>
+                `;
             }
         });
+
+        // Fungsi Membuka Ujian Terproteksi
+        function startProtectedExam(category) {
+            if (currentUserState) {
+                window.location.href = `exam.html?cat=${category}`;
+            } else {
+                alert("🔒 Akses Terkunci! Anda harus login menggunakan Akun Google terlebih dahulu untuk mengerjakan soal simulasi.");
+                loginWithGoogle();
+            }
+        }
     </script>
 </body>
 </html>
