@@ -6,139 +6,376 @@
     <title>Ruang Tryout - Platform Simulasi CAT CPNS & UTBK SNBT Gratis</title>
     <meta name="description" content="Platform latihan soal CAT CPNS & UTBK SNBT 100% gratis dengan ribuan soal HOTS, timer real-time, dan pembahasan instan.">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#2563eb">
+    
+    <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="style.css">
+    
+    <style>
+        .bg-grid-pattern {
+            background-size: 30px 30px;
+            background-image: 
+                linear-gradient(to right, rgba(226, 232, 240, 0.4) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(226, 232, 240, 0.4) 1px, transparent 1px);
+        }
+        .glow-effect {
+            box-shadow: 0 0 50px -10px rgba(37, 99, 235, 0.25);
+        }
+    </style>
 </head>
-<body class="bg-white text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-blue-600 selection:text-white">
 
-    <!-- NAVBAR HEADER -->
-    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-200/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <a href="#" class="flex items-center space-x-2.5">
-                <div class="w-9 h-9 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center font-black text-white text-lg shadow-md shadow-blue-500/20">
+    <!-- NAVBAR HEADER GLASSMORPHISM -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200/80 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- LOGO BRAND -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center font-black text-white text-xl shadow-lg shadow-blue-500/30 group-hover:scale-105 transition-transform duration-300">
                     R
                 </div>
-                <span class="text-xl font-black tracking-tight text-slate-900">
-                    Ruang<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Tryout</span>
-                </span>
+                <div class="flex flex-col">
+                    <span class="text-xl font-black tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors">
+                        Ruang<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Tryout</span>
+                    </span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400 -mt-1">CAT Simulation Platform</span>
+                </div>
             </a>
 
+            <!-- NAV LINKS -->
             <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-600">
-                <a href="#pilihan-program" class="hover:text-blue-600 transition">Program Ujian</a>
-                <a href="leaderboard.html" class="hover:text-blue-600 transition flex items-center gap-1 font-bold text-blue-600">🏆 Papan Peringkat</a>
-                <a href="#keunggulan" class="hover:text-blue-600 transition">Keunggulan</a>
-                <a href="#testimoni" class="hover:text-blue-600 transition">Testimoni</a>
+                <a href="#pilihan-program" class="hover:text-blue-600 transition-colors">Program Ujian</a>
+                <a href="leaderboard.html" class="hover:text-blue-600 transition-colors flex items-center gap-1.5 text-blue-600 font-bold bg-blue-50 px-3 py-1.5 rounded-full border border-blue-100">
+                    🏆 Klasemen Global
+                </a>
+                <a href="#keunggulan" class="hover:text-blue-600 transition-colors">Keunggulan</a>
+                <a href="#testimoni" class="hover:text-blue-600 transition-colors">Testimoni</a>
             </nav>
 
+            <!-- AUTH CONTAINER BUTTON -->
             <div id="auth-container">
-                <button onclick="loginWithGoogle()" class="text-xs sm:text-sm font-bold bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl shadow-md transition-all flex items-center gap-2">
-                    🔑 Masuk / Login Google
+                <button onclick="loginWithGoogle()" class="text-xs sm:text-sm font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-5 py-2.5 rounded-2xl shadow-lg shadow-blue-500/25 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                    <span>🔑</span> Masuk / Login Google
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- HERO BANNER -->
-    <section class="relative pt-16 pb-12 overflow-hidden bg-gradient-to-b from-blue-50/60 via-white to-white">
-        <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-            <div class="inline-flex items-center space-x-2 bg-blue-50 border border-blue-200/80 text-blue-700 text-xs font-bold px-4 py-1.5 rounded-full">
-                <span class="inline-block w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-                <span>100% GRATIS • TANPA BIAYA TERSEMBUNYI</span>
+    <!-- HERO SECTION WITH MODERN GRADIENT & BACKGROUND GRID -->
+    <section class="relative pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden bg-grid-pattern">
+        <!-- Background Blur Orbs -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-blue-400/20 via-indigo-400/20 to-purple-400/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+            
+            <!-- Badge Announcement -->
+            <div class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200/80 text-blue-700 text-xs font-extrabold px-4 py-2 rounded-full shadow-sm hover:shadow transition-shadow">
+                <span class="flex h-2 w-2 relative">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+                </span>
+                <span>✨ SIMULASI CAT STANDAR BKN & SNPMB 2026</span>
             </div>
 
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-slate-900">
-                Simulasi Ujian CAT CPNS & UTBK SNBT <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-600">Terlengkap</span>
+            <!-- Main Heading -->
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 leading-[1.15]">
+                Taklukkan Ujian CAT dengan <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">Simulasi Presisi</span>
             </h1>
 
-            <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-                Asah kemampuanmu dengan bank soal HOTS standar BKN & SNPMB, dilengkapi sistem timer real-time, evaluasi jawaban instan, dan pembahasan komprehensif.
+            <!-- Subheading -->
+            <p class="text-base sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed font-normal">
+                Persiapkan diri mengadapi ujian <strong class="text-slate-800">CPNS SKD</strong> dan <strong class="text-slate-800">UTBK SNBT</strong> dengan bank soal HOTS terupdate, timer otomatis 90 menit, dan sistem evaluasi real-time.
             </p>
 
-            <div class="pt-2 flex flex-wrap justify-center items-center gap-3 text-xs font-semibold text-slate-700">
-                <a href="leaderboard.html" class="bg-blue-50 text-blue-700 border border-blue-200 shadow-sm px-4 py-2 rounded-xl flex items-center gap-2 font-bold hover:bg-blue-100 transition">
-                    🏆 Lihat Klasemen Peserta Global →
+            <!-- CTA Action Buttons -->
+            <div class="pt-2 flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="#pilihan-program" class="w-full sm:w-auto text-sm font-extrabold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-4 rounded-2xl shadow-xl shadow-blue-600/30 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2.5">
+                    🚀 Pilih Program Ujian
+                </a>
+                <a href="leaderboard.html" class="w-full sm:w-auto text-sm font-extrabold bg-white hover:bg-slate-100 text-slate-700 px-8 py-4 rounded-2xl border border-slate-300 shadow-sm transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                    🏆 Klasemen Peserta Global
                 </a>
             </div>
+
+            <!-- STATS COUNTER BAR -->
+            <div class="pt-10 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                <div class="bg-white/80 backdrop-blur-sm p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+                    <div class="text-2xl font-black text-blue-600">200+</div>
+                    <div class="text-xs font-semibold text-slate-500">Soal Standar HOTS</div>
+                </div>
+                <div class="bg-white/80 backdrop-blur-sm p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+                    <div class="text-2xl font-black text-indigo-600">100%</div>
+                    <div class="text-xs font-semibold text-slate-500">Akses Gratis</div>
+                </div>
+                <div class="bg-white/80 backdrop-blur-sm p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+                    <div class="text-2xl font-black text-purple-600">90 Mnt</div>
+                    <div class="text-xs font-semibold text-slate-500">Timer Real-Time</div>
+                </div>
+                <div class="bg-white/80 backdrop-blur-sm p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+                    <div class="text-2xl font-black text-emerald-600">Real-Time</div>
+                    <div class="text-xs font-semibold text-slate-500">Ranking Firestore</div>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <!-- PILIHAN PROGRAM KUIS (PROTECTED LINKS) -->
-    <main id="pilihan-program" class="max-w-4xl mx-auto px-4 py-8 relative z-20 w-full">
-        <div class="text-center mb-8">
-            <h2 class="text-2xl font-bold text-slate-900 mb-2">Pilih Program Simulasi CAT</h2>
-            <p class="text-slate-600 text-sm">Login Google diperlukan untuk memulai dan mencatat skor simulasi:</p>
+    <!-- PILIHAN PROGRAM KUIS (CARDS PROGRAM UJIAN MODERN) -->
+    <main id="pilihan-program" class="max-w-6xl mx-auto px-4 py-16 w-full relative z-20">
+        <div class="text-center space-y-3 mb-12">
+            <span class="text-xs font-extrabold text-blue-600 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                PROGRAM SIMULASI UTAMA
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-black text-slate-900">Pilih Jalur Ujian Anda</h2>
+            <p class="text-slate-500 text-sm max-w-md mx-auto">
+                Login Google diperlukan untuk membuka ruang ujian dan mencatat nilai ke leaderboard global.
+            </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Card CPNS -->
-            <div onclick="startProtectedExam('cpns')" class="cursor-pointer bg-white border border-slate-200 hover:border-blue-500 shadow-sm hover:shadow-xl p-6 rounded-2xl transition-all hover:-translate-y-1 group">
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-3xl bg-blue-50 p-3 rounded-xl border border-blue-100">🏛️</span>
-                    <span class="bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1 rounded-full border border-blue-100">100 Soal HOTS</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- CARD CPNS -->
+            <div onclick="startProtectedExam('cpns')" class="group relative bg-white border border-slate-200/90 hover:border-blue-500/80 shadow-md hover:shadow-2xl hover:shadow-blue-500/10 p-8 rounded-3xl transition-all duration-300 transform hover:-translate-y-1.5 cursor-pointer flex flex-col justify-between overflow-hidden">
+                <!-- Top Accent Line -->
+                <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-blue-600 to-indigo-600"></div>
+
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-blue-50 rounded-2xl border border-blue-100 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
+                            🏛️
+                        </div>
+                        <span class="bg-blue-100/80 text-blue-800 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-blue-200">
+                            100 Soal HOTS
+                        </span>
+                    </div>
+
+                    <h3 class="text-2xl font-black text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">
+                        CPNS & PPPK (SKD Full)
+                    </h3>
+                    <p class="text-xs sm:text-sm text-slate-500 leading-relaxed mb-6">
+                        Simulasi lengkap Tes Wawasan Kebangsaan (TWK), Tes Inteligensia Umum (TIU), dan Tes Karakteristik Pribadi (TKP) sesuai standar BKN.
+                    </p>
+
+                    <!-- Feature Tags -->
+                    <div class="flex flex-wrap gap-2 mb-8 text-xs font-bold text-slate-600">
+                        <span class="bg-slate-100 px-3 py-1 rounded-lg">TWK (30 Soal)</span>
+                        <span class="bg-slate-100 px-3 py-1 rounded-lg">TIU (35 Soal)</span>
+                        <span class="bg-slate-100 px-3 py-1 rounded-lg">TKP (35 Soal)</span>
+                    </div>
                 </div>
-                <h3 class="text-xl font-extrabold text-slate-900 mb-2 group-hover:text-blue-600 transition">CPNS & PPPK (Soal HOTS)</h3>
-                <p class="text-xs text-slate-600 leading-relaxed mb-6">Latihan Soal SKD Lengkap: TWK, TIU, & TKP Berstandar BKN.</p>
-                <div class="flex justify-between items-center pt-4 border-t border-slate-100 text-xs font-bold text-blue-600">
-                    <span>⏱️ Waktu: 90 Menit</span>
-                    <span>Buka Lembar Ujian 🔒 →</span>
+
+                <div class="pt-6 border-t border-slate-100 flex items-center justify-between">
+                    <div class="flex items-center gap-1.5 text-xs font-extrabold text-slate-500">
+                        <span>⏱️ Waktu: 90 Menit</span>
+                    </div>
+                    <span class="text-xs font-extrabold text-blue-600 group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                        Buka Ujian 🔒 →
+                    </span>
                 </div>
             </div>
 
-            <!-- Card UTBK -->
-            <div onclick="startProtectedExam('utbk')" class="cursor-pointer bg-white border border-slate-200 hover:border-emerald-500 shadow-sm hover:shadow-xl p-6 rounded-2xl transition-all hover:-translate-y-1 group">
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-3xl bg-emerald-50 p-3 rounded-xl border border-emerald-100">🎓</span>
-                    <span class="bg-emerald-50 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full border border-emerald-100">100 Soal HOTS</span>
+            <!-- CARD UTBK -->
+            <div onclick="startProtectedExam('utbk')" class="group relative bg-white border border-slate-200/90 hover:border-emerald-500/80 shadow-md hover:shadow-2xl hover:shadow-emerald-500/10 p-8 rounded-3xl transition-all duration-300 transform hover:-translate-y-1.5 cursor-pointer flex flex-col justify-between overflow-hidden">
+                <!-- Top Accent Line -->
+                <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-emerald-500 to-teal-600"></div>
+
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-emerald-50 rounded-2xl border border-emerald-100 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
+                            🎓
+                        </div>
+                        <span class="bg-emerald-100/80 text-emerald-800 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-emerald-200">
+                            100 Soal HOTS
+                        </span>
+                    </div>
+
+                    <h3 class="text-2xl font-black text-slate-900 mb-3 group-hover:text-emerald-600 transition-colors">
+                        UTBK / SNBT (TPS & Literasi)
+                    </h3>
+                    <p class="text-xs sm:text-sm text-slate-500 leading-relaxed mb-6">
+                        Latihan Tes Potensi Skolastik (TPS), Penalaran Kuantitatif, serta Literasi Bahasa Indonesia & Bahasa Inggris standar SNPMB.
+                    </p>
+
+                    <!-- Feature Tags -->
+                    <div class="flex flex-wrap gap-2 mb-8 text-xs font-bold text-slate-600">
+                        <span class="bg-slate-100 px-3 py-1 rounded-lg">TPS Kuantitatif (40 Soal)</span>
+                        <span class="bg-slate-100 px-3 py-1 rounded-lg">Literasi Ind/Eng (60 Soal)</span>
+                    </div>
                 </div>
-                <h3 class="text-xl font-extrabold text-slate-900 mb-2 group-hover:text-emerald-600 transition">UTBK / SNBT (TPS & Literasi)</h3>
-                <p class="text-xs text-slate-600 leading-relaxed mb-6">Latihan Soal TPS, Penalaran Kuantitatif, & Literasi.</p>
-                <div class="flex justify-between items-center pt-4 border-t border-slate-100 text-xs font-bold text-emerald-600">
-                    <span>⏱️ Waktu: 90 Menit</span>
-                    <span>Buka Lembar Ujian 🔒 →</span>
+
+                <div class="pt-6 border-t border-slate-100 flex items-center justify-between">
+                    <div class="flex items-center gap-1.5 text-xs font-extrabold text-slate-500">
+                        <span>⏱️ Waktu: 90 Menit</span>
+                    </div>
+                    <span class="text-xs font-extrabold text-emerald-600 group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                        Buka Ujian 🔒 →
+                    </span>
                 </div>
             </div>
+
         </div>
     </main>
 
-    <!-- SECTION KEUNGGULAN -->
-    <section id="keunggulan" class="py-16 bg-slate-50 border-t border-slate-200/80 mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-12 space-y-2">
-                <h2 class="text-3xl font-extrabold text-slate-900">Komitmen Akses Terbuka</h2>
-                <p class="text-slate-600 text-sm">Setiap calon peserta berhak mendapatkan sarana latihan ujian standar nasional secara gratis.</p>
+    <!-- SECTION KEUNGGULAN SEGAR -->
+    <section id="keunggulan" class="py-20 bg-slate-900 text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                <span class="text-xs font-extrabold text-blue-400 uppercase tracking-widest bg-blue-950 px-3 py-1 rounded-full border border-blue-800">
+                    MENGAPA RUANG TRYOUT?
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-black">Dirancang Khusus untuk Kelulusan Anda</h2>
+                <p class="text-slate-400 text-sm">Fitur unggulan modern yang mendukung latihan ujian tanpa hambatan.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-white border border-slate-200 shadow-sm p-6 rounded-2xl">
-                    <div class="text-2xl mb-3">⚡</div>
-                    <h3 class="text-base font-bold text-slate-900 mb-1">100% Akses Gratis</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">Akses penuh ke seluruh bank soal dan pembahasan tanpa biaya.</p>
+                
+                <div class="bg-slate-800/80 border border-slate-700/80 p-6 rounded-2xl hover:border-blue-500 transition-colors">
+                    <div class="w-12 h-12 bg-blue-600/20 text-blue-400 border border-blue-500/30 rounded-xl flex items-center justify-center text-2xl mb-4">
+                        ⚡
+                    </div>
+                    <h3 class="text-base font-bold mb-2">100% Akses Gratis</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Nikmati seluruh paket latihan soal HOTS dan fitur simulasi tanpa perlu membayar langganan.
+                    </p>
                 </div>
-                <div class="bg-white border border-slate-200 shadow-sm p-6 rounded-2xl">
-                    <div class="text-2xl mb-3">🏆</div>
-                    <h3 class="text-base font-bold text-slate-900 mb-1">Klasemen Global</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">Bandingkan skor Anda secara langsung dengan seluruh peserta dari seluruh Indonesia.</p>
+
+                <div class="bg-slate-800/80 border border-slate-700/80 p-6 rounded-2xl hover:border-indigo-500 transition-colors">
+                    <div class="w-12 h-12 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-xl flex items-center justify-center text-2xl mb-4">
+                        🏆
+                    </div>
+                    <h3 class="text-base font-bold mb-2">Papan Peringkat Real-Time</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Skor otomatis tersimpan ke Cloud Firestore dan diadu secara live dengan peserta dari seluruh Indonesia.
+                    </p>
                 </div>
-                <div class="bg-white border border-slate-200 shadow-sm p-6 rounded-2xl">
-                    <div class="text-2xl mb-3">📊</div>
-                    <h3 class="text-base font-bold text-slate-900 mb-1">Evaluasi Instan</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">Hasil skor dan kunci jawaban langsung terbuka secara lengkap saat kuis selesai.</p>
+
+                <div class="bg-slate-800/80 border border-slate-700/80 p-6 rounded-2xl hover:border-purple-500 transition-colors">
+                    <div class="w-12 h-12 bg-purple-600/20 text-purple-400 border border-purple-500/30 rounded-xl flex items-center justify-center text-2xl mb-4">
+                        📊
+                    </div>
+                    <h3 class="text-base font-bold mb-2">Evaluasi Skor Instan</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Hasil total nilai dan persentase keberhasilan langsung terbuka persis setelah ujian diselesaikan.
+                    </p>
                 </div>
-                <div class="bg-white border border-slate-200 shadow-sm p-6 rounded-2xl">
-                    <div class="text-2xl mb-3">📱</div>
-                    <h3 class="text-base font-bold text-slate-900 mb-1">Responsif & Ringan</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">Nyaman digunakan dari HP, tablet, maupun laptop.</p>
+
+                <div class="bg-slate-800/80 border border-slate-700/80 p-6 rounded-2xl hover:border-emerald-500 transition-colors">
+                    <div class="w-12 h-12 bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 rounded-xl flex items-center justify-center text-2xl mb-4">
+                        📱
+                    </div>
+                    <h3 class="text-base font-bold mb-2">Responsif & PWA-Ready</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Performa cepat di HP, tablet, maupun laptop dengan dukungan offline Service Worker.
+                    </p>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="bg-slate-900 text-slate-400 py-10 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-500">
-            &copy; 2026 Ruang Tryout. Integrated Cloud System.
+    <!-- SECTION TESTIMONI -->
+    <section id="testimoni" class="py-20 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                <span class="text-xs font-extrabold text-blue-600 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                    TESTIMONI PESERTA
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-black text-slate-900">Pengalaman Latihan Peserta</h2>
+                <p class="text-slate-500 text-sm">Cerita peserta yang telah mengasah kemampuan di Ruang Tryout.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
+                    <p class="text-xs text-slate-600 leading-relaxed italic mb-6">
+                        "Simulasi CAT-nya beneran mirip sama ujian asli BKN. Ada timer 90 menit dan leaderboard yang bikin tambah terpacu belajar!"
+                    </p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-slate-100">
+                        <div class="w-9 h-9 bg-blue-600 text-white font-bold rounded-full flex items-center justify-center text-sm">
+                            A
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-slate-900">Aditya Pratama</h4>
+                            <span class="text-[10px] text-slate-400">Peserta CPNS SKD 2026</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
+                    <p class="text-xs text-slate-600 leading-relaxed italic mb-6">
+                        "Soal-soal UTBK Kuantitatif dan Literasinya HOTS banget. Sangat bantu latihan logika berpikir cepat waktu pengerjaan."
+                    </p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-slate-100">
+                        <div class="w-9 h-9 bg-emerald-600 text-white font-bold rounded-full flex items-center justify-center text-sm">
+                            S
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-slate-900">Siti Nurhaliza</h4>
+                            <span class="text-[10px] text-slate-400">Peserta UTBK SNBT</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
+                    <p class="text-xs text-slate-600 leading-relaxed italic mb-6">
+                        "Enak banget gratis dan ga ribet. Tinggal login pake Google, langsung bisa kerjain soal dan liat nilai di leaderboard!"
+                    </p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-slate-100">
+                        <div class="w-9 h-9 bg-purple-600 text-white font-bold rounded-full flex items-center justify-center text-sm">
+                            R
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-slate-900">Rizky Ramadhan</h4>
+                            <span class="text-[10px] text-slate-400">Peserta PPPK Teknis</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER SLEEK DARK -->
+    <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+            <div class="flex justify-center items-center gap-2">
+                <div class="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white text-xs">
+                    R
+                </div>
+                <span class="text-lg font-black text-white">Ruang<span class="text-blue-500">Tryout</span></span>
+            </div>
+            <p class="text-xs text-slate-500 max-w-sm mx-auto">
+                Platform Simulasi Ujian CAT Terintegrasi Cloud. Bebas Akses 100% Gratis.
+            </p>
+            <div class="pt-4 text-[11px] text-slate-600 border-t border-slate-900">
+                &copy; 2026 Ruang Tryout. Built with Firebase Cloud Authentication & Firestore Database.
+            </div>
         </div>
     </footer>
 
@@ -156,18 +393,18 @@
             const authContainer = document.getElementById("auth-container");
             if (user) {
                 authContainer.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        <img src="${user.photoURL || 'https://via.placeholder.com/40'}" class="w-8 h-8 rounded-full border border-slate-300" alt="Avatar">
+                    <div class="flex items-center gap-3 bg-slate-100/80 border border-slate-200/80 px-3 py-1.5 rounded-2xl shadow-xs">
+                        <img src="${user.photoURL || 'https://via.placeholder.com/40'}" class="w-8 h-8 rounded-full border border-blue-500/40 shadow-xs" alt="Avatar">
                         <span class="text-xs font-bold text-slate-800 hidden sm:inline-block">${user.displayName}</span>
-                        <button onclick="logoutUser()" class="text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-1.5 rounded-lg border border-slate-300 transition">
+                        <button onclick="logoutUser()" class="text-xs font-bold bg-white hover:bg-rose-50 text-rose-600 hover:text-rose-700 px-3 py-1.5 rounded-xl border border-slate-200 hover:border-rose-200 transition shadow-xs">
                             Keluar
                         </button>
                     </div>
                 `;
             } else {
                 authContainer.innerHTML = `
-                    <button onclick="loginWithGoogle()" class="text-xs sm:text-sm font-bold bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl shadow-md transition-all flex items-center gap-2">
-                        🔑 Masuk / Login Google
+                    <button onclick="loginWithGoogle()" class="text-xs sm:text-sm font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-5 py-2.5 rounded-2xl shadow-lg shadow-blue-500/25 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                        <span>🔑</span> Masuk / Login Google
                     </button>
                 `;
             }
