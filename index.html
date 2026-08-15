@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Ruang Tryout | Simulasi CAT CPNS & UTBK SNBT</title>
@@ -9,11 +11,19 @@
     <meta name="description"
         content="Ruang Tryout adalah platform simulasi CAT CPNS dan UTBK SNBT dengan latihan soal, timer real-time, evaluasi instan, dan leaderboard.">
 
-    <meta name="theme-color" content="#f8fafc">
+    <meta name="theme-color" content="#ffffff">
 
     <link rel="manifest" href="manifest.json">
 
-    <!-- Tailwind -->
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script>
@@ -23,9 +33,11 @@
                     fontFamily: {
                         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif']
                     },
+
                     boxShadow: {
-                        premium: '0 20px 60px rgba(15, 23, 42, 0.08)',
-                        card: '0 10px 35px rgba(15, 23, 42, 0.06)'
+                        premium: '0 25px 70px rgba(15, 23, 42, 0.10)',
+                        card: '0 10px 35px rgba(15, 23, 42, 0.06)',
+                        mascot: '0 35px 80px rgba(37, 99, 235, 0.16)'
                     }
                 }
             }
@@ -35,106 +47,154 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="bg-slate-50 text-slate-800 font-sans antialiased">
 
-<!-- ========================================================= -->
-<!-- NAVBAR -->
-<!-- ========================================================= -->
+<body
+    class="bg-white text-slate-800 font-sans antialiased selection:bg-blue-600 selection:text-white">
 
-<header class="sticky top-0 z-50 border-b border-slate-200/70 bg-white/80 backdrop-blur-2xl">
 
-    <div class="max-w-7xl mx-auto px-5 sm:px-8 h-[72px] flex items-center justify-between">
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<header
+    class="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-slate-200/70">
+
+    <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[72px] flex items-center justify-between gap-4">
+
 
         <!-- LOGO -->
-        <a href="#" class="flex items-center gap-3 group">
 
-            <div class="
-                w-10 h-10
-                rounded-xl
-                bg-slate-950
-                text-white
-                flex items-center justify-center
-                font-black text-lg
-                shadow-lg shadow-slate-900/10
-                group-hover:scale-105
-                transition
-            ">
+        <a href="#"
+            class="flex items-center gap-3 shrink-0 group">
+
+            <div
+                class="w-10 h-10 rounded-xl bg-slate-950 text-white
+                       flex items-center justify-center font-black text-lg
+                       shadow-lg shadow-slate-950/10
+                       group-hover:bg-blue-600
+                       group-hover:scale-105
+                       transition-all duration-300">
+
                 R
+
             </div>
 
+
             <div class="leading-none">
+
                 <div class="text-[18px] font-black tracking-tight text-slate-950">
+
                     Ruang<span class="text-blue-600">Tryout</span>
+
                 </div>
 
-                <div class="text-[9px] font-semibold tracking-[0.18em] uppercase text-slate-400 mt-1">
+                <div
+                    class="hidden sm:block text-[8px] font-bold tracking-[0.20em]
+                           uppercase text-slate-400 mt-1.5">
+
                     Exam Simulation Platform
+
                 </div>
+
             </div>
 
         </a>
 
 
-        <!-- NAVIGATION -->
 
-        <nav class="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-500">
+        <!-- DESKTOP NAVIGATION -->
+
+        <nav
+            class="hidden lg:flex items-center gap-9 text-[13px] font-semibold text-slate-500">
 
             <a href="#program"
-               class="hover:text-slate-950 transition">
+                class="hover:text-blue-600 transition-colors">
+
                 Program
+
             </a>
+
 
             <a href="#keunggulan"
-               class="hover:text-slate-950 transition">
+                class="hover:text-blue-600 transition-colors">
+
                 Keunggulan
+
             </a>
 
-            <a href="leaderboard.html"
-               class="flex items-center gap-2 text-blue-600 hover:text-blue-700 transition">
 
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2">
-                    <path d="M8 21h8"/>
-                    <path d="M12 17v4"/>
-                    <path d="M7 4h10"/>
-                    <path d="M5 4v5a7 7 0 0 0 14 0V4"/>
-                    <path d="M5 8H3a2 2 0 0 0 0 4h2"/>
-                    <path d="M19 8h2a2 2 0 0 1 0 4h-2"/>
+            <a href="leaderboard.html"
+                class="flex items-center gap-2 text-blue-600 font-bold hover:text-blue-700 transition-colors">
+
+                <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2">
+
+                    <path d="M8 21h8" />
+                    <path d="M12 17v4" />
+                    <path d="M7 4h10" />
+                    <path d="M5 4v5a7 7 0 0 0 14 0V4" />
+                    <path d="M5 8H3a2 2 0 0 0 0 4h2" />
+                    <path d="M19 8h2a2 2 0 0 1 0 4h-2" />
+
                 </svg>
 
                 Papan Peringkat
+
             </a>
 
         </nav>
 
 
+
         <!-- AUTH -->
 
-        <div id="auth-container">
+        <div id="auth-container" class="shrink-0">
 
             <button
                 onclick="loginWithGoogle()"
                 class="
-                    inline-flex items-center gap-2
+                    inline-flex
+                    items-center
+                    justify-center
+                    gap-2
                     bg-slate-950
                     hover:bg-blue-600
                     text-white
-                    text-sm font-bold
-                    px-5 py-2.5
+                    text-xs sm:text-sm
+                    font-bold
+                    px-4 sm:px-5
+                    py-2.5
                     rounded-xl
-                    shadow-lg shadow-slate-900/10
+                    shadow-lg
+                    shadow-slate-950/10
                     hover:shadow-blue-600/20
-                    transition-all duration-300
+                    transition-all
+                    duration-300
                 ">
 
-                <svg width="16" height="16" viewBox="0 0 24 24"
-                     fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
-                    <path d="M10 17l5-5-5-5"/>
-                    <path d="M15 12H3"/>
+                <svg
+                    class="hidden sm:block"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2">
+
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                    <path d="M10 17l5-5-5-5" />
+                    <path d="M15 12H3" />
+
                 </svg>
 
                 Masuk
+
             </button>
 
         </div>
@@ -144,95 +204,106 @@
 </header>
 
 
-<!-- ========================================================= -->
-<!-- HERO -->
-<!-- ========================================================= -->
 
-<section class="relative overflow-hidden bg-white">
+<!-- =========================================================
+     HERO
+========================================================= -->
 
-    <!-- background decoration -->
+<section
+    class="relative overflow-hidden bg-white">
 
-    <div class="absolute inset-0 pointer-events-none">
 
-        <div class="
-            absolute
-            -top-40
-            left-1/2
-            -translate-x-1/2
-            w-[700px]
-            h-[500px]
-            bg-blue-100/60
-            blur-[120px]
-            rounded-full
-        "></div>
+    <!-- BACKGROUND GLOW -->
 
-        <div class="
-            absolute
-            top-20
-            right-[-150px]
-            w-[350px]
-            h-[350px]
-            bg-indigo-100/50
-            blur-[100px]
-            rounded-full
-        "></div>
+    <div
+        class="absolute inset-0 pointer-events-none overflow-hidden">
+
+        <div
+            class="absolute
+                   -top-[250px]
+                   left-[25%]
+                   w-[650px]
+                   h-[650px]
+                   rounded-full
+                   bg-blue-100/70
+                   blur-[130px]">
+        </div>
+
+
+        <div
+            class="absolute
+                   top-[100px]
+                   right-[-200px]
+                   w-[500px]
+                   h-[500px]
+                   rounded-full
+                   bg-violet-100/50
+                   blur-[120px]">
+        </div>
+
+
+        <div
+            class="absolute
+                   bottom-[-300px]
+                   left-[-200px]
+                   w-[500px]
+                   h-[500px]
+                   rounded-full
+                   bg-sky-100/50
+                   blur-[120px]">
+        </div>
 
     </div>
 
 
-    <div class="
-        relative
-        max-w-7xl
-        mx-auto
-        px-5 sm:px-8
-        pt-20
-        pb-20
-        lg:pt-28
-        lg:pb-24
-    ">
 
-        <div class="grid lg:grid-cols-[1.05fr_.95fr] gap-14 items-center">
+    <div
+        class="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8
+               pt-14 pb-16
+               sm:pt-20 sm:pb-20
+               lg:pt-24 lg:pb-24">
 
 
-            <!-- HERO COPY -->
+        <div
+            class="grid lg:grid-cols-[1.03fr_.97fr]
+                   gap-12 lg:gap-16
+                   items-center">
 
-            <div>
 
-                <!-- Badge -->
+            <!-- =====================================================
+                 HERO TEXT
+            ====================================================== -->
 
-                <div class="
-                    inline-flex
-                    items-center
-                    gap-2
-                    px-3.5 py-2
-                    rounded-full
-                    bg-blue-50
-                    border border-blue-100
-                    text-blue-700
-                    text-xs
-                    font-bold
-                    mb-7
-                ">
+            <div class="relative z-20">
+
+
+                <!-- BADGE -->
+
+                <div
+                    class="inline-flex items-center gap-2
+                           px-4 py-2
+                           rounded-full
+                           bg-blue-50
+                           border border-blue-100
+                           text-blue-700
+                           text-[11px]
+                           font-extrabold
+                           tracking-wide
+                           mb-6">
 
                     <span class="relative flex h-2 w-2">
 
-                        <span class="
-                            animate-ping
-                            absolute
-                            inline-flex
-                            h-full w-full
-                            rounded-full
-                            bg-blue-500
-                            opacity-60
-                        "></span>
+                        <span
+                            class="animate-ping absolute inline-flex
+                                   h-full w-full rounded-full
+                                   bg-blue-500 opacity-60">
+                        </span>
 
-                        <span class="
-                            relative
-                            inline-flex
-                            rounded-full
-                            h-2 w-2
-                            bg-blue-600
-                        "></span>
+                        <span
+                            class="relative inline-flex
+                                   rounded-full h-2 w-2
+                                   bg-blue-600">
+                        </span>
 
                     </span>
 
@@ -241,44 +312,48 @@
                 </div>
 
 
-                <!-- Heading -->
 
-                <h1 class="
-                    text-4xl
-                    sm:text-5xl
-                    lg:text-[4.1rem]
-                    leading-[1.03]
-                    tracking-[-0.045em]
-                    font-black
-                    text-slate-950
-                    max-w-3xl
-                ">
+                <!-- HEADING -->
+
+                <h1
+                    class="text-[2.55rem]
+                           sm:text-5xl
+                           lg:text-[4rem]
+                           xl:text-[4.25rem]
+                           leading-[1.04]
+                           tracking-[-0.045em]
+                           font-black
+                           text-slate-950
+                           max-w-3xl">
 
                     Persiapkan ujianmu.
-                    <span class="
-                        text-transparent
-                        bg-clip-text
-                        bg-gradient-to-r
-                        from-blue-600
-                        via-indigo-600
-                        to-violet-600
-                    ">
+
+                    <span
+                        class="block
+                               mt-1
+                               text-transparent
+                               bg-clip-text
+                               bg-gradient-to-r
+                               from-blue-600
+                               via-indigo-600
+                               to-violet-600">
+
                         Uji kemampuanmu.
+
                     </span>
 
                 </h1>
 
 
-                <!-- Description -->
 
-                <p class="
-                    mt-7
-                    text-base
-                    sm:text-lg
-                    leading-8
-                    text-slate-500
-                    max-w-2xl
-                ">
+                <!-- DESCRIPTION -->
+
+                <p
+                    class="mt-6
+                           text-sm sm:text-base lg:text-lg
+                           leading-7 sm:leading-8
+                           text-slate-500
+                           max-w-2xl">
 
                     Simulasi CAT CPNS dan UTBK SNBT dengan sistem ujian
                     berbasis waktu, evaluasi instan, pembahasan soal,
@@ -287,72 +362,94 @@
                 </p>
 
 
+
                 <!-- CTA -->
 
-                <div class="mt-9 flex flex-col sm:flex-row gap-3">
+                <div
+                    class="mt-8
+                           flex
+                           flex-col
+                           sm:flex-row
+                           sm:items-center
+                           gap-3">
+
 
                     <a
                         href="#program"
-                        class="
-                            inline-flex
-                            items-center
-                            justify-center
-                            gap-2
-                            bg-blue-600
-                            hover:bg-blue-700
-                            text-white
-                            font-bold
-                            px-6
-                            py-3.5
-                            rounded-xl
-                            shadow-xl
-                            shadow-blue-600/20
-                            transition-all
-                            hover:-translate-y-0.5
-                        ">
+
+                        class="inline-flex
+                               items-center
+                               justify-center
+                               gap-2
+                               bg-blue-600
+                               hover:bg-blue-700
+                               text-white
+                               font-bold
+                               text-sm
+                               px-6
+                               py-3.5
+                               rounded-xl
+                               shadow-xl
+                               shadow-blue-600/20
+                               hover:shadow-blue-600/30
+                               hover:-translate-y-0.5
+                               transition-all
+                               duration-300">
 
                         Mulai Tryout
 
-                        <svg width="17" height="17" viewBox="0 0 24 24"
-                             fill="none"
-                             stroke="currentColor"
-                             stroke-width="2">
-                            <path d="M5 12h14"/>
-                            <path d="m13 6 6 6-6 6"/>
+                        <svg
+                            width="17"
+                            height="17"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2">
+
+                            <path d="M5 12h14" />
+                            <path d="m13 6 6 6-6 6" />
+
                         </svg>
 
                     </a>
+
 
 
                     <a
                         href="leaderboard.html"
-                        class="
-                            inline-flex
-                            items-center
-                            justify-center
-                            gap-2
-                            bg-white
-                            hover:bg-slate-50
-                            text-slate-700
-                            font-bold
-                            px-6
-                            py-3.5
-                            rounded-xl
-                            border
-                            border-slate-200
-                            transition
-                        ">
+
+                        class="inline-flex
+                               items-center
+                               justify-center
+                               gap-2
+                               bg-white
+                               hover:bg-slate-50
+                               text-slate-700
+                               font-bold
+                               text-sm
+                               px-6
+                               py-3.5
+                               rounded-xl
+                               border
+                               border-slate-200
+                               hover:border-slate-300
+                               transition-all">
 
                         Lihat Leaderboard
 
-                        <svg width="17" height="17" viewBox="0 0 24 24"
-                             fill="none"
-                             stroke="currentColor"
-                             stroke-width="2">
-                            <path d="M8 21h8"/>
-                            <path d="M12 17v4"/>
-                            <path d="M7 4h10"/>
-                            <path d="M5 4v5a7 7 0 0 0 14 0V4"/>
+                        <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2">
+
+                            <path d="M8 21h8" />
+                            <path d="M12 17v4" />
+                            <path d="M7 4h10" />
+                            <path d="M5 4v5a7 7 0 0 0 14 0V4" />
+
                         </svg>
 
                     </a>
@@ -360,32 +457,57 @@
                 </div>
 
 
-                <!-- Mini trust -->
 
-                <div class="
-                    mt-8
-                    flex
-                    flex-wrap
-                    gap-x-6
-                    gap-y-3
-                    text-xs
-                    font-semibold
-                    text-slate-400
-                ">
+                <!-- TRUST POINTS -->
+
+                <div
+                    class="mt-7
+                           flex
+                           flex-wrap
+                           gap-x-6
+                           gap-y-3
+                           text-[11px]
+                           sm:text-xs
+                           font-semibold
+                           text-slate-400">
+
 
                     <span class="flex items-center gap-2">
-                        <span class="text-emerald-500">✓</span>
+
+                        <span class="text-emerald-500 font-black">
+
+                            ✓
+
+                        </span>
+
                         Gratis digunakan
+
                     </span>
 
+
                     <span class="flex items-center gap-2">
-                        <span class="text-emerald-500">✓</span>
+
+                        <span class="text-emerald-500 font-black">
+
+                            ✓
+
+                        </span>
+
                         Timer real-time
+
                     </span>
 
+
                     <span class="flex items-center gap-2">
-                        <span class="text-emerald-500">✓</span>
+
+                        <span class="text-emerald-500 font-black">
+
+                            ✓
+
+                        </span>
+
                         Evaluasi instan
+
                     </span>
 
                 </div>
@@ -393,305 +515,355 @@
             </div>
 
 
-            <!-- HERO VISUAL -->
 
-            <div class="relative hidden md:block">
+            <!-- =====================================================
+                 HERO MASCOT
+            ====================================================== -->
 
-                <!-- glow -->
-
-                <div class="
-                    absolute
-                    inset-10
-                    bg-blue-500/10
-                    blur-3xl
-                    rounded-full
-                "></div>
-
-
-                <!-- dashboard -->
-
-                <div class="
-                    relative
-                    bg-white
-                    border
-                    border-slate-200
-                    rounded-3xl
-                    shadow-premium
-                    overflow-hidden
-                ">
+            <div
+                class="relative
+                       flex
+                       items-center
+                       justify-center
+                       mt-4
+                       lg:mt-0
+                       min-h-[420px]
+                       sm:min-h-[500px]
+                       lg:min-h-[560px]">
 
 
-                    <!-- fake browser header -->
+                <!-- GLOW BESAR -->
 
-                    <div class="
-                        h-12
-                        px-5
-                        border-b
-                        border-slate-100
-                        flex
-                        items-center
-                        justify-between
-                    ">
-
-                        <div class="flex gap-1.5">
-
-                            <span class="w-2.5 h-2.5 rounded-full bg-slate-200"></span>
-                            <span class="w-2.5 h-2.5 rounded-full bg-slate-200"></span>
-                            <span class="w-2.5 h-2.5 rounded-full bg-slate-200"></span>
-
-                        </div>
-
-                        <span class="text-[10px] font-bold text-slate-300">
-                            RUANG TRYOUT
-                        </span>
-
-                    </div>
+                <div
+                    class="absolute
+                           left-1/2
+                           top-1/2
+                           -translate-x-1/2
+                           -translate-y-1/2
+                           w-[330px]
+                           h-[330px]
+                           sm:w-[430px]
+                           sm:h-[430px]
+                           lg:w-[500px]
+                           lg:h-[500px]
+                           bg-gradient-to-br
+                           from-blue-100/90
+                           via-indigo-50/70
+                           to-violet-100/50
+                           rounded-full
+                           blur-2xl">
+                </div>
 
 
-                    <div class="p-6">
 
-                        <!-- top stats -->
+                <!-- CIRCLE BACKGROUND -->
 
-                        <div class="grid grid-cols-3 gap-3 mb-5">
-
-                            <div class="bg-blue-50 rounded-2xl p-4">
-
-                                <div class="text-[10px] font-bold text-blue-500 uppercase tracking-wider">
-                                    Tryout
-                                </div>
-
-                                <div class="text-2xl font-black text-slate-900 mt-1">
-                                    24
-                                </div>
-
-                            </div>
-
-
-                            <div class="bg-emerald-50 rounded-2xl p-4">
-
-                                <div class="text-[10px] font-bold text-emerald-500 uppercase tracking-wider">
-                                    Skor
-                                </div>
-
-                                <div class="text-2xl font-black text-slate-900 mt-1">
-                                    86%
-                                </div>
-
-                            </div>
+                <div
+                    class="absolute
+                           left-1/2
+                           top-1/2
+                           -translate-x-1/2
+                           -translate-y-1/2
+                           w-[300px]
+                           h-[300px]
+                           sm:w-[390px]
+                           sm:h-[390px]
+                           lg:w-[450px]
+                           lg:h-[450px]
+                           rounded-full
+                           bg-gradient-to-br
+                           from-blue-50
+                           via-white
+                           to-indigo-50
+                           border
+                           border-blue-100/70">
+                </div>
 
 
-                            <div class="bg-violet-50 rounded-2xl p-4">
 
-                                <div class="text-[10px] font-bold text-violet-500 uppercase tracking-wider">
-                                    Rank
-                                </div>
+                <!-- DECORATION -->
 
-                                <div class="text-2xl font-black text-slate-900 mt-1">
-                                    #12
-                                </div>
+                <div
+                    class="absolute
+                           top-[9%]
+                           right-[6%]
+                           sm:right-[10%]
+                           w-14 h-14
+                           sm:w-16 sm:h-16
+                           rounded-2xl
+                           bg-white/80
+                           border
+                           border-blue-100
+                           shadow-lg
+                           shadow-blue-900/5
+                           rotate-12
+                           flex
+                           items-center
+                           justify-center
+                           text-blue-600">
 
-                            </div>
+                    <svg
+                        width="25"
+                        height="25"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.4">
 
-                        </div>
+                        <path d="M20 6 9 17l-5-5" />
 
-
-                        <!-- question preview -->
-
-                        <div class="
-                            border
-                            border-slate-200
-                            rounded-2xl
-                            p-5
-                        ">
-
-                            <div class="
-                                flex
-                                items-center
-                                justify-between
-                                mb-5
-                            ">
-
-                                <span class="
-                                    text-xs
-                                    font-bold
-                                    text-blue-600
-                                    bg-blue-50
-                                    px-3 py-1.5
-                                    rounded-lg
-                                ">
-                                    TIU • Penalaran
-                                </span>
-
-                                <span class="
-                                    text-xs
-                                    font-bold
-                                    text-slate-400
-                                ">
-                                    32 / 100
-                                </span>
-
-                            </div>
-
-
-                            <h3 class="
-                                text-sm
-                                sm:text-base
-                                font-bold
-                                text-slate-800
-                                leading-6
-                            ">
-                                Manakah pernyataan berikut yang paling tepat
-                                berdasarkan informasi yang diberikan?
-                            </h3>
-
-
-                            <div class="space-y-2.5 mt-5">
-
-                                <div class="
-                                    border
-                                    border-slate-200
-                                    rounded-xl
-                                    px-4 py-3
-                                    text-xs
-                                    font-semibold
-                                    text-slate-500
-                                ">
-                                    A. Pernyataan pertama
-                                </div>
-
-                                <div class="
-                                    border
-                                    border-blue-500
-                                    bg-blue-50
-                                    rounded-xl
-                                    px-4 py-3
-                                    text-xs
-                                    font-bold
-                                    text-blue-700
-                                ">
-                                    B. Pernyataan kedua
-                                </div>
-
-                                <div class="
-                                    border
-                                    border-slate-200
-                                    rounded-xl
-                                    px-4 py-3
-                                    text-xs
-                                    font-semibold
-                                    text-slate-500
-                                ">
-                                    C. Pernyataan ketiga
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- timer -->
-
-                        <div class="
-                            mt-4
-                            flex
-                            items-center
-                            justify-between
-                            bg-slate-950
-                            text-white
-                            rounded-2xl
-                            px-5 py-4
-                        ">
-
-                            <div>
-
-                                <div class="
-                                    text-[9px]
-                                    uppercase
-                                    tracking-[0.15em]
-                                    text-slate-400
-                                    font-bold
-                                ">
-                                    Waktu tersisa
-                                </div>
-
-                                <div class="text-lg font-black mt-0.5">
-                                    01 : 24 : 36
-                                </div>
-
-                            </div>
-
-                            <div class="
-                                w-10 h-10
-                                rounded-xl
-                                bg-white/10
-                                flex
-                                items-center
-                                justify-center
-                            ">
-
-                                <svg width="18" height="18"
-                                     viewBox="0 0 24 24"
-                                     fill="none"
-                                     stroke="currentColor"
-                                     stroke-width="2">
-                                    <circle cx="12" cy="12" r="9"/>
-                                    <path d="M12 7v5l3 2"/>
-                                </svg>
-
-                            </div>
-
-                        </div>
-
-                    </div>
+                    </svg>
 
                 </div>
 
 
-                <!-- floating badge -->
 
-                <div class="
-                    absolute
-                    -bottom-5
-                    -left-6
-                    bg-white
-                    border
-                    border-slate-200
-                    rounded-2xl
-                    shadow-xl
-                    px-5 py-4
-                    flex
-                    items-center
-                    gap-3
-                ">
+                <div
+                    class="absolute
+                           bottom-[16%]
+                           left-[3%]
+                           sm:left-[8%]
+                           w-12 h-12
+                           sm:w-14 sm:h-14
+                           rounded-2xl
+                           bg-white/90
+                           border
+                           border-indigo-100
+                           shadow-lg
+                           shadow-indigo-900/5
+                           -rotate-12
+                           flex
+                           items-center
+                           justify-center
+                           text-indigo-600">
 
-                    <div class="
-                        w-10 h-10
-                        rounded-xl
-                        bg-emerald-50
-                        text-emerald-600
-                        flex
-                        items-center
-                        justify-center
-                    ">
+                    <svg
+                        width="23"
+                        height="23"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2">
 
-                        <svg width="18" height="18"
-                             viewBox="0 0 24 24"
-                             fill="none"
-                             stroke="currentColor"
-                             stroke-width="2">
-                            <path d="M20 6 9 17l-5-5"/>
+                        <circle cx="12" cy="12" r="9" />
+                        <path d="M12 7v5l3 2" />
+
+                    </svg>
+
+                </div>
+
+
+
+                <!-- DOT -->
+
+                <span
+                    class="absolute
+                           top-[24%]
+                           left-[4%]
+                           w-3 h-3
+                           rounded-full
+                           bg-blue-500
+                           shadow-lg
+                           shadow-blue-500/30">
+                </span>
+
+
+
+                <span
+                    class="absolute
+                           top-[13%]
+                           left-[20%]
+                           text-blue-500
+                           text-xl">
+
+                    ✦
+
+                </span>
+
+
+
+                <span
+                    class="absolute
+                           bottom-[10%]
+                           right-[14%]
+                           text-indigo-400
+                           text-2xl">
+
+                    ✦
+
+                </span>
+
+
+
+                <!-- MASCOT IMAGE -->
+
+                <div
+                    class="relative z-10
+                           flex
+                           items-center
+                           justify-center
+                           w-full">
+
+                    <img
+                        src="maskotRTO.png"
+                        alt="Maskot Ruang Tryout"
+                        draggable="false"
+
+                        class="
+                            w-[330px]
+                            sm:w-[420px]
+                            lg:w-[500px]
+                            xl:w-[530px]
+                            max-w-full
+                            h-auto
+                            object-contain
+                            select-none
+                            drop-shadow-[0_30px_35px_rgba(30,64,175,0.16)]
+                        ">
+
+                </div>
+
+
+
+                <!-- FLOATING BADGE GRATIS -->
+
+                <div
+                    class="absolute
+                           z-20
+                           left-[0%]
+                           sm:left-[1%]
+                           lg:-left-[2%]
+                           top-[31%]
+                           hidden sm:flex
+                           items-center
+                           gap-3
+                           bg-white/95
+                           backdrop-blur-xl
+                           border
+                           border-slate-200
+                           rounded-2xl
+                           shadow-xl
+                           shadow-slate-900/10
+                           px-4 py-3">
+
+
+                    <div
+                        class="w-10 h-10
+                               rounded-xl
+                               bg-blue-50
+                               text-blue-600
+                               flex
+                               items-center
+                               justify-center">
+
+                        <svg
+                            width="19"
+                            height="19"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2">
+
+                            <path d="M20 6 9 17l-5-5" />
+
                         </svg>
 
                     </div>
 
+
                     <div>
 
-                        <div class="text-xs font-black text-slate-900">
-                            Hasil tersimpan
+                        <div
+                            class="text-xs
+                                   font-black
+                                   text-slate-900">
+
+                            100% Gratis
+
                         </div>
 
-                        <div class="text-[10px] text-slate-400 mt-0.5">
-                            Evaluasi selesai
+                        <div
+                            class="text-[9px]
+                                   text-slate-400
+                                   font-medium
+                                   mt-0.5">
+
+                            Tanpa biaya tersembunyi
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- FLOATING BADGE TRYOUT -->
+
+                <div
+                    class="absolute
+                           z-20
+                           right-[0%]
+                           sm:right-[1%]
+                           lg:-right-[2%]
+                           bottom-[24%]
+                           hidden sm:flex
+                           items-center
+                           gap-3
+                           bg-white/95
+                           backdrop-blur-xl
+                           border
+                           border-slate-200
+                           rounded-2xl
+                           shadow-xl
+                           shadow-slate-900/10
+                           px-4 py-3">
+
+
+                    <div
+                        class="w-10 h-10
+                               rounded-xl
+                               bg-emerald-50
+                               text-emerald-600
+                               flex
+                               items-center
+                               justify-center">
+
+                        <svg
+                            width="19"
+                            height="19"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2">
+
+                            <path d="M3 3v18h18" />
+                            <path d="m7 16 4-5 3 3 5-7" />
+
+                        </svg>
+
+                    </div>
+
+
+                    <div>
+
+                        <div
+                            class="text-xs
+                                   font-black
+                                   text-slate-900">
+
+                            Siap Tryout
+
+                        </div>
+
+                        <div
+                            class="text-[9px]
+                                   text-slate-400
+                                   font-medium
+                                   mt-0.5">
+
+                            Ukur kemampuanmu
+
                         </div>
 
                     </div>
@@ -707,70 +879,103 @@
 </section>
 
 
-<!-- ========================================================= -->
-<!-- STATS -->
-<!-- ========================================================= -->
+
+<!-- =========================================================
+     STATISTICS
+========================================================= -->
 
 <section class="bg-slate-950 text-white">
 
-    <div class="
-        max-w-7xl
-        mx-auto
-        px-5 sm:px-8
-        py-8
-        grid
-        grid-cols-2
-        lg:grid-cols-4
-        gap-6
-    ">
+    <div
+        class="max-w-7xl mx-auto
+               px-5 sm:px-6 lg:px-8
+               py-8
+               grid grid-cols-2 lg:grid-cols-4
+               gap-y-8 gap-x-6">
 
-        <div class="text-center lg:text-left">
 
-            <div class="text-2xl sm:text-3xl font-black">
+        <div class="text-center">
+
+            <div
+                class="text-2xl sm:text-3xl
+                       font-black tracking-tight">
+
                 100%
+
             </div>
 
-            <div class="text-xs text-slate-400 mt-1">
+            <div
+                class="text-[10px] sm:text-xs
+                       text-slate-400 mt-1">
+
                 Gratis digunakan
+
             </div>
 
         </div>
 
 
-        <div class="text-center lg:text-left">
 
-            <div class="text-2xl sm:text-3xl font-black">
+        <div class="text-center">
+
+            <div
+                class="text-2xl sm:text-3xl
+                       font-black tracking-tight">
+
                 200+
+
             </div>
 
-            <div class="text-xs text-slate-400 mt-1">
+            <div
+                class="text-[10px] sm:text-xs
+                       text-slate-400 mt-1">
+
                 Soal latihan
+
             </div>
 
         </div>
 
 
-        <div class="text-center lg:text-left">
 
-            <div class="text-2xl sm:text-3xl font-black">
+        <div class="text-center">
+
+            <div
+                class="text-2xl sm:text-3xl
+                       font-black tracking-tight">
+
                 90 Menit
+
             </div>
 
-            <div class="text-xs text-slate-400 mt-1">
+            <div
+                class="text-[10px] sm:text-xs
+                       text-slate-400 mt-1">
+
                 Simulasi ujian
+
             </div>
 
         </div>
 
 
-        <div class="text-center lg:text-left">
 
-            <div class="text-2xl sm:text-3xl font-black">
+        <div class="text-center">
+
+            <div
+                class="text-2xl sm:text-3xl
+                       font-black tracking-tight">
+
                 Real-time
+
             </div>
 
-            <div class="text-xs text-slate-400 mt-1">
+            <div
+                class="text-[10px] sm:text-xs
+                       text-slate-400 mt-1">
+
                 Evaluasi & skor
+
             </div>
 
         </div>
@@ -780,88 +985,105 @@
 </section>
 
 
-<!-- ========================================================= -->
-<!-- PROGRAM -->
-<!-- ========================================================= -->
 
-<main id="program" class="bg-slate-50">
+<!-- =========================================================
+     PROGRAM
+========================================================= -->
 
-    <div class="
-        max-w-6xl
-        mx-auto
-        px-5 sm:px-8
-        py-20
-    ">
+<main
+    id="program"
+    class="bg-slate-50">
 
 
-        <!-- heading -->
+    <div
+        class="max-w-6xl mx-auto
+               px-5 sm:px-6 lg:px-8
+               py-16 sm:py-20 lg:py-24">
 
-        <div class="
-            flex
-            flex-col
-            md:flex-row
-            md:items-end
-            md:justify-between
-            gap-5
-            mb-10
-        ">
+
+        <!-- TITLE -->
+
+        <div
+            class="flex
+                   flex-col
+                   md:flex-row
+                   md:items-end
+                   md:justify-between
+                   gap-5
+                   mb-10">
+
 
             <div>
 
-                <div class="
-                    text-xs
-                    uppercase
-                    tracking-[0.2em]
-                    font-black
-                    text-blue-600
-                    mb-3
-                ">
+                <div
+                    class="text-[11px]
+                           uppercase
+                           tracking-[0.20em]
+                           font-black
+                           text-blue-600
+                           mb-3">
+
                     Pilih simulasi
+
                 </div>
 
-                <h2 class="
-                    text-3xl
-                    sm:text-4xl
-                    font-black
-                    tracking-tight
-                    text-slate-950
-                ">
+
+                <h2
+                    class="text-3xl
+                           sm:text-4xl
+                           font-black
+                           tracking-[-0.03em]
+                           text-slate-950">
+
                     Ujian yang ingin kamu hadapi
+
                 </h2>
 
-                <p class="
-                    text-sm
-                    sm:text-base
-                    text-slate-500
-                    mt-3
-                ">
-                    Pilih program dan mulai simulasi dengan sistem ujian berbasis waktu.
+
+                <p
+                    class="text-sm sm:text-base
+                           text-slate-500
+                           mt-3
+                           max-w-2xl
+                           leading-7">
+
+                    Pilih program dan mulai simulasi dengan sistem
+                    ujian berbasis waktu.
+
                 </p>
 
             </div>
 
 
-            <div class="
-                hidden md:block
-                text-xs
-                font-semibold
-                text-slate-400
-            ">
+
+            <div
+                class="hidden md:block
+                       text-[10px]
+                       font-bold
+                       tracking-wider
+                       text-slate-400">
+
                 LOGIN DIPERLUKAN UNTUK MENYIMPAN HASIL
+
             </div>
 
         </div>
 
 
-        <!-- cards -->
 
-        <div class="grid md:grid-cols-2 gap-6">
+        <!-- PROGRAM GRID -->
+
+        <div
+            class="grid md:grid-cols-2 gap-6">
 
 
-            <!-- CPNS -->
+            <!-- =====================================================
+                 CPNS
+            ====================================================== -->
 
             <div
                 onclick="startProtectedExam('cpns')"
+
                 class="
                     group
                     relative
@@ -871,7 +1093,7 @@
                     border
                     border-slate-200
                     rounded-3xl
-                    p-7
+                    p-6 sm:p-7
                     shadow-card
                     hover:shadow-premium
                     hover:-translate-y-1
@@ -880,125 +1102,139 @@
                     duration-300
                 ">
 
-                <!-- accent -->
 
-                <div class="
-                    absolute
-                    top-0
-                    left-0
-                    right-0
-                    h-1
-                    bg-gradient-to-r
-                    from-blue-500
-                    to-indigo-500
-                "></div>
+                <div
+                    class="absolute
+                           top-0 left-0 right-0
+                           h-1
+                           bg-gradient-to-r
+                           from-blue-500
+                           to-indigo-500">
+                </div>
 
 
-                <div class="flex items-start justify-between">
 
-                    <div class="
-                        w-14 h-14
-                        rounded-2xl
-                        bg-blue-50
-                        text-blue-600
-                        flex
-                        items-center
-                        justify-center
-                        group-hover:scale-105
-                        transition
-                    ">
+                <div
+                    class="flex items-start
+                           justify-between
+                           gap-4">
 
-                        <svg width="28" height="28"
-                             viewBox="0 0 24 24"
-                             fill="none"
-                             stroke="currentColor"
-                             stroke-width="1.8">
 
-                            <path d="M4 21h16"/>
-                            <path d="M6 21V8l6-4 6 4v13"/>
-                            <path d="M9 21v-5h6v5"/>
-                            <path d="M9 10h.01"/>
-                            <path d="M15 10h.01"/>
-                            <path d="M9 13h.01"/>
-                            <path d="M15 13h.01"/>
+                    <div
+                        class="w-14 h-14
+                               rounded-2xl
+                               bg-blue-50
+                               text-blue-600
+                               flex
+                               items-center
+                               justify-center
+                               group-hover:scale-105
+                               transition-transform">
+
+                        <svg
+                            width="28"
+                            height="28"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8">
+
+                            <path d="M4 21h16" />
+                            <path d="M6 21V8l6-4 6 4v13" />
+                            <path d="M9 21v-5h6v5" />
+                            <path d="M9 10h.01" />
+                            <path d="M15 10h.01" />
+                            <path d="M9 13h.01" />
+                            <path d="M15 13h.01" />
 
                         </svg>
 
                     </div>
 
 
-                    <span class="
-                        text-[10px]
-                        uppercase
-                        tracking-wider
-                        font-black
-                        text-blue-700
-                        bg-blue-50
-                        border
-                        border-blue-100
-                        px-3
-                        py-1.5
-                        rounded-full
-                    ">
+
+                    <span
+                        class="text-[10px]
+                               uppercase
+                               tracking-wider
+                               font-black
+                               text-blue-700
+                               bg-blue-50
+                               border
+                               border-blue-100
+                               px-3
+                               py-1.5
+                               rounded-full">
+
                         100 Soal
+
                     </span>
 
                 </div>
 
 
+
                 <div class="mt-7">
 
-                    <h3 class="
-                        text-2xl
-                        font-black
-                        tracking-tight
-                        text-slate-950
-                        group-hover:text-blue-600
-                        transition
-                    ">
+                    <h3
+                        class="text-2xl
+                               font-black
+                               tracking-tight
+                               text-slate-950
+                               group-hover:text-blue-600
+                               transition-colors">
+
                         CPNS & PPPK
+
                     </h3>
 
-                    <p class="
-                        text-sm
-                        leading-6
-                        text-slate-500
-                        mt-2
-                        max-w-md
-                    ">
+
+                    <p
+                        class="text-sm
+                               leading-6
+                               text-slate-500
+                               mt-2
+                               max-w-md">
+
                         Simulasi SKD mencakup TWK, TIU, dan TKP
                         untuk melatih kemampuan menghadapi ujian CPNS.
+
                     </p>
 
                 </div>
 
 
-                <div class="
-                    mt-7
-                    pt-5
-                    border-t
-                    border-slate-100
-                    flex
-                    items-center
-                    justify-between
-                ">
 
-                    <div class="
-                        flex
-                        items-center
-                        gap-2
-                        text-xs
-                        font-bold
-                        text-slate-500
-                    ">
+                <div
+                    class="mt-7
+                           pt-5
+                           border-t
+                           border-slate-100
+                           flex
+                           items-center
+                           justify-between
+                           gap-3">
 
-                        <svg width="15" height="15"
-                             viewBox="0 0 24 24"
-                             fill="none"
-                             stroke="currentColor"
-                             stroke-width="2">
-                            <circle cx="12" cy="12" r="9"/>
-                            <path d="M12 7v5l3 2"/>
+
+                    <div
+                        class="flex
+                               items-center
+                               gap-2
+                               text-xs
+                               font-bold
+                               text-slate-500">
+
+                        <svg
+                            width="15"
+                            height="15"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2">
+
+                            <circle cx="12" cy="12" r="9" />
+                            <path d="M12 7v5l3 2" />
+
                         </svg>
 
                         90 Menit
@@ -1006,25 +1242,30 @@
                     </div>
 
 
-                    <span class="
-                        text-xs
-                        font-black
-                        text-blue-600
-                        flex
-                        items-center
-                        gap-1
-                        group-hover:gap-2
-                        transition-all
-                    ">
+
+                    <span
+                        class="text-xs
+                               font-black
+                               text-blue-600
+                               flex
+                               items-center
+                               gap-1
+                               group-hover:gap-2
+                               transition-all">
+
                         Mulai ujian
 
-                        <svg width="15" height="15"
-                             viewBox="0 0 24 24"
-                             fill="none"
-                             stroke="currentColor"
-                             stroke-width="2">
-                            <path d="M5 12h14"/>
-                            <path d="m13 6 6 6-6 6"/>
+                        <svg
+                            width="15"
+                            height="15"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2">
+
+                            <path d="M5 12h14" />
+                            <path d="m13 6 6 6-6 6" />
+
                         </svg>
 
                     </span>
@@ -1034,10 +1275,14 @@
             </div>
 
 
-            <!-- UTBK -->
+
+            <!-- =====================================================
+                 UTBK
+            ====================================================== -->
 
             <div
                 onclick="startProtectedExam('utbk')"
+
                 class="
                     group
                     relative
@@ -1047,7 +1292,7 @@
                     border
                     border-slate-200
                     rounded-3xl
-                    p-7
+                    p-6 sm:p-7
                     shadow-card
                     hover:shadow-premium
                     hover:-translate-y-1
@@ -1056,121 +1301,135 @@
                     duration-300
                 ">
 
-                <div class="
-                    absolute
-                    top-0
-                    left-0
-                    right-0
-                    h-1
-                    bg-gradient-to-r
-                    from-emerald-500
-                    to-teal-500
-                "></div>
+
+                <div
+                    class="absolute
+                           top-0 left-0 right-0
+                           h-1
+                           bg-gradient-to-r
+                           from-emerald-500
+                           to-teal-500">
+                </div>
 
 
-                <div class="flex items-start justify-between">
 
-                    <div class="
-                        w-14 h-14
-                        rounded-2xl
-                        bg-emerald-50
-                        text-emerald-600
-                        flex
-                        items-center
-                        justify-center
-                        group-hover:scale-105
-                        transition
-                    ">
+                <div
+                    class="flex items-start
+                           justify-between
+                           gap-4">
 
-                        <svg width="28" height="28"
-                             viewBox="0 0 24 24"
-                             fill="none"
-                             stroke="currentColor"
-                             stroke-width="1.8">
 
-                            <path d="M4 19h16"/>
-                            <path d="M6 17V8l6-4 6 4v9"/>
-                            <path d="M9 12h6"/>
-                            <path d="M9 15h6"/>
-                            <path d="M10 4h4"/>
+                    <div
+                        class="w-14 h-14
+                               rounded-2xl
+                               bg-emerald-50
+                               text-emerald-600
+                               flex
+                               items-center
+                               justify-center
+                               group-hover:scale-105
+                               transition-transform">
+
+                        <svg
+                            width="28"
+                            height="28"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8">
+
+                            <path d="M3 10l9-5 9 5-9 5-9-5Z" />
+                            <path d="M7 12.5V17c3 2 7 2 10 0v-4.5" />
+                            <path d="M21 10v6" />
 
                         </svg>
 
                     </div>
 
 
-                    <span class="
-                        text-[10px]
-                        uppercase
-                        tracking-wider
-                        font-black
-                        text-emerald-700
-                        bg-emerald-50
-                        border
-                        border-emerald-100
-                        px-3
-                        py-1.5
-                        rounded-full
-                    ">
+
+                    <span
+                        class="text-[10px]
+                               uppercase
+                               tracking-wider
+                               font-black
+                               text-emerald-700
+                               bg-emerald-50
+                               border
+                               border-emerald-100
+                               px-3
+                               py-1.5
+                               rounded-full">
+
                         100 Soal
+
                     </span>
 
                 </div>
 
 
+
                 <div class="mt-7">
 
-                    <h3 class="
-                        text-2xl
-                        font-black
-                        tracking-tight
-                        text-slate-950
-                        group-hover:text-emerald-600
-                        transition
-                    ">
+                    <h3
+                        class="text-2xl
+                               font-black
+                               tracking-tight
+                               text-slate-950
+                               group-hover:text-emerald-600
+                               transition-colors">
+
                         UTBK / SNBT
+
                     </h3>
 
-                    <p class="
-                        text-sm
-                        leading-6
-                        text-slate-500
-                        mt-2
-                        max-w-md
-                    ">
+
+                    <p
+                        class="text-sm
+                               leading-6
+                               text-slate-500
+                               mt-2
+                               max-w-md">
+
                         Latihan TPS, penalaran kuantitatif,
                         penalaran umum, dan literasi untuk persiapan SNBT.
+
                     </p>
 
                 </div>
 
 
-                <div class="
-                    mt-7
-                    pt-5
-                    border-t
-                    border-slate-100
-                    flex
-                    items-center
-                    justify-between
-                ">
 
-                    <div class="
-                        flex
-                        items-center
-                        gap-2
-                        text-xs
-                        font-bold
-                        text-slate-500
-                    ">
+                <div
+                    class="mt-7
+                           pt-5
+                           border-t
+                           border-slate-100
+                           flex
+                           items-center
+                           justify-between
+                           gap-3">
 
-                        <svg width="15" height="15"
-                             viewBox="0 0 24 24"
-                             fill="none"
-                             stroke="currentColor"
-                             stroke-width="2">
-                            <circle cx="12" cy="12" r="9"/>
-                            <path d="M12 7v5l3 2"/>
+
+                    <div
+                        class="flex
+                               items-center
+                               gap-2
+                               text-xs
+                               font-bold
+                               text-slate-500">
+
+                        <svg
+                            width="15"
+                            height="15"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2">
+
+                            <circle cx="12" cy="12" r="9" />
+                            <path d="M12 7v5l3 2" />
+
                         </svg>
 
                         90 Menit
@@ -1178,25 +1437,30 @@
                     </div>
 
 
-                    <span class="
-                        text-xs
-                        font-black
-                        text-emerald-600
-                        flex
-                        items-center
-                        gap-1
-                        group-hover:gap-2
-                        transition-all
-                    ">
+
+                    <span
+                        class="text-xs
+                               font-black
+                               text-emerald-600
+                               flex
+                               items-center
+                               gap-1
+                               group-hover:gap-2
+                               transition-all">
+
                         Mulai ujian
 
-                        <svg width="15" height="15"
-                             viewBox="0 0 24 24"
-                             fill="none"
-                             stroke="currentColor"
-                             stroke-width="2">
-                            <path d="M5 12h14"/>
-                            <path d="m13 6 6 6-6 6"/>
+                        <svg
+                            width="15"
+                            height="15"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2">
+
+                            <path d="M5 12h14" />
+                            <path d="m13 6 6 6-6 6" />
+
                         </svg>
 
                     </span>
@@ -1212,253 +1476,335 @@
 </main>
 
 
-<!-- ========================================================= -->
-<!-- FEATURES -->
-<!-- ========================================================= -->
 
-<section id="keunggulan" class="bg-white border-t border-slate-200">
+<!-- =========================================================
+     FEATURES
+========================================================= -->
 
-    <div class="
-        max-w-7xl
-        mx-auto
-        px-5 sm:px-8
-        py-20
-    ">
+<section
+    id="keunggulan"
+    class="bg-white border-t border-slate-200">
+
+
+    <div
+        class="max-w-7xl mx-auto
+               px-5 sm:px-6 lg:px-8
+               py-16 sm:py-20 lg:py-24">
+
+
+        <!-- TITLE -->
 
         <div class="max-w-2xl mb-12">
 
-            <div class="
-                text-xs
-                uppercase
-                tracking-[0.2em]
-                font-black
-                text-blue-600
-                mb-3
-            ">
+
+            <div
+                class="text-[11px]
+                       uppercase
+                       tracking-[0.20em]
+                       font-black
+                       text-blue-600
+                       mb-3">
+
                 Kenapa Ruang Tryout?
+
             </div>
 
-            <h2 class="
-                text-3xl
-                sm:text-4xl
-                font-black
-                tracking-tight
-                text-slate-950
-            ">
+
+
+            <h2
+                class="text-3xl
+                       sm:text-4xl
+                       font-black
+                       tracking-[-0.03em]
+                       text-slate-950">
+
                 Semua yang kamu butuhkan untuk latihan.
+
             </h2>
 
-            <p class="
-                text-base
-                leading-7
-                text-slate-500
-                mt-4
-            ">
+
+
+            <p
+                class="text-sm sm:text-base
+                       leading-7
+                       text-slate-500
+                       mt-4">
+
                 Fokus pada latihan. Sistem kami membantu mengukur
                 kemampuanmu setelah setiap simulasi.
+
             </p>
 
         </div>
 
 
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+        <!-- FEATURES GRID -->
+
+        <div
+            class="grid
+                   sm:grid-cols-2
+                   lg:grid-cols-4
+                   gap-5">
 
 
-            <!-- feature -->
+            <!-- FREE -->
 
-            <div class="
-                p-6
-                rounded-2xl
-                border
-                border-slate-200
-                bg-slate-50/70
-                hover:bg-white
-                hover:shadow-card
-                transition
-            ">
+            <div
+                class="p-6
+                       rounded-2xl
+                       border
+                       border-slate-200
+                       bg-slate-50/70
+                       hover:bg-white
+                       hover:-translate-y-1
+                       hover:shadow-card
+                       transition-all
+                       duration-300">
 
-                <div class="
-                    w-11 h-11
-                    rounded-xl
-                    bg-blue-100
-                    text-blue-600
-                    flex
-                    items-center
-                    justify-center
-                    mb-5
-                ">
 
-                    <svg width="21" height="21"
-                         viewBox="0 0 24 24"
-                         fill="none"
-                         stroke="currentColor"
-                         stroke-width="2">
-                        <path d="M12 2v20"/>
-                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H7"/>
+                <div
+                    class="w-11 h-11
+                           rounded-xl
+                           bg-blue-100
+                           text-blue-600
+                           flex
+                           items-center
+                           justify-center
+                           mb-5">
+
+                    <svg
+                        width="21"
+                        height="21"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2">
+
+                        <path d="M20 6 9 17l-5-5" />
+
                     </svg>
 
                 </div>
 
-                <h3 class="font-black text-slate-950">
+
+                <h3
+                    class="font-black
+                           text-slate-950">
+
                     Gratis
+
                 </h3>
 
-                <p class="
-                    text-xs
-                    leading-6
-                    text-slate-500
-                    mt-2
-                ">
-                    Gunakan platform dan latihan soal tanpa biaya berlangganan.
+
+                <p
+                    class="text-xs
+                           leading-6
+                           text-slate-500
+                           mt-2">
+
+                    Gunakan platform dan latihan soal tanpa biaya
+                    berlangganan.
+
                 </p>
 
             </div>
 
 
-            <div class="
-                p-6
-                rounded-2xl
-                border
-                border-slate-200
-                bg-slate-50/70
-                hover:bg-white
-                hover:shadow-card
-                transition
-            ">
 
-                <div class="
-                    w-11 h-11
-                    rounded-xl
-                    bg-amber-100
-                    text-amber-600
-                    flex
-                    items-center
-                    justify-center
-                    mb-5
-                ">
+            <!-- TIMER -->
 
-                    <svg width="21" height="21"
-                         viewBox="0 0 24 24"
-                         fill="none"
-                         stroke="currentColor"
-                         stroke-width="2">
-                        <circle cx="12" cy="12" r="9"/>
-                        <path d="M12 7v5l3 2"/>
+            <div
+                class="p-6
+                       rounded-2xl
+                       border
+                       border-slate-200
+                       bg-slate-50/70
+                       hover:bg-white
+                       hover:-translate-y-1
+                       hover:shadow-card
+                       transition-all
+                       duration-300">
+
+
+                <div
+                    class="w-11 h-11
+                           rounded-xl
+                           bg-amber-100
+                           text-amber-600
+                           flex
+                           items-center
+                           justify-center
+                           mb-5">
+
+                    <svg
+                        width="21"
+                        height="21"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2">
+
+                        <circle cx="12" cy="12" r="9" />
+                        <path d="M12 7v5l3 2" />
+
                     </svg>
 
                 </div>
 
-                <h3 class="font-black text-slate-950">
+
+                <h3
+                    class="font-black
+                           text-slate-950">
+
                     Timer Real-time
+
                 </h3>
 
-                <p class="
-                    text-xs
-                    leading-6
-                    text-slate-500
-                    mt-2
-                ">
-                    Rasakan tekanan waktu yang lebih mendekati kondisi ujian.
+
+                <p
+                    class="text-xs
+                           leading-6
+                           text-slate-500
+                           mt-2">
+
+                    Rasakan tekanan waktu yang lebih mendekati kondisi
+                    ujian sebenarnya.
+
                 </p>
 
             </div>
 
 
-            <div class="
-                p-6
-                rounded-2xl
-                border
-                border-slate-200
-                bg-slate-50/70
-                hover:bg-white
-                hover:shadow-card
-                transition
-            ">
 
-                <div class="
-                    w-11 h-11
-                    rounded-xl
-                    bg-emerald-100
-                    text-emerald-600
-                    flex
-                    items-center
-                    justify-center
-                    mb-5
-                ">
+            <!-- EVALUATION -->
 
-                    <svg width="21" height="21"
-                         viewBox="0 0 24 24"
-                         fill="none"
-                         stroke="currentColor"
-                         stroke-width="2">
-                        <path d="M3 3v18h18"/>
-                        <path d="m7 16 4-5 3 3 5-7"/>
+            <div
+                class="p-6
+                       rounded-2xl
+                       border
+                       border-slate-200
+                       bg-slate-50/70
+                       hover:bg-white
+                       hover:-translate-y-1
+                       hover:shadow-card
+                       transition-all
+                       duration-300">
+
+
+                <div
+                    class="w-11 h-11
+                           rounded-xl
+                           bg-emerald-100
+                           text-emerald-600
+                           flex
+                           items-center
+                           justify-center
+                           mb-5">
+
+                    <svg
+                        width="21"
+                        height="21"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2">
+
+                        <path d="M3 3v18h18" />
+                        <path d="m7 16 4-5 3 3 5-7" />
+
                     </svg>
 
                 </div>
 
-                <h3 class="font-black text-slate-950">
+
+                <h3
+                    class="font-black
+                           text-slate-950">
+
                     Evaluasi Instan
+
                 </h3>
 
-                <p class="
-                    text-xs
-                    leading-6
-                    text-slate-500
-                    mt-2
-                ">
-                    Lihat skor dan evaluasi setelah menyelesaikan simulasi.
+
+                <p
+                    class="text-xs
+                           leading-6
+                           text-slate-500
+                           mt-2">
+
+                    Lihat skor dan evaluasi setelah menyelesaikan
+                    simulasi.
+
                 </p>
 
             </div>
 
 
-            <div class="
-                p-6
-                rounded-2xl
-                border
-                border-slate-200
-                bg-slate-50/70
-                hover:bg-white
-                hover:shadow-card
-                transition
-            ">
 
-                <div class="
-                    w-11 h-11
-                    rounded-xl
-                    bg-violet-100
-                    text-violet-600
-                    flex
-                    items-center
-                    justify-center
-                    mb-5
-                ">
+            <!-- LEADERBOARD -->
 
-                    <svg width="21" height="21"
-                         viewBox="0 0 24 24"
-                         fill="none"
-                         stroke="currentColor"
-                         stroke-width="2">
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                        <circle cx="9" cy="7" r="4"/>
-                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            <div
+                class="p-6
+                       rounded-2xl
+                       border
+                       border-slate-200
+                       bg-slate-50/70
+                       hover:bg-white
+                       hover:-translate-y-1
+                       hover:shadow-card
+                       transition-all
+                       duration-300">
+
+
+                <div
+                    class="w-11 h-11
+                           rounded-xl
+                           bg-violet-100
+                           text-violet-600
+                           flex
+                           items-center
+                           justify-center
+                           mb-5">
+
+                    <svg
+                        width="21"
+                        height="21"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2">
+
+                        <path d="M8 21h8" />
+                        <path d="M12 17v4" />
+                        <path d="M7 4h10" />
+                        <path d="M5 4v5a7 7 0 0 0 14 0V4" />
+                        <path d="M5 8H3a2 2 0 0 0 0 4h2" />
+                        <path d="M19 8h2a2 2 0 0 1 0 4h-2" />
+
                     </svg>
 
                 </div>
 
-                <h3 class="font-black text-slate-950">
+
+                <h3
+                    class="font-black
+                           text-slate-950">
+
                     Leaderboard
+
                 </h3>
 
-                <p class="
-                    text-xs
-                    leading-6
-                    text-slate-500
-                    mt-2
-                ">
-                    Bandingkan hasil simulasi dan lihat posisi kamu di klasemen.
+
+                <p
+                    class="text-xs
+                           leading-6
+                           text-slate-500
+                           mt-2">
+
+                    Bandingkan hasil simulasi dan lihat posisi kamu
+                    di klasemen peserta.
+
                 </p>
 
             </div>
@@ -1470,94 +1816,136 @@
 </section>
 
 
-<!-- ========================================================= -->
-<!-- CTA -->
-<!-- ========================================================= -->
 
-<section class="bg-slate-950">
+<!-- =========================================================
+     BOTTOM CTA
+========================================================= -->
 
-    <div class="
-        max-w-5xl
-        mx-auto
-        px-5 sm:px-8
-        py-20
-        text-center
-    ">
+<section
+    class="relative
+           overflow-hidden
+           bg-slate-950">
 
-        <div class="
-            inline-flex
-            items-center
-            gap-2
-            text-xs
-            font-bold
-            text-blue-300
-            bg-blue-500/10
-            border
-            border-blue-500/20
-            px-4 py-2
-            rounded-full
-            mb-6
-        ">
+
+    <!-- GLOW -->
+
+    <div
+        class="absolute
+               left-1/2
+               top-1/2
+               -translate-x-1/2
+               -translate-y-1/2
+               w-[650px]
+               h-[350px]
+               rounded-full
+               bg-blue-600/10
+               blur-[100px]
+               pointer-events-none">
+    </div>
+
+
+
+    <div
+        class="relative
+               max-w-5xl
+               mx-auto
+               px-5 sm:px-6 lg:px-8
+               py-16 sm:py-20
+               text-center">
+
+
+        <div
+            class="inline-flex
+                   items-center
+                   gap-2
+                   text-[10px]
+                   tracking-wider
+                   font-black
+                   text-blue-300
+                   bg-blue-500/10
+                   border
+                   border-blue-500/20
+                   px-4
+                   py-2
+                   rounded-full
+                   mb-6">
+
             SIAP MENGUJI KEMAMPUANMU?
+
         </div>
 
 
-        <h2 class="
-            text-3xl
-            sm:text-4xl
-            lg:text-5xl
-            font-black
-            tracking-tight
-            text-white
-        ">
+
+        <h2
+            class="text-3xl
+                   sm:text-4xl
+                   lg:text-5xl
+                   font-black
+                   tracking-[-0.04em]
+                   text-white">
+
             Jangan hanya belajar.
-            <br>
-            <span class="text-blue-400">
+
+            <span
+                class="block
+                       text-blue-400
+                       mt-1">
+
                 Uji kemampuanmu.
+
             </span>
+
         </h2>
 
 
-        <p class="
-            text-sm
-            sm:text-base
-            text-slate-400
-            max-w-xl
-            mx-auto
-            mt-5
-            leading-7
-        ">
+
+        <p
+            class="text-sm
+                   sm:text-base
+                   text-slate-400
+                   max-w-xl
+                   mx-auto
+                   mt-5
+                   leading-7">
+
             Pilih simulasi, kerjakan soal dengan batas waktu,
             lalu lihat bagaimana performamu.
+
         </p>
+
 
 
         <a
             href="#program"
-            class="
-                inline-flex
-                items-center
-                gap-2
-                mt-8
-                bg-white
-                hover:bg-blue-50
-                text-slate-950
-                font-black
-                px-7
-                py-3.5
-                rounded-xl
-                transition
-            ">
+
+            class="inline-flex
+                   items-center
+                   gap-2
+                   mt-8
+                   bg-white
+                   hover:bg-blue-50
+                   text-slate-950
+                   font-black
+                   text-sm
+                   px-7
+                   py-3.5
+                   rounded-xl
+                   hover:-translate-y-0.5
+                   transition-all">
 
             Mulai Tryout Gratis
 
-            <svg width="17" height="17"
-                 viewBox="0 0 24 24"
-                 fill="none"
-                 stroke="currentColor"
-                 stroke-width="2">
-                <path d="M5 12h14"/>
-                <path d="m13 6 6 6-6 6"/>
+            <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2">
+
+                <path d="M5 12h14" />
+                <path d="m13 6 6 6-6 6" />
+
             </svg>
 
         </a>
@@ -1567,49 +1955,70 @@
 </section>
 
 
-<!-- ========================================================= -->
-<!-- FOOTER -->
-<!-- ========================================================= -->
 
-<footer class="bg-slate-950 border-t border-white/10">
+<!-- =========================================================
+     FOOTER
+========================================================= -->
 
-    <div class="
-        max-w-7xl
-        mx-auto
-        px-5 sm:px-8
-        py-8
-        flex
-        flex-col
-        sm:flex-row
-        items-center
-        justify-between
-        gap-4
-    ">
+<footer
+    class="bg-slate-950
+           border-t
+           border-white/10">
+
+
+    <div
+        class="max-w-7xl
+               mx-auto
+               px-5 sm:px-6 lg:px-8
+               py-8
+               flex
+               flex-col
+               sm:flex-row
+               items-center
+               justify-between
+               gap-5">
+
 
         <div class="flex items-center gap-3">
 
-            <div class="
-                w-8 h-8
-                rounded-lg
-                bg-white
-                text-slate-950
-                flex
-                items-center
-                justify-center
-                font-black
-                text-sm
-            ">
+
+            <div
+                class="w-8 h-8
+                       rounded-lg
+                       bg-white
+                       text-slate-950
+                       flex
+                       items-center
+                       justify-center
+                       font-black
+                       text-sm">
+
                 R
+
             </div>
+
 
             <div>
 
-                <div class="text-sm font-black text-white">
-                    RuangTryout
+
+                <div
+                    class="text-sm
+                           font-black
+                           text-white">
+
+                    Ruang<span class="text-blue-400">Tryout</span>
+
                 </div>
 
-                <div class="text-[10px] text-slate-500">
+
+                <div
+                    class="text-[9px]
+                           text-slate-500
+                           tracking-wider
+                           uppercase">
+
                     Exam Simulation Platform
+
                 </div>
 
             </div>
@@ -1617,12 +2026,15 @@
         </div>
 
 
-        <div class="
-            text-[11px]
-            text-slate-500
-            text-center
-        ">
+
+        <div
+            class="text-[10px]
+                   sm:text-[11px]
+                   text-slate-500
+                   text-center">
+
             © 2026 Ruang Tryout. All rights reserved.
+
         </div>
 
     </div>
@@ -1630,169 +2042,213 @@
 </footer>
 
 
-<!-- ========================================================= -->
-<!-- FIREBASE -->
-<!-- ========================================================= -->
+
+<!-- =========================================================
+     FIREBASE SDK
+========================================================= -->
 
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
 <script src="firebase-config.js"></script>
 
 
+
+<!-- =========================================================
+     AUTH + PROTECTED EXAM
+========================================================= -->
+
 <script>
 
-let currentUserState = null;
+    let currentUserState = null;
 
 
-/* =========================================================
-   AUTH STATE
-========================================================= */
+    /* =====================================================
+       AUTH STATE
+    ====================================================== */
 
-auth.onAuthStateChanged((user) => {
+    auth.onAuthStateChanged((user) => {
 
-    currentUserState = user;
+        currentUserState = user;
 
-    const authContainer =
-        document.getElementById("auth-container");
-
-
-    if (user) {
-
-        const photo =
-            user.photoURL ||
-            "https://via.placeholder.com/80";
+        const authContainer =
+            document.getElementById("auth-container");
 
 
-        const name =
-            user.displayName ||
-            "Peserta";
+        if (user) {
+
+            const photo =
+                user.photoURL ||
+                "https://via.placeholder.com/80";
 
 
-        authContainer.innerHTML = `
+            const name =
+                user.displayName ||
+                "Peserta";
 
-            <div class="flex items-center gap-3">
 
-                <img
-                    src="${photo}"
-                    class="
-                        w-9 h-9
-                        rounded-full
-                        object-cover
-                        border-2
-                        border-white
-                        shadow-sm
-                    "
-                    alt="Avatar"
-                >
+            authContainer.innerHTML = `
 
-                <div class="hidden sm:block">
+                <div class="flex items-center gap-2 sm:gap-3">
 
-                    <div class="
-                        text-xs
-                        font-black
-                        text-slate-800
-                        max-w-[130px]
-                        truncate
-                    ">
-                        ${name}
+                    <img
+                        src="${photo}"
+                        alt="Avatar pengguna"
+
+                        class="
+                            w-9 h-9
+                            rounded-full
+                            object-cover
+                            border-2
+                            border-white
+                            shadow-sm
+                        "
+                    >
+
+
+                    <div class="hidden md:block">
+
+                        <div
+                            class="
+                                text-[11px]
+                                font-black
+                                text-slate-800
+                                max-w-[140px]
+                                truncate
+                            ">
+
+                            ${name}
+
+                        </div>
+
+
+                        <div
+                            class="
+                                text-[8px]
+                                text-emerald-600
+                                font-black
+                                tracking-wide
+                                mt-0.5
+                            ">
+
+                            TERHUBUNG
+
+                        </div>
+
                     </div>
 
-                    <div class="
-                        text-[9px]
-                        text-emerald-600
-                        font-bold
-                    ">
-                        TERHUBUNG
-                    </div>
+
+                    <button
+                        onclick="logoutUser()"
+
+                        class="
+                            text-[10px]
+                            sm:text-xs
+                            font-bold
+                            text-slate-500
+                            hover:text-red-500
+                            px-2
+                            transition-colors
+                        ">
+
+                        Keluar
+
+                    </button>
 
                 </div>
 
+            `;
+
+        } else {
+
+            authContainer.innerHTML = `
 
                 <button
-                    onclick="logoutUser()"
+
+                    onclick="loginWithGoogle()"
+
                     class="
+                        inline-flex
+                        items-center
+                        justify-center
+                        gap-2
+                        bg-slate-950
+                        hover:bg-blue-600
+                        text-white
                         text-xs
+                        sm:text-sm
                         font-bold
-                        text-slate-500
-                        hover:text-red-500
-                        transition
+                        px-4
+                        sm:px-5
+                        py-2.5
+                        rounded-xl
+                        shadow-lg
+                        shadow-slate-950/10
+                        hover:shadow-blue-600/20
+                        transition-all
+                        duration-300
                     ">
-                    Keluar
+
+
+                    <svg
+                        class="hidden sm:block"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2">
+
+                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+
+                        <path d="M10 17l5-5-5-5" />
+
+                        <path d="M15 12H3" />
+
+                    </svg>
+
+
+                    Masuk
+
                 </button>
 
-            </div>
+            `;
 
-        `;
+        }
 
-    } else {
+    });
 
-        authContainer.innerHTML = `
 
-            <button
-                onclick="loginWithGoogle()"
-                class="
-                    inline-flex
-                    items-center
-                    gap-2
-                    bg-slate-950
-                    hover:bg-blue-600
-                    text-white
-                    text-sm
-                    font-bold
-                    px-5
-                    py-2.5
-                    rounded-xl
-                    shadow-lg
-                    transition-all
-                ">
 
-                <svg width="16" height="16"
-                     viewBox="0 0 24 24"
-                     fill="none"
-                     stroke="currentColor"
-                     stroke-width="2">
-                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
-                    <path d="M10 17l5-5-5-5"/>
-                    <path d="M15 12H3"/>
-                </svg>
+    /* =====================================================
+       PROTECTED EXAM
+    ====================================================== */
 
-                Masuk
+    function startProtectedExam(category) {
 
-            </button>
+        if (currentUserState) {
 
-        `;
+            window.location.href =
+                `exam.html?cat=${category}`;
+
+        } else {
+
+            alert(
+                "🔒 Silakan login menggunakan Akun Google terlebih dahulu untuk mengerjakan simulasi."
+            );
+
+            loginWithGoogle();
+
+        }
 
     }
-
-});
-
-
-/* =========================================================
-   PROTECTED EXAM
-========================================================= */
-
-function startProtectedExam(category) {
-
-    if (currentUserState) {
-
-        window.location.href =
-            `exam.html?cat=${category}`;
-
-    } else {
-
-        alert(
-            "🔒 Silakan login menggunakan Akun Google terlebih dahulu untuk mengerjakan simulasi."
-        );
-
-        loginWithGoogle();
-
-    }
-
-}
 
 </script>
 
+
 </body>
+
 </html>
