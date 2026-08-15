@@ -12,25 +12,7 @@ const QUIZ_DURATION_SECONDS = 90 * 60; // 90 Menit
 
 const quizCard = document.getElementById("quiz-card");
 
-document.addEventListener("DOMContentLoaded", () => {
-    if (!quizCard) return;
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const categoryParam = urlParams.get('cat') || 'cpns';
-
-    if (typeof quizCategories !== 'undefined' && quizCategories[categoryParam]) {
-        initQuiz(categoryParam);
-    } else {
-        quizCard.innerHTML = `
-            <div class="text-center py-20 space-y-4">
-                <p class="text-slate-400 text-sm">Program kuis tidak ditemukan.</p>
-                <a href="index.html" class="inline-block bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition">
-                    Kembali ke Beranda
-                </a>
-            </div>
-        `;
-    }
-});
+document.addEventListener
 
 function initQuiz(categoryKey) {
     currentCategoryKey = categoryKey;
@@ -323,4 +305,35 @@ if ('serviceWorker' in navigator) {
             .then(reg => console.log('SW Registered!', reg))
             .catch(err => console.log('SW Registration Failed!', err));
     });
+}
+// Tambahkan di baris paling bawah app.js
+function showAuthLockScreen() {
+    if (typeof timerInterval !== 'undefined' && timerInterval) {
+        clearInterval(timerInterval);
+    }
+
+    const quizCard = document.getElementById("quiz-card") || document.querySelector("main");
+    if (quizCard) {
+        quizCard.innerHTML = `
+            <div class="p-8 sm:p-12 text-center space-y-6 bg-slate-900 rounded-2xl border border-slate-800 my-8">
+                <div class="w-16 h-16 bg-blue-900/40 text-blue-400 border border-blue-500/30 rounded-2xl flex items-center justify-center text-3xl mx-auto shadow-lg">
+                    🔒
+                </div>
+                <div class="space-y-2">
+                    <h2 class="text-2xl sm:text-3xl font-black text-white">Login Diperlukan</h2>
+                    <p class="text-xs sm:text-sm text-slate-400 max-w-md mx-auto leading-relaxed">
+                        Untuk menjaga integritas papan peringkat dan mencatat hasil ujian secara akurat, Anda wajib masuk menggunakan Akun Google sebelum mengerjakan soal.
+                    </p>
+                </div>
+                <div class="pt-2 flex flex-col sm:flex-row gap-3 justify-center">
+                    <button onclick="loginWithGoogle()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+                        🔑 Masuk / Login dengan Google
+                    </button>
+                    <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs sm:text-sm px-6 py-3 rounded-xl border border-slate-700 transition text-center">
+                        🏠 Kembali ke Beranda
+                    </a>
+                </div>
+            </div>
+        `;
+    }
 }
