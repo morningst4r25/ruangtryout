@@ -1,7 +1,7 @@
 // firebase-config.js - Konfigurasi & Autentikasi Firebase Ruang Tryout
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC_9XPLuFNoxRtPd8nrtbqHWL9wd9TwmhE",
+  apiKey: "AIzaSyC_9XPLuFNoxRtPd8nrtbqHML9wd9TwmhE",
   authDomain: "ruang-tryout-b6624.firebaseapp.com",
   projectId: "ruang-tryout-b6624",
   storageBucket: "ruang-tryout-b6624.firebasestorage.app",
