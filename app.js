@@ -55,20 +55,32 @@ function showAuthLockScreen() {
 }
 
 // Memulai Pengambilan Soal & Render Ujian
-function startQuizProcess() {
-    if (typeof questionsData !== "undefined" && questionsData[selectedCategory]) {
-        currentQuestions = questionsData[selectedCategory];
+unction startQuizProcess() {
+    const catKey = selectedCategory.toLowerCase();
+
+    // Deteksi berbagai kemungkinan variabel dari questions.js
+    if (typeof questionsData !== "undefined") {
+        currentQuestions = questionsData[catKey] || questionsData[selectedCategory] || [];
     } else if (typeof questions !== "undefined") {
-        currentQuestions = questions;
+        if (Array.isArray(questions)) {
+            currentQuestions = questions;
+        } else {
+            currentQuestions = questions[catKey] || questions[selectedCategory] || [];
+        }
+    } else if (catKey === 'cpns' && typeof cpnsQuestions !== "undefined") {
+        currentQuestions = cpnsQuestions;
+    } else if (catKey === 'utbk' && typeof utbkQuestions !== "undefined") {
+        currentQuestions = utbkQuestions;
     } else {
         currentQuestions = [];
     }
 
-    if (currentQuestions.length === 0) {
+    if (!currentQuestions || currentQuestions.length === 0) {
         document.getElementById("quiz-card").innerHTML = `
-            <div class="p-8 text-center text-slate-400 my-auto">
-                <p>Soal untuk kategori ini belum tersedia.</p>
-                <a href="index.html" class="mt-4 inline-block text-blue-400 underline text-sm">Kembali ke Beranda</a>
+            <div class="p-8 text-center text-slate-400 my-auto space-y-3">
+                <p class="text-base font-semibold text-white">Soal untuk kategori "${selectedCategory.toUpperCase()}" belum dimuat.</p>
+                <p class="text-xs text-slate-400">Pastikan file questions.js sudah menyediakan array data soal.</p>
+                <a href="index.html" class="inline-block bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs px-4 py-2 rounded-xl border border-slate-700 transition">🏠 Kembali ke Beranda</a>
             </div>
         `;
         return;
@@ -78,7 +90,6 @@ function startQuizProcess() {
     startTimer();
     loadQuestion(currentIndex);
 }
-
 // Render Tata Letak Utama Lembar Ujian
 function renderQuizLayout() {
     const quizCard = document.getElementById("quiz-card");
