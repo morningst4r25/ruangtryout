@@ -19,16 +19,9 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-// Fungsi Login Google
+// Fungsi Login Google (Menggunakan Redirect agar Bebas Popup Blocker)
 function loginWithGoogle() {
-    auth.signInWithPopup(googleProvider)
-        .then((result) => {
-            console.log("Login Berhasil:", result.user.displayName);
-            window.location.reload();
-        })
-        .catch((error) => {
-            alert("Gagal Login: " + error.message);
-        });
+    auth.signInWithRedirect(googleProvider);
 }
 
 // Fungsi Logout
