@@ -1,6 +1,6 @@
-// app.js - Logika Ujian CAT & Proteksi Login Ruang Tryout
+// app.js - Logika Ujian CAT, Reading quizCategories, & Proteksi Auth Ruang Tryout
 
-// Ambil parameter kategori dari URL (?cat=cpns atau ?cat=utbk)
+// 1. Ambil parameter kategori dari URL (?cat=cpns atau ?cat=utbk)
 const urlParams = new URLSearchParams(window.location.search);
 const selectedCategory = urlParams.get('cat') || 'cpns';
 
@@ -8,24 +8,26 @@ let currentQuestions = [];
 let currentIndex = 0;
 let userAnswers = {};
 let timerInterval = null;
-let timeRemaining = 90 * 60; // 90 menit
+let timeRemaining = 90 * 60; // 90 menit (dalam detik)
 
-// Inisialisasi Auth Guard saat DOM siap
+// 2. Auth Guard: Cek status Login Firebase saat halaman exam.html selesai dimuat
 document.addEventListener("DOMContentLoaded", () => {
     if (typeof auth !== "undefined") {
         auth.onAuthStateChanged((user) => {
             if (user) {
+                // Jika user sudah login, jalankan proses kuis
                 startQuizProcess();
             } else {
+                // Jika belum login, tampilkan penguncian
                 showAuthLockScreen();
             }
         });
     } else {
-        console.error("Firebase Auth belum terpasang.");
+        console.error("Firebase Auth belum terpasang di exam.html");
     }
 });
 
-// Layar Penguncian Jika Belum Login
+// 3. Tampilan Kunci Jika User Belum Login
 function showAuthLockScreen() {
     if (timerInterval) clearInterval(timerInterval);
     const quizCard = document.getElementById("quiz-card");
@@ -54,32 +56,26 @@ function showAuthLockScreen() {
     `;
 }
 
-// Memulai Pengambilan Soal & Render Ujian
-unction startQuizProcess() {
+// 4. MEMBACA STRUKTUR quizCategories DAN MEMULAI UJIAN
+function startQuizProcess() {
     const catKey = selectedCategory.toLowerCase();
 
-    // Deteksi berbagai kemungkinan variabel dari questions.js
-    if (typeof questionsData !== "undefined") {
-        currentQuestions = questionsData[catKey] || questionsData[selectedCategory] || [];
+    // FOKUS UTAMA: Membaca quizCategories[catKey].questions dari questions.js
+    if (typeof quizCategories !== "undefined" && quizCategories[catKey]) {
+        currentQuestions = quizCategories[catKey].questions || [];
+    } else if (typeof questionsData !== "undefined" && questionsData[catKey]) {
+        currentQuestions = questionsData[catKey] || [];
     } else if (typeof questions !== "undefined") {
-        if (Array.isArray(questions)) {
-            currentQuestions = questions;
-        } else {
-            currentQuestions = questions[catKey] || questions[selectedCategory] || [];
-        }
-    } else if (catKey === 'cpns' && typeof cpnsQuestions !== "undefined") {
-        currentQuestions = cpnsQuestions;
-    } else if (catKey === 'utbk' && typeof utbkQuestions !== "undefined") {
-        currentQuestions = utbkQuestions;
+        currentQuestions = Array.isArray(questions) ? questions : (questions[catKey] || []);
     } else {
         currentQuestions = [];
     }
 
+    // Jika soal tidak ditemukan
     if (!currentQuestions || currentQuestions.length === 0) {
         document.getElementById("quiz-card").innerHTML = `
             <div class="p-8 text-center text-slate-400 my-auto space-y-3">
-                <p class="text-base font-semibold text-white">Soal untuk kategori "${selectedCategory.toUpperCase()}" belum dimuat.</p>
-                <p class="text-xs text-slate-400">Pastikan file questions.js sudah menyediakan array data soal.</p>
+                <p class="text-base font-semibold text-white">Soal untuk kategori "${selectedCategory.toUpperCase()}" tidak ditemukan.</p>
                 <a href="index.html" class="inline-block bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs px-4 py-2 rounded-xl border border-slate-700 transition">🏠 Kembali ke Beranda</a>
             </div>
         `;
@@ -90,13 +86,18 @@ unction startQuizProcess() {
     startTimer();
     loadQuestion(currentIndex);
 }
-// Render Tata Letak Utama Lembar Ujian
+
+// 5. Render Antarmuka Lembar Ujian
 function renderQuizLayout() {
     const quizCard = document.getElementById("quiz-card");
+    const categoryTitle = (typeof quizCategories !== "undefined" && quizCategories[selectedCategory.toLowerCase()]) 
+        ? quizCategories[selectedCategory.toLowerCase()].title 
+        : selectedCategory.toUpperCase();
+
     quizCard.innerHTML = `
         <div class="bg-slate-900 border-b border-slate-800 px-6 py-4 flex flex-wrap justify-between items-center gap-4">
             <div>
-                <span class="text-xs font-bold text-blue-400 uppercase tracking-wider">Kategori: ${selectedCategory.toUpperCase()}</span>
+                <span class="text-xs font-bold text-blue-400 uppercase tracking-wider">${categoryTitle}</span>
                 <h2 id="question-number-title" class="text-lg font-bold text-white">Soal No. 1</h2>
             </div>
             <div class="bg-slate-800 border border-slate-700 px-4 py-2 rounded-xl text-right">
@@ -124,7 +125,7 @@ function renderQuizLayout() {
     `;
 }
 
-// Menampilkan Soal Berdasarkan Indeks
+// 6. Tampilkan Soal Berdasarkan Indeks Aktif
 function loadQuestion(index) {
     currentIndex = index;
     const q = currentQuestions[currentIndex];
@@ -172,6 +173,7 @@ function navigateQuestion(step) {
     }
 }
 
+// 7. Penghitung Waktu Mundur Ujian
 function startTimer() {
     if (timerInterval) clearInterval(timerInterval);
     timerInterval = setInterval(() => {
@@ -189,7 +191,7 @@ function startTimer() {
     }, 1000);
 }
 
-// Selesaikan Ujian & Simpan Skor ke Firestore
+// 8. Selesaikan Ujian & Simpan Skor ke Firestore Leaderboard
 function submitExam() {
     if (!confirm("Apakah Anda yakin ingin menyelesaikan ujian ini?")) return;
     if (timerInterval) clearInterval(timerInterval);
@@ -213,7 +215,7 @@ function submitExam() {
         }).then(() => {
             showResultScreen(score);
         }).catch((err) => {
-            console.error("Gagal menyimpan skor:", err);
+            console.error("Gagal menyimpan skor ke Firestore:", err);
             showResultScreen(score);
         });
     } else {
@@ -221,7 +223,7 @@ function submitExam() {
     }
 }
 
-// Layar Hasil Ujian
+// 9. Tampilan Ringkasan Hasil Nilai Ujian
 function showResultScreen(score) {
     const quizCard = document.getElementById("quiz-card");
     quizCard.innerHTML = `
