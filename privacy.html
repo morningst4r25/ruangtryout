@@ -1,58 +1,170 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kebijakan Privasi - Ruang Tryout</title>
+    <meta name="description" content="Kebijakan Privasi Ruang Tryout mengenai informasi pengguna, penyimpanan lokal, leaderboard, Firebase, cookie, dan layanan periklanan.">
+    <meta name="theme-color" content="#ffffff">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
     <style>
-        .page-container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            line-height: 1.6;
-            color: #333;
+        @media print {
+            header, footer, #privacy-actions, #privacy-toc { display: none !important; }
+            body { background: white !important; }
+            main { padding: 0 !important; }
+            #privacy-card { box-shadow: none !important; border: none !important; }
         }
-        .page-container h1 { color: #1a73e8; margin-bottom: 20px; }
-        .page-container h2 { color: #202124; margin-top: 24px; font-size: 1.2rem; }
-        .back-link { display: inline-block; margin-bottom: 20px; color: #1a73e8; text-decoration: none; font-weight: bold; }
-        .back-link:hover { text-decoration: underline; }
     </style>
 </head>
-<body>
-    <header>
-        <div class="header-container">
-            <h1>Ruang Tryout</h1>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-200/80">
+        <div class="max-w-7xl mx-auto h-16 px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+            <a href="index.html" class="flex items-center gap-2.5 group min-w-0">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white text-lg font-black shadow-md shadow-blue-500/20">R</div>
+                <div class="leading-tight min-w-0">
+                    <div class="text-lg sm:text-xl font-black tracking-tight text-slate-900 whitespace-nowrap">Ruang<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Tryout</span></div>
+                    <div class="hidden sm:block mt-0.5 text-[8px] uppercase tracking-[0.18em] font-black text-slate-400">Kebijakan Privasi</div>
+                </div>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-6 text-xs font-bold text-slate-500">
+                <a href="index.html" class="hover:text-blue-600 transition">Beranda</a>
+                <a href="about.html" class="hover:text-blue-600 transition">Tentang Kami</a>
+                <a href="contact.html" class="hover:text-blue-600 transition">Hubungi Kami</a>
+            </nav>
+
+            <a href="index.html" class="inline-flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] sm:text-xs font-black px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-200 transition">Kembali ke Beranda</a>
         </div>
     </header>
 
-    <main class="page-container">
-        <a href="index.html" class="back-link">&larr; Kembali ke Kuis</a>
-        <h1>Kebijakan Privasi (Privacy Policy)</h1>
-        <p>Terakhir diperbarui: 14 Agustus 2026</p>
+    <main class="flex-1">
+        <!-- HERO -->
+        <section class="bg-gradient-to-b from-blue-50/70 via-white to-slate-50 pt-14 sm:pt-18 pb-10 border-b border-slate-200/70">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <span class="inline-flex items-center gap-2 bg-white border border-blue-200 text-blue-700 text-[10px] font-black uppercase tracking-[0.14em] px-3.5 py-1.5 rounded-full shadow-sm">Dokumen Privasi</span>
+                <h1 class="mt-5 text-4xl sm:text-5xl font-black tracking-tight text-slate-950">Kebijakan Privasi</h1>
+                <p class="mt-4 max-w-2xl text-sm sm:text-base leading-7 text-slate-500">Dokumen ini menjelaskan jenis informasi yang dapat diproses Ruang Tryout, bagaimana informasi digunakan, dan pilihan yang tersedia bagi pengguna.</p>
+                <div id="privacy-actions" class="mt-5 flex flex-wrap items-center gap-3">
+                    <span class="inline-flex items-center bg-slate-100 border border-slate-200 text-slate-600 text-[10px] font-bold px-3 py-2 rounded-xl">Terakhir diperbarui: 16 Agustus 2026</span>
+                    <button type="button" onclick="window.print()" class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-[10px] font-black px-3 py-2 rounded-xl transition">Cetak / Simpan PDF</button>
+                </div>
+            </div>
+        </section>
 
-        <p>Di <strong>Ruang Tryout</strong> (dapat diakses melalui <code>https://www.ruangtryout.my.id</code>), salah satu prioritas utama kami adalah privasi pengunjung kami. Dokumen Kebijakan Privasi ini berisi jenis informasi yang dikumpulkan dan dicatat oleh Ruang Tryout dan bagaimana kami menggunakannya.</p>
+        <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+            <div class="grid lg:grid-cols-[260px_1fr] gap-7 items-start">
 
-        <h2>1. Informasi yang Kami Kumpulkan</h2>
-        <p>Ruang Tryout adalah aplikasi berbasis Progressive Web App (PWA) yang dirancang untuk latihan soal kuis. Kami tidak meminta pengguna melakukan pendaftaran akun atau memasukkan data pribadi sensitif untuk menggunakan fitur utama kuis kami.</p>
+                <!-- TOC -->
+                <aside id="privacy-toc" class="lg:sticky lg:top-24 bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+                    <p class="text-[9px] uppercase tracking-[0.14em] font-black text-slate-400">Isi Kebijakan</p>
+                    <nav class="mt-4 space-y-1 text-xs font-bold text-slate-500">
+                        <a href="#ringkasan" class="block px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">Ringkasan</a>
+                        <a href="#informasi" class="block px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">1. Informasi yang diproses</a>
+                        <a href="#penyimpanan" class="block px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">2. Penyimpanan lokal</a>
+                        <a href="#leaderboard" class="block px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">3. Papan peringkat</a>
+                        <a href="#log" class="block px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">4. Log & infrastruktur</a>
+                        <a href="#cookie" class="block px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">5. Cookie & iklan</a>
+                        <a href="#pihak-ketiga" class="block px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">6. Layanan pihak ketiga</a>
+                        <a href="#hak" class="block px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">7. Pilihan pengguna</a>
+                        <a href="#keamanan" class="block px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">8. Keamanan</a>
+                        <a href="#perubahan" class="block px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">9. Perubahan kebijakan</a>
+                        <a href="#kontak" class="block px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">10. Kontak</a>
+                    </nav>
+                </aside>
 
-        <h2>2. Berkas Log (Log Files)</h2>
-        <p>Ruang Tryout mengikuti prosedur standar menggunakan berkas log. Berkas ini mencatat pengunjung ketika mereka mengunjungi situs web. Informasi yang dikumpulkan oleh berkas log meliputi alamat IP, jenis peramban (browser), Penyedia Layanan Internet (ISP), stempel tanggal/waktu, dan halaman rujukan/keluar.</p>
+                <!-- POLICY -->
+                <article id="privacy-card" class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 lg:p-10 shadow-sm">
+                    <section id="ringkasan" class="scroll-mt-24">
+                        <p class="text-[10px] uppercase tracking-[0.14em] font-black text-blue-600">Ringkasan</p>
+                        <h2 class="mt-2 text-2xl sm:text-3xl font-black tracking-tight text-slate-950">Privasi pengguna adalah bagian dari desain platform.</h2>
+                        <p class="mt-4 text-sm leading-7 text-slate-600">Ruang Tryout dapat diakses melalui <strong>https://www.ruangtryout.my.id</strong>. Fitur utama tryout tidak mengharuskan pengguna membuat akun. Namun, beberapa fitur dapat menggunakan penyimpanan lokal pada perangkat, layanan Firebase, dan data yang diberikan pengguna secara sukarela—misalnya nama tampilan untuk papan peringkat.</p>
+                        <div class="mt-6 rounded-2xl bg-blue-50 border border-blue-100 p-5 text-sm leading-6 text-blue-900">
+                            Ruang Tryout tidak meminta data pribadi sensitif untuk mengerjakan simulasi utama. Jangan memasukkan informasi sensitif ke kolom nama leaderboard atau pesan yang tidak memerlukannya.
+                        </div>
+                    </section>
 
-        <h2>3. Cookie dan Web Beacon (Termasuk Google AdSense)</h2>
-        <p>Seperti situs web lainnya, Ruang Tryout menggunakan 'cookies'. Cookie digunakan untuk menyimpan informasi termasuk preferensi pengunjung dan halaman di situs web yang diakses atau dikunjungi pengunjung.</p>
-        <p><strong>Pihak Ketiga (Google AdSense):</strong></p>
-        <ul>
-            <li>Vendor pihak ketiga, termasuk Google, menggunakan cookie untuk menayangkan iklan berdasarkan kunjungan sebelumnya ke situs web kami atau situs web lain.</li>
-            <li>Penggunaan cookie iklan oleh Google memungkinkan Google dan mitranya menayangkan iklan kepada pengguna berdasarkan kunjungan mereka ke Ruang Tryout dan/atau situs lain di Internet.</li>
-            <li>Pengguna dapat memilih untuk tidak menggunakan iklan yang dipersonalisasi dengan mengunjungi <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Pengaturan Iklan Google</a>.</li>
-        </ul>
+                    <div class="my-9 border-t border-slate-100"></div>
 
-        <h2>4. Persetujuan</h2>
-        <p>Dengan menggunakan situs web kami, Anda dengan ini menyetujui Kebijakan Privasi kami dan menyetujui ketentuan-ketentuannya.</p>
+                    <section id="informasi" class="scroll-mt-24">
+                        <h2 class="text-xl font-black text-slate-950">1. Informasi yang Kami Proses</h2>
+                        <p class="mt-3 text-sm leading-7 text-slate-600">Tergantung fitur yang digunakan, informasi yang dapat diproses meliputi:</p>
+                        <ul class="mt-4 space-y-3 text-sm leading-6 text-slate-600">
+                            <li class="flex gap-3"><span class="mt-2 w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0"></span><span><strong>Data ujian:</strong> jawaban, progres, kategori ujian, waktu tersisa, skor, jumlah jawaban benar, serta jumlah soal.</span></li>
+                            <li class="flex gap-3"><span class="mt-2 w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0"></span><span><strong>Nama tampilan leaderboard:</strong> hanya bila pengguna memilih menyimpan hasil ke papan peringkat.</span></li>
+                            <li class="flex gap-3"><span class="mt-2 w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0"></span><span><strong>Informasi teknis:</strong> data yang secara umum dapat dihasilkan oleh layanan hosting, browser, atau infrastruktur pihak ketiga saat situs diakses.</span></li>
+                        </ul>
+                    </section>
+
+                    <section id="penyimpanan" class="scroll-mt-24 mt-9">
+                        <h2 class="text-xl font-black text-slate-950">2. Penyimpanan Lokal pada Perangkat</h2>
+                        <p class="mt-3 text-sm leading-7 text-slate-600">Ruang Tryout dapat menggunakan penyimpanan lokal browser (seperti <code class="bg-slate-100 px-1.5 py-0.5 rounded text-xs">localStorage</code>) untuk menyimpan progres ujian sementara, jawaban, nomor soal terakhir, dan waktu tersisa. Tujuannya agar sesi yang belum selesai dapat dilanjutkan pada perangkat dan browser yang sama.</p>
+                        <p class="mt-3 text-sm leading-7 text-slate-600">Data lokal dapat dihapus melalui pengaturan browser atau ketika aplikasi menghapus progres setelah ujian selesai.</p>
+                    </section>
+
+                    <section id="leaderboard" class="scroll-mt-24 mt-9">
+                        <h2 class="text-xl font-black text-slate-950">3. Papan Peringkat</h2>
+                        <p class="mt-3 text-sm leading-7 text-slate-600">Jika pengguna memilih menyimpan hasil, nama tampilan dan data hasil ujian dapat dikirim ke basis data leaderboard. Informasi yang ditampilkan secara publik dapat mencakup nama tampilan, skor, jumlah jawaban benar, kategori ujian, dan waktu pencatatan.</p>
+                        <div class="mt-4 rounded-2xl bg-amber-50 border border-amber-200 p-4 text-xs sm:text-sm leading-6 text-amber-900"><strong>Perhatian:</strong> jangan menggunakan alamat email, nomor telepon, alamat rumah, atau informasi pribadi sensitif sebagai nama peserta.</div>
+                    </section>
+
+                    <section id="log" class="scroll-mt-24 mt-9">
+                        <h2 class="text-xl font-black text-slate-950">4. Berkas Log dan Informasi Teknis</h2>
+                        <p class="mt-3 text-sm leading-7 text-slate-600">Penyedia hosting, jaringan, atau layanan teknis dapat menggunakan log standar yang mencatat informasi seperti alamat IP, jenis browser, waktu akses, halaman rujukan, atau data diagnostik. Informasi tersebut umumnya digunakan untuk operasional, keamanan, analitik, dan pemeliharaan layanan.</p>
+                    </section>
+
+                    <section id="cookie" class="scroll-mt-24 mt-9">
+                        <h2 class="text-xl font-black text-slate-950">5. Cookie, Web Beacon, dan Periklanan</h2>
+                        <p class="mt-3 text-sm leading-7 text-slate-600">Ruang Tryout dan layanan pihak ketiga yang digunakan situs dapat menggunakan cookie atau teknologi serupa untuk menyimpan preferensi, mengukur penggunaan, serta mendukung fungsi periklanan.</p>
+                        <p class="mt-3 text-sm leading-7 text-slate-600">Jika Google AdSense atau layanan iklan Google digunakan, vendor pihak ketiga termasuk Google dapat menggunakan cookie untuk menayangkan iklan berdasarkan kunjungan pengguna ke situs ini dan/atau situs lain. Pengguna dapat mengelola personalisasi iklan melalui pengaturan iklan Google.</p>
+                        <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" class="inline-flex mt-4 items-center gap-2 text-xs font-black text-blue-600 hover:text-blue-500">Buka Pengaturan Iklan Google ↗</a>
+                    </section>
+
+                    <section id="pihak-ketiga" class="scroll-mt-24 mt-9">
+                        <h2 class="text-xl font-black text-slate-950">6. Layanan Pihak Ketiga</h2>
+                        <p class="mt-3 text-sm leading-7 text-slate-600">Untuk menjalankan fitur tertentu, Ruang Tryout dapat menggunakan penyedia pihak ketiga seperti layanan hosting, Firebase/Firestore, layanan autentikasi jika diaktifkan, dan layanan periklanan. Masing-masing penyedia dapat memiliki kebijakan privasi dan praktik pemrosesan data sendiri.</p>
+                    </section>
+
+                    <section id="hak" class="scroll-mt-24 mt-9">
+                        <h2 class="text-xl font-black text-slate-950">7. Pilihan Pengguna</h2>
+                        <p class="mt-3 text-sm leading-7 text-slate-600">Pengguna dapat memilih untuk tidak menyimpan nama dan skor ke leaderboard. Pengguna juga dapat menghapus data lokal browser, mengatur cookie melalui browser, serta mengelola preferensi iklan melalui layanan yang relevan.</p>
+                    </section>
+
+                    <section id="keamanan" class="scroll-mt-24 mt-9">
+                        <h2 class="text-xl font-black text-slate-950">8. Keamanan</h2>
+                        <p class="mt-3 text-sm leading-7 text-slate-600">Kami berupaya menggunakan praktik teknis yang wajar untuk menjaga platform dan data yang diproses. Namun, tidak ada metode transmisi atau penyimpanan elektronik yang dapat dijamin sepenuhnya bebas risiko.</p>
+                    </section>
+
+                    <section id="perubahan" class="scroll-mt-24 mt-9">
+                        <h2 class="text-xl font-black text-slate-950">9. Perubahan Kebijakan</h2>
+                        <p class="mt-3 text-sm leading-7 text-slate-600">Kebijakan Privasi dapat diperbarui untuk menyesuaikan perubahan fitur, layanan pihak ketiga, atau kebutuhan operasional. Tanggal pembaruan terbaru akan ditampilkan di bagian atas halaman ini.</p>
+                    </section>
+
+                    <section id="kontak" class="scroll-mt-24 mt-9">
+                        <h2 class="text-xl font-black text-slate-950">10. Kontak</h2>
+                        <p class="mt-3 text-sm leading-7 text-slate-600">Pertanyaan mengenai kebijakan ini dapat dikirim melalui halaman <a href="contact.html" class="font-bold text-blue-600 hover:text-blue-500">Hubungi Kami</a> atau melalui email <a href="mailto:support@ruangtryout.my.id" class="font-bold text-blue-600 hover:text-blue-500">support@ruangtryout.my.id</a>.</p>
+                    </section>
+
+                    <div class="mt-10 pt-6 border-t border-slate-100 text-xs leading-6 text-slate-400">Dengan menggunakan Ruang Tryout, pengguna dianggap telah membaca kebijakan ini sesuai dengan fitur yang digunakan. Kebijakan ini dimaksudkan sebagai penjelasan operasional mengenai privasi situs.</div>
+                </article>
+            </div>
+        </section>
     </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-[10px] sm:text-xs text-slate-400">&copy; 2026 Ruang Tryout. Platform Simulasi Ujian Independen.</p>
+            <nav class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[10px] sm:text-xs font-semibold text-slate-500">
+                <a href="about.html" class="hover:text-blue-600 transition">Tentang Kami</a>
+                <a href="contact.html" class="hover:text-blue-600 transition">Hubungi Kami</a>
+                <a href="privacy.html" class="text-blue-600">Kebijakan Privasi</a>
+                <a href="terms.html" class="hover:text-blue-600 transition">Syarat & Ketentuan</a>
+            </nav>
+        </div>
+    </footer>
+
 </body>
 </html>
