@@ -1,10 +1,20 @@
-// app.js - Ruang Tryout
-// CAT Exam + Navigasi + Timer + Review + Autosave + Firebase
+// =========================================================
+// RUANG TRYOUT - APP.JS
+// CAT Exam System
+// One Screen Layout + Large Question Grid
+// Timer + Review + Autosave + Optional Firebase Leaderboard
+// =========================================================
+
+
+// =========================================================
+// URL CATEGORY
+// =========================================================
 
 const urlParams =
     new URLSearchParams(
         window.location.search
     );
+
 
 const selectedCategory =
     (
@@ -12,6 +22,11 @@ const selectedCategory =
         'cpns'
     ).toLowerCase();
 
+
+
+// =========================================================
+// GLOBAL STATE
+// =========================================================
 
 let currentQuestions = [];
 
@@ -57,10 +72,6 @@ document.addEventListener(
         );
 
 
-        // Tidak membutuhkan login
-        startQuizProcess();
-
-
         window.addEventListener(
             'resize',
             () => {
@@ -76,6 +87,11 @@ document.addEventListener(
 
             }
         );
+
+
+        // Langsung mulai.
+        // LOGIN TIDAK DIPERLUKAN.
+        startQuizProcess();
 
     }
 );
@@ -112,13 +128,43 @@ function showSystemError(
 
             <div>
 
-                <p class="
-                    font-bold
-                    text-white
+                <div class="
+                    w-14
+                    h-14
+                    rounded-2xl
+                    bg-red-500/10
+                    border
+                    border-red-500/20
+                    text-red-400
+                    flex
+                    items-center
+                    justify-center
+                    mx-auto
                 ">
 
-                    Terjadi kendala
+                    <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <circle cx="12" cy="12" r="9" />
+                        <path d="M12 8v5" />
+                        <path d="M12 16h.01" />
+                    </svg>
 
+                </div>
+
+
+                <p class="
+                    mt-5
+                    font-black
+                    text-white
+                    text-lg
+                ">
+                    Terjadi kendala
                 </p>
 
 
@@ -126,47 +172,36 @@ function showSystemError(
                     mt-2
                     text-sm
                     text-slate-400
+                    max-w-md
                 ">
-
                     ${escapeHtml(message)}
-
                 </p>
 
 
                 <a
                     href="index.html"
-
                     class="
                         inline-flex
                         mt-5
-
                         bg-slate-800
                         hover:bg-slate-700
-
                         text-slate-200
                         text-xs
                         font-bold
-
                         px-4
                         py-2.5
-
                         rounded-xl
-
                         border
                         border-slate-700
-
                         transition
                     "
                 >
-
                     Kembali ke Beranda
-
                 </a>
 
             </div>
 
         </div>
-
     `;
 
 }
@@ -174,7 +209,7 @@ function showSystemError(
 
 
 // =========================================================
-// LOAD BANK SOAL
+// START QUIZ PROCESS
 // =========================================================
 
 function startQuizProcess() {
@@ -185,6 +220,10 @@ function startQuizProcess() {
     const catKey =
         selectedCategory;
 
+
+    // =====================================================
+    // CARI BANK SOAL
+    // =====================================================
 
     if (
         typeof quizCategories !==
@@ -236,6 +275,9 @@ function startQuizProcess() {
     }
 
 
+    // =====================================================
+    // VALIDASI BANK SOAL
+    // =====================================================
 
     if (
         !currentQuestions.length
@@ -252,6 +294,9 @@ function startQuizProcess() {
     }
 
 
+    // =====================================================
+    // CEK AUTOSAVE
+    // =====================================================
 
     const saved =
         loadSavedProgress();
@@ -275,7 +320,6 @@ function startQuizProcess() {
             saved.timeRemaining
         ) <=
             EXAM_DURATION_SECONDS;
-
 
 
     if (
@@ -302,7 +346,7 @@ function startQuizProcess() {
 
 
 // =========================================================
-// CHECK SAVED PROGRESS
+// CHECK MEANINGFUL PROGRESS
 // =========================================================
 
 function hasMeaningfulProgress(
@@ -397,38 +441,26 @@ function showResumeScreen(
             <div class="
                 w-full
                 max-w-xl
-
                 bg-slate-950/40
-
                 border
                 border-slate-800
-
                 rounded-3xl
-
                 p-6
                 sm:p-8
-
                 text-center
             ">
-
 
                 <div class="
                     w-14
                     h-14
-
                     rounded-2xl
-
                     bg-amber-500/10
-
                     border
                     border-amber-500/20
-
                     text-amber-400
-
                     flex
                     items-center
                     justify-center
-
                     mx-auto
                 ">
 
@@ -440,19 +472,9 @@ function showResumeScreen(
                         stroke="currentColor"
                         stroke-width="1.8"
                     >
-
-                        <path
-                            d="M3 12a9 9 0 1 0 3-6.7L3 8"
-                        />
-
-                        <path
-                            d="M3 3v5h5"
-                        />
-
-                        <path
-                            d="M12 7v5l3 2"
-                        />
-
+                        <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
+                        <path d="M3 3v5h5" />
+                        <path d="M12 7v5l3 2" />
                     </svg>
 
                 </div>
@@ -464,9 +486,7 @@ function showResumeScreen(
                     font-black
                     text-white
                 ">
-
                     Ujian Belum Selesai
-
                 </h2>
 
 
@@ -475,9 +495,7 @@ function showResumeScreen(
                     text-sm
                     text-slate-400
                 ">
-
                     Kami menemukan progres simulasi sebelumnya pada perangkat ini.
-
                 </p>
 
 
@@ -488,7 +506,6 @@ function showResumeScreen(
                     gap-3
                 ">
 
-
                     <div class="
                         bg-slate-900
                         border
@@ -504,11 +521,8 @@ function showResumeScreen(
                             tracking-wider
                             text-slate-500
                         ">
-
                             Terjawab
-
                         </span>
-
 
                         <strong class="
                             block
@@ -516,13 +530,10 @@ function showResumeScreen(
                             text-xl
                             text-white
                         ">
-
                             ${answered}
-
                         </strong>
 
                     </div>
-
 
 
                     <div class="
@@ -540,11 +551,8 @@ function showResumeScreen(
                             tracking-wider
                             text-slate-500
                         ">
-
                             Soal
-
                         </span>
-
 
                         <strong class="
                             block
@@ -552,13 +560,10 @@ function showResumeScreen(
                             text-xl
                             text-white
                         ">
-
                             ${Number(saved.currentIndex) + 1}
-
                         </strong>
 
                     </div>
-
 
 
                     <div class="
@@ -576,11 +581,8 @@ function showResumeScreen(
                             tracking-wider
                             text-slate-500
                         ">
-
                             Waktu
-
                         </span>
-
 
                         <strong class="
                             block
@@ -589,9 +591,7 @@ function showResumeScreen(
                             text-amber-400
                             font-mono
                         ">
-
                             ${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}
-
                         </strong>
 
                     </div>
@@ -599,80 +599,54 @@ function showResumeScreen(
                 </div>
 
 
-
                 <div class="
                     mt-7
-
                     flex
                     flex-col
                     sm:flex-row
-
                     justify-center
-
                     gap-3
                 ">
 
-
                     <button
                         onclick="resumeSavedQuiz()"
-
                         class="
                             bg-blue-600
                             hover:bg-blue-500
-
                             text-white
-
                             font-black
-
                             text-xs
                             sm:text-sm
-
                             px-6
                             py-3
-
                             rounded-xl
-
                             transition
-
                             shadow-lg
                             shadow-blue-600/20
                         "
                     >
-
                         Lanjutkan Ujian
-
                     </button>
-
 
 
                     <button
                         onclick="startFreshQuiz()"
-
                         class="
                             bg-slate-800
                             hover:bg-slate-700
-
                             text-slate-300
-
                             font-bold
-
                             text-xs
                             sm:text-sm
-
                             px-6
                             py-3
-
                             rounded-xl
-
                             border
                             border-slate-700
-
                             transition
                         "
                     >
-
                         Mulai Ulang
-
                     </button>
 
                 </div>
@@ -680,7 +654,6 @@ function showResumeScreen(
             </div>
 
         </div>
-
     `;
 
 }
@@ -688,7 +661,7 @@ function showResumeScreen(
 
 
 // =========================================================
-// RESUME QUIZ
+// RESUME SAVED QUIZ
 // =========================================================
 
 function resumeSavedQuiz() {
@@ -769,7 +742,7 @@ function resumeSavedQuiz() {
 
 
 // =========================================================
-// START FRESH
+// START FRESH QUIZ
 // =========================================================
 
 function startFreshQuiz() {
@@ -804,7 +777,7 @@ function startFreshQuiz() {
 
 
 // =========================================================
-// MAIN EXAM LAYOUT
+// MAIN QUIZ LAYOUT
 // =========================================================
 
 function renderQuizLayout() {
@@ -841,26 +814,20 @@ function renderQuizLayout() {
     quizCard.innerHTML = `
 
         <!-- =================================================
-             TOPBAR UJIAN
+             TOPBAR
         ================================================== -->
 
         <div class="
             bg-slate-900
-
             border-b
             border-slate-800
-
             px-4
             sm:px-5
-
             py-2.5
-
             flex
             items-center
             justify-between
-
             gap-4
-
             shrink-0
         ">
 
@@ -871,56 +838,38 @@ function renderQuizLayout() {
                     flex
                     items-center
                     flex-wrap
-
                     gap-2
-
                     mb-0.5
                 ">
 
                     <span class="
                         text-[9px]
                         sm:text-[10px]
-
                         font-black
-
                         text-blue-400
-
                         uppercase
                         tracking-[0.14em]
-
                         truncate
-
                         max-w-[210px]
                         sm:max-w-none
                     ">
-
                         ${escapeHtml(categoryTitle)}
-
                     </span>
 
 
                     <span
                         id="question-section-label"
-
                         class="
                             inline-flex
-
                             px-2
                             py-0.5
-
                             rounded-md
-
                             bg-slate-800
-
                             border
                             border-slate-700
-
                             text-[8px]
-
                             font-black
-
                             text-slate-400
-
                             uppercase
                             tracking-wider
                         "
@@ -937,38 +886,27 @@ function renderQuizLayout() {
 
                     <h2
                         id="question-number-title"
-
                         class="
                             text-sm
                             sm:text-base
-
                             font-black
-
                             text-white
-
                             tracking-tight
                         "
                     >
-
                         Soal 01
-
                     </h2>
 
 
                     <span
                         id="question-total-label"
-
                         class="
                             text-[10px]
-
                             text-slate-500
-
                             font-semibold
                         "
                     >
-
                         dari ${currentQuestions.length}
-
                     </span>
 
                 </div>
@@ -981,23 +919,16 @@ function renderQuizLayout() {
 
             <div
                 id="timer-card"
-
                 class="
                     min-w-[88px]
                     sm:min-w-[100px]
-
                     bg-slate-800/80
-
                     border
                     border-slate-700
-
                     px-3
                     py-1.5
-
                     rounded-xl
-
                     text-right
-
                     transition-colors
                 "
             >
@@ -1005,41 +936,28 @@ function renderQuizLayout() {
                 <span class="
                     text-[7px]
                     sm:text-[8px]
-
                     text-slate-500
-
                     block
-
                     uppercase
                     tracking-wider
-
                     font-black
                 ">
-
                     Sisa Waktu
-
                 </span>
 
 
                 <span
                     id="timer-display"
-
                     class="
                         text-sm
                         sm:text-base
-
                         font-black
-
                         text-emerald-400
-
                         font-mono
-
                         tabular-nums
                     "
                 >
-
                     90:00
-
                 </span>
 
             </div>
@@ -1054,12 +972,9 @@ function renderQuizLayout() {
 
         <div class="
             relative
-
             flex-1
             min-h-0
-
             flex
-
             overflow-hidden
         ">
 
@@ -1070,36 +985,27 @@ function renderQuizLayout() {
 
             <section
                 id="question-panel"
-
                 class="
                     flex-1
-
                     min-w-0
-
                     overflow-hidden
                 "
             >
 
-
                 <div
                     id="question-content"
-
                     class="
                         exam-question-content
-
                         h-full
-
-                        max-w-5xl
-
-                        mx-auto
-
+                        w-full
+                        max-w-none
+                        mx-0
                         px-4
                         sm:px-5
                         lg:px-6
-
+                        xl:px-7
                         py-3
                         sm:py-4
-
                         flex
                         flex-col
                     "
@@ -1110,46 +1016,32 @@ function renderQuizLayout() {
 
                     <div class="
                         exam-question-block
-
                         mb-3
                         sm:mb-4
-
                         shrink-0
                     ">
 
                         <p class="
                             text-[8px]
-
                             uppercase
-
                             tracking-[0.18em]
-
                             font-black
-
                             text-slate-500
-
                             mb-1.5
                         ">
-
                             Pertanyaan
-
                         </p>
 
 
                         <div
                             id="question-text"
-
                             class="
                                 exam-question-text
-
                                 text-[13px]
                                 sm:text-sm
                                 lg:text-[15px]
-
                                 text-slate-100
-
                                 leading-6
-
                                 font-semibold
                             "
                         ></div>
@@ -1162,12 +1054,9 @@ function renderQuizLayout() {
 
                     <div
                         id="options-container"
-
                         class="
                             exam-options
-
                             space-y-2.5
-
                             shrink-0
                         "
                     ></div>
@@ -1175,29 +1064,25 @@ function renderQuizLayout() {
 
 
                     <!-- =================================================
-                         NAVIGATION BUTTONS
+                         ACTIONS
                     ================================================== -->
 
                     <div class="
                         exam-actions
-
                         mt-4
-
                         pt-3
-
                         border-t
                         border-slate-800/80
-
                         shrink-0
                     ">
 
 
+                        <!-- NAVIGATION -->
+
                         <div class="
                             grid
                             grid-cols-3
-
                             items-center
-
                             gap-2
                             sm:gap-3
                         ">
@@ -1207,44 +1092,27 @@ function renderQuizLayout() {
 
                             <button
                                 id="prev-btn"
-
                                 onclick="navigateQuestion(-1)"
-
                                 class="
                                     inline-flex
-
                                     items-center
                                     justify-center
-
                                     gap-1.5
-
                                     bg-slate-800
-
                                     hover:bg-slate-700
-
                                     disabled:hover:bg-slate-800
-
                                     text-slate-300
-
                                     text-[10px]
                                     sm:text-xs
-
                                     font-bold
-
                                     px-2
                                     sm:px-4
-
                                     py-2.5
-
                                     rounded-xl
-
                                     border
                                     border-slate-700
-
                                     transition
-
                                     disabled:opacity-35
-
                                     disabled:cursor-not-allowed
                                 "
                             >
@@ -1257,22 +1125,12 @@ function renderQuizLayout() {
                                     stroke="currentColor"
                                     stroke-width="2"
                                 >
-
-                                    <path
-                                        d="M19 12H5"
-                                    />
-
-                                    <path
-                                        d="m11 18-6-6 6-6"
-                                    />
-
+                                    <path d="M19 12H5" />
+                                    <path d="m11 18-6-6 6-6" />
                                 </svg>
 
-
                                 <span>
-
                                     Sebelumnya
-
                                 </span>
 
                             </button>
@@ -1283,75 +1141,43 @@ function renderQuizLayout() {
 
                             <button
                                 onclick="requestSubmitExam()"
-
                                 class="
                                     inline-flex
-
                                     items-center
                                     justify-center
-
                                     gap-1.5
-
                                     bg-red-500/10
-
                                     hover:bg-red-500/15
-
                                     text-red-400
-
                                     hover:text-red-300
-
                                     border
                                     border-red-500/25
-
                                     text-[10px]
                                     sm:text-xs
-
                                     font-black
-
                                     px-2
                                     sm:px-4
-
                                     py-2.5
-
                                     rounded-xl
-
                                     transition-all
                                 "
                             >
 
                                 <svg
-                                    class="
-                                        hidden
-                                        sm:block
-                                    "
-
+                                    class="hidden sm:block"
                                     width="13"
                                     height="13"
-
                                     viewBox="0 0 24 24"
-
                                     fill="none"
-
                                     stroke="currentColor"
-
                                     stroke-width="2"
                                 >
-
-                                    <path
-                                        d="M5 5v14"
-                                    />
-
-                                    <path
-                                        d="M5 5h11l-2 4 2 4H5"
-                                    />
-
+                                    <path d="M5 5v14" />
+                                    <path d="M5 5h11l-2 4 2 4H5" />
                                 </svg>
 
-
                                 <span>
-
                                     Selesaikan Ujian
-
                                 </span>
 
                             </button>
@@ -1362,75 +1188,45 @@ function renderQuizLayout() {
 
                             <button
                                 id="next-btn"
-
                                 onclick="navigateQuestion(1)"
-
                                 class="
                                     inline-flex
-
                                     items-center
                                     justify-center
-
                                     gap-1.5
-
                                     bg-blue-600
-
                                     hover:bg-blue-500
-
                                     disabled:hover:bg-blue-600
-
                                     text-white
-
                                     text-[10px]
                                     sm:text-xs
-
                                     font-black
-
                                     px-2
                                     sm:px-4
-
                                     py-2.5
-
                                     rounded-xl
-
                                     shadow-lg
                                     shadow-blue-950/20
-
                                     transition
-
                                     disabled:opacity-35
-
                                     disabled:cursor-not-allowed
                                 "
                             >
 
                                 <span>
-
                                     Selanjutnya
-
                                 </span>
-
 
                                 <svg
                                     width="13"
                                     height="13"
                                     viewBox="0 0 24 24"
-
                                     fill="none"
-
                                     stroke="currentColor"
-
                                     stroke-width="2"
                                 >
-
-                                    <path
-                                        d="M5 12h14"
-                                    />
-
-                                    <path
-                                        d="m13 6 6 6-6 6"
-                                    />
-
+                                    <path d="M5 12h14" />
+                                    <path d="m13 6 6 6-6 6" />
                                 </svg>
 
                             </button>
@@ -1443,48 +1239,31 @@ function renderQuizLayout() {
 
                         <div class="
                             mt-2.5
-
                             flex
                             items-center
                             justify-between
-
                             gap-3
                         ">
 
-
                             <button
                                 id="mark-question-btn"
-
                                 type="button"
-
                                 onclick="toggleMarkCurrent()"
-
                                 class="
                                     inline-flex
-
                                     items-center
                                     justify-center
-
                                     gap-2
-
                                     px-3
                                     py-2
-
                                     rounded-lg
-
                                     bg-slate-800/70
-
                                     hover:bg-slate-800
-
                                     border
                                     border-slate-700
-
                                     text-[10px]
-
                                     font-bold
-
                                     text-slate-300
-
                                     transition-all
                                 "
                             >
@@ -1493,100 +1272,62 @@ function renderQuizLayout() {
                                     width="13"
                                     height="13"
                                     viewBox="0 0 24 24"
-
                                     fill="none"
-
                                     stroke="currentColor"
-
                                     stroke-width="2"
                                 >
-
-                                    <path
-                                        d="M5 5v16"
-                                    />
-
-                                    <path
-                                        d="M5 5h11l-2 4 2 4H5"
-                                    />
-
+                                    <path d="M5 5v16" />
+                                    <path d="M5 5h11l-2 4 2 4H5" />
                                 </svg>
 
-
-                                <span
-                                    id="mark-question-label"
-                                >
-
+                                <span id="mark-question-label">
                                     Tandai untuk ditinjau
-
                                 </span>
 
                             </button>
 
 
-
                             <div class="
                                 hidden
                                 xl:flex
-
                                 items-center
-
                                 gap-1.5
-
                                 text-[8px]
-
                                 font-semibold
-
                                 text-slate-600
                             ">
 
                                 <span class="
                                     px-1.5
                                     py-1
-
                                     rounded-md
-
                                     border
                                     border-slate-800
-
                                     bg-slate-950/50
                                 ">
-
                                     A–D jawab
-
                                 </span>
-
 
                                 <span class="
                                     px-1.5
                                     py-1
-
                                     rounded-md
-
                                     border
                                     border-slate-800
-
                                     bg-slate-950/50
                                 ">
-
                                     ← → pindah
-
                                 </span>
-
 
                                 <span class="
                                     px-1.5
                                     py-1
-
                                     rounded-md
-
                                     border
                                     border-slate-800
-
                                     bg-slate-950/50
                                 ">
-
                                     M tandai
-
                                 </span>
 
                             </div>
@@ -1603,28 +1344,20 @@ function renderQuizLayout() {
 
                     <div class="
                         lg:hidden
-
                         mt-auto
-
                         pt-3
-
                         shrink-0
                     ">
 
                         <div class="
                             bg-slate-950/50
-
                             border
                             border-slate-800
-
                             rounded-xl
-
                             px-3
                             py-2.5
-
                             flex
                             items-center
-
                             gap-3
                         ">
 
@@ -1638,37 +1371,27 @@ function renderQuizLayout() {
                                     flex
                                     items-center
                                     justify-between
-
                                     gap-2
                                 ">
 
                                     <p
                                         id="mobile-progress-text"
-
                                         class="
                                             text-[9px]
-
                                             font-bold
-
                                             text-slate-300
-
                                             truncate
                                         "
                                     >
-
                                         0/${currentQuestions.length} terjawab
-
                                     </p>
 
 
                                     <span class="
                                         text-[8px]
-
                                         text-slate-600
                                     ">
-
                                         Progres
-
                                     </span>
 
                                 </div>
@@ -1676,31 +1399,21 @@ function renderQuizLayout() {
 
                                 <div class="
                                     mt-1.5
-
                                     h-1
-
                                     bg-slate-800
-
                                     rounded-full
-
                                     overflow-hidden
                                 ">
 
                                     <div
                                         id="mobile-progress-bar"
-
                                         class="
                                             h-full
-
                                             bg-blue-500
-
                                             rounded-full
-
                                             transition-all
-
                                             duration-300
                                         "
-
                                         style="width:0%"
                                     ></div>
 
@@ -1711,33 +1424,20 @@ function renderQuizLayout() {
 
                             <button
                                 type="button"
-
                                 onclick="openQuestionDrawer()"
-
                                 class="
                                     shrink-0
-
                                     inline-flex
-
                                     items-center
-
                                     gap-1.5
-
                                     bg-blue-600
-
                                     hover:bg-blue-500
-
                                     text-white
-
                                     text-[9px]
-
                                     font-black
-
                                     px-3
                                     py-2
-
                                     rounded-lg
-
                                     transition
                                 "
                             >
@@ -1745,50 +1445,16 @@ function renderQuizLayout() {
                                 <svg
                                     width="12"
                                     height="12"
-
                                     viewBox="0 0 24 24"
-
                                     fill="none"
-
                                     stroke="currentColor"
-
                                     stroke-width="2"
                                 >
-
-                                    <rect
-                                        x="3"
-                                        y="3"
-                                        width="7"
-                                        height="7"
-                                        rx="1"
-                                    />
-
-                                    <rect
-                                        x="14"
-                                        y="3"
-                                        width="7"
-                                        height="7"
-                                        rx="1"
-                                    />
-
-                                    <rect
-                                        x="3"
-                                        y="14"
-                                        width="7"
-                                        height="7"
-                                        rx="1"
-                                    />
-
-                                    <rect
-                                        x="14"
-                                        y="14"
-                                        width="7"
-                                        height="7"
-                                        rx="1"
-                                    />
-
+                                    <rect x="3" y="3" width="7" height="7" rx="1" />
+                                    <rect x="14" y="3" width="7" height="7" rx="1" />
+                                    <rect x="3" y="14" width="7" height="7" rx="1" />
+                                    <rect x="14" y="14" width="7" height="7" rx="1" />
                                 </svg>
-
 
                                 Nomor Soal
 
@@ -1810,24 +1476,16 @@ function renderQuizLayout() {
 
             <button
                 id="question-drawer-overlay"
-
                 type="button"
-
                 aria-label="Tutup daftar soal"
-
                 onclick="closeQuestionDrawer()"
-
                 class="
                     hidden
                     lg:hidden
-
                     fixed
                     inset-0
-
                     z-40
-
                     bg-black/60
-
                     backdrop-blur-[2px]
                 "
             ></button>
@@ -1835,12 +1493,11 @@ function renderQuizLayout() {
 
 
             <!-- =================================================
-                 SIDEBAR PROGRESS
+                 SIDEBAR
             ================================================== -->
 
             <aside
                 id="question-sidebar"
-
                 class="
                     fixed
                     lg:static
@@ -1855,17 +1512,16 @@ function renderQuizLayout() {
                     lg:h-auto
 
                     w-[94vw]
+                    max-w-lg
 
-                    max-w-md
-
-                    lg:w-[350px]
-                    xl:w-[390px]
+                    lg:w-[430px]
+                    xl:w-[500px]
+                    2xl:w-[540px]
 
                     translate-x-full
                     lg:translate-x-0
 
                     transition-transform
-
                     duration-300
 
                     bg-slate-950
@@ -1877,7 +1533,6 @@ function renderQuizLayout() {
                     flex-col
 
                     shrink-0
-
                     overflow-hidden
                 "
             >
@@ -1887,49 +1542,32 @@ function renderQuizLayout() {
 
                 <div class="
                     lg:hidden
-
                     h-12
-
                     px-4
-
                     flex
-
                     items-center
-
                     justify-between
-
                     border-b
                     border-slate-800
-
                     shrink-0
                 ">
-
 
                     <div>
 
                         <p class="
                             text-[11px]
-
                             font-black
-
                             text-white
                         ">
-
                             Daftar Soal
-
                         </p>
-
 
                         <p class="
                             text-[8px]
-
                             text-slate-500
-
                             mt-0.5
                         ">
-
-                            Seluruh nomor tampil dalam satu panel
-
+                            Pilih nomor soal
                         </p>
 
                     </div>
@@ -1937,28 +1575,18 @@ function renderQuizLayout() {
 
                     <button
                         type="button"
-
                         onclick="closeQuestionDrawer()"
-
                         class="
                             w-8
                             h-8
-
                             rounded-lg
-
                             bg-slate-900
-
                             border
                             border-slate-800
-
                             text-slate-400
-
                             hover:text-white
-
                             flex
-
                             items-center
-
                             justify-center
                         "
                     >
@@ -1966,20 +1594,12 @@ function renderQuizLayout() {
                         <svg
                             width="15"
                             height="15"
-
                             viewBox="0 0 24 24"
-
                             fill="none"
-
                             stroke="currentColor"
-
                             stroke-width="2"
                         >
-
-                            <path
-                                d="M18 6 6 18M6 6l12 12"
-                            />
-
+                            <path d="M18 6 6 18M6 6l12 12" />
                         </svg>
 
                     </button>
@@ -1988,93 +1608,73 @@ function renderQuizLayout() {
 
 
 
-                <!-- SIDEBAR CONTENT -->
+                <!-- =================================================
+                     SIDEBAR CONTENT
+                ================================================== -->
 
                 <div class="
                     flex-1
-
                     min-h-0
-
-                    p-3
-                    sm:p-3.5
-
+                    px-4
+                    py-3
+                    xl:px-5
                     flex
                     flex-col
-
                     overflow-hidden
                 ">
 
 
-                    <!-- PROGRESS -->
+                    <!-- PROGRESS HEADER -->
 
                     <div class="
                         shrink-0
                     ">
 
-
                         <div class="
                             flex
-
                             items-center
-
                             justify-between
-
                             gap-3
                         ">
 
-
                             <div class="
                                 flex
-
                                 items-baseline
-
-                                gap-1.5
+                                gap-2
                             ">
 
                                 <span class="
-                                    text-[8px]
-
+                                    text-[9px]
+                                    xl:text-[10px]
                                     uppercase
-
                                     tracking-[0.15em]
-
                                     font-black
-
                                     text-slate-500
                                 ">
-
                                     Progres
-
                                 </span>
 
 
                                 <strong
                                     id="answered-count-number"
-
                                     class="
-                                        text-lg
-
+                                        text-xl
+                                        xl:text-2xl
                                         font-black
-
                                         text-white
                                     "
                                 >
-
                                     0
-
                                 </strong>
 
 
                                 <span class="
-                                    text-[9px]
-
+                                    text-[10px]
+                                    xl:text-xs
                                     font-semibold
-
                                     text-slate-500
                                 ">
-
                                     / ${currentQuestions.length}
-
                                 </span>
 
                             </div>
@@ -2082,28 +1682,20 @@ function renderQuizLayout() {
 
                             <span
                                 id="progress-percent"
-
                                 class="
-                                    text-[9px]
-
+                                    text-[10px]
+                                    xl:text-xs
                                     font-black
-
                                     text-blue-400
-
                                     bg-blue-500/10
-
                                     border
                                     border-blue-500/20
-
-                                    rounded-md
-
-                                    px-2
-                                    py-1
+                                    rounded-lg
+                                    px-2.5
+                                    py-1.5
                                 "
                             >
-
                                 0%
-
                             </span>
 
                         </div>
@@ -2113,35 +1705,24 @@ function renderQuizLayout() {
                         <!-- PROGRESS BAR -->
 
                         <div class="
-                            mt-2
-
-                            h-1
-
+                            mt-2.5
+                            h-1.5
                             bg-slate-800
-
                             rounded-full
-
                             overflow-hidden
                         ">
 
                             <div
                                 id="progress-bar"
-
                                 class="
                                     h-full
-
                                     bg-gradient-to-r
-
                                     from-blue-600
                                     to-cyan-400
-
                                     rounded-full
-
                                     transition-all
-
                                     duration-300
                                 "
-
                                 style="width:0%"
                             ></div>
 
@@ -2152,105 +1733,78 @@ function renderQuizLayout() {
                         <!-- STATS -->
 
                         <div class="
-                            mt-2
-
+                            mt-3
                             grid
                             grid-cols-2
-
-                            gap-1.5
-
-                            text-[8px]
+                            gap-2
+                            text-[10px]
                         ">
 
-
                             <div class="
-                                rounded-lg
-
+                                rounded-xl
                                 bg-slate-900
-
                                 border
                                 border-slate-800
-
-                                px-2.5
-                                py-1.5
-
+                                px-3
+                                py-2
                                 flex
-
                                 items-center
-
                                 justify-between
-
                                 gap-2
                             ">
 
                                 <span class="
-                                    text-slate-600
-
+                                    text-slate-500
                                     font-bold
                                 ">
-
-                                    Belum
-
+                                    Belum dijawab
                                 </span>
 
 
                                 <strong
                                     id="unanswered-count"
-
                                     class="
-                                        text-slate-300
+                                        text-sm
+                                        text-slate-200
+                                        font-black
                                     "
                                 >
-
                                     ${currentQuestions.length}
-
                                 </strong>
 
                             </div>
 
 
-
                             <div class="
-                                rounded-lg
-
+                                rounded-xl
                                 bg-slate-900
-
                                 border
                                 border-slate-800
-
-                                px-2.5
-                                py-1.5
-
+                                px-3
+                                py-2
                                 flex
-
                                 items-center
-
                                 justify-between
-
                                 gap-2
                             ">
 
                                 <span class="
-                                    text-slate-600
-
+                                    text-slate-500
                                     font-bold
                                 ">
-
                                     Ditandai
-
                                 </span>
 
 
                                 <strong
                                     id="marked-count"
-
                                     class="
+                                        text-sm
                                         text-amber-400
+                                        font-black
                                     "
                                 >
-
                                     0
-
                                 </strong>
 
                             </div>
@@ -2262,40 +1816,30 @@ function renderQuizLayout() {
                         <!-- LEGEND -->
 
                         <div class="
-                            mt-2.5
-
-                            pt-2
-
+                            mt-3
+                            pt-2.5
                             border-t
                             border-slate-800
-
                             flex
-
                             items-center
-
                             flex-wrap
-
-                            gap-x-3
-                            gap-y-1
-
-                            text-[7px]
-
+                            gap-x-4
+                            gap-y-1.5
+                            text-[9px]
+                            xl:text-[10px]
                             text-slate-500
                         ">
-
 
                             <span class="
                                 flex
                                 items-center
-                                gap-1
+                                gap-1.5
                             ">
 
                                 <span class="
-                                    w-1.5
-                                    h-1.5
-
+                                    w-2
+                                    h-2
                                     rounded-sm
-
                                     bg-emerald-600
                                 "></span>
 
@@ -2304,21 +1848,17 @@ function renderQuizLayout() {
                             </span>
 
 
-
                             <span class="
                                 flex
                                 items-center
-                                gap-1
+                                gap-1.5
                             ">
 
                                 <span class="
-                                    w-1.5
-                                    h-1.5
-
+                                    w-2
+                                    h-2
                                     rounded-sm
-
                                     bg-slate-800
-
                                     border
                                     border-slate-700
                                 "></span>
@@ -2328,21 +1868,17 @@ function renderQuizLayout() {
                             </span>
 
 
-
                             <span class="
                                 flex
                                 items-center
-                                gap-1
+                                gap-1.5
                             ">
 
                                 <span class="
-                                    w-1.5
-                                    h-1.5
-
+                                    w-2
+                                    h-2
                                     rounded-sm
-
                                     bg-blue-600
-
                                     ring-1
                                     ring-blue-400/70
                                 "></span>
@@ -2352,19 +1888,16 @@ function renderQuizLayout() {
                             </span>
 
 
-
                             <span class="
                                 flex
                                 items-center
-                                gap-1
+                                gap-1.5
                             ">
 
                                 <span class="
-                                    w-1.5
-                                    h-1.5
-
+                                    w-2
+                                    h-2
                                     rounded-sm
-
                                     bg-amber-500
                                 "></span>
 
@@ -2379,95 +1912,63 @@ function renderQuizLayout() {
 
 
                     <!-- =================================================
-                         100 QUESTIONS = 10 x 10
+                         QUESTION GRID
+                         10 KOLOM
                     ================================================== -->
 
                     <div
                         id="question-grid"
-
                         class="
-                            mt-2.5
-
+                            mt-3
                             grid
                             grid-cols-10
-
-                            gap-1
-
+                            gap-1.5
                             content-start
-
                             shrink-0
                         "
                     ></div>
 
 
 
-                    <!-- SECONDARY FINISH BUTTON -->
+                    <!-- SIDEBAR FINISH -->
 
                     <button
                         onclick="requestSubmitExam()"
-
                         class="
-                            mt-2.5
-
+                            mt-3
                             w-full
-
                             shrink-0
-
                             inline-flex
-
                             items-center
-
                             justify-center
-
-                            gap-1.5
-
+                            gap-2
                             bg-red-500/10
-
                             hover:bg-red-500/15
-
                             text-red-400
-
                             hover:text-red-300
-
                             border
                             border-red-500/25
-
-                            text-[9px]
-
+                            text-[10px]
+                            xl:text-xs
                             font-black
-
                             px-3
-                            py-2
-
-                            rounded-lg
-
+                            py-2.5
+                            rounded-xl
                             transition-all
                         "
                     >
 
                         <svg
-                            width="12"
-                            height="12"
-
+                            width="13"
+                            height="13"
                             viewBox="0 0 24 24"
-
                             fill="none"
-
                             stroke="currentColor"
-
                             stroke-width="2"
                         >
-
-                            <path
-                                d="M5 5v14"
-                            />
-
-                            <path
-                                d="M5 5h11l-2 4 2 4H5"
-                            />
-
+                            <path d="M5 5v14" />
+                            <path d="M5 5h11l-2 4 2 4H5" />
                         </svg>
-
 
                         Selesaikan Ujian
 
@@ -2482,50 +1983,34 @@ function renderQuizLayout() {
 
 
         <!-- =================================================
-             CONFIRMATION MODAL
+             CONFIRM MODAL
         ================================================== -->
 
         <div
             id="exam-confirm-modal"
-
             class="
                 hidden
-
                 fixed
                 inset-0
-
                 z-[100]
-
                 bg-black/70
-
                 backdrop-blur-sm
-
                 p-4
-
                 items-center
-
                 justify-center
             "
         >
 
-
             <div class="
                 w-full
-
                 max-w-md
-
                 bg-slate-900
-
                 border
                 border-slate-700
-
                 rounded-3xl
-
                 shadow-2xl
-
                 overflow-hidden
             ">
-
 
                 <div class="
                     p-6
@@ -2534,19 +2019,13 @@ function renderQuizLayout() {
 
                     <div
                         id="confirm-modal-icon"
-
                         class="
                             w-12
                             h-12
-
                             rounded-2xl
-
                             flex
-
                             items-center
-
                             justify-center
-
                             mb-5
                         "
                     ></div>
@@ -2554,14 +2033,10 @@ function renderQuizLayout() {
 
                     <h3
                         id="confirm-modal-title"
-
                         class="
                             text-xl
-
                             font-black
-
                             text-white
-
                             tracking-tight
                         "
                     ></h3>
@@ -2569,14 +2044,10 @@ function renderQuizLayout() {
 
                     <p
                         id="confirm-modal-description"
-
                         class="
                             mt-2
-
                             text-sm
-
                             text-slate-400
-
                             leading-6
                         "
                     ></p>
@@ -2584,19 +2055,13 @@ function renderQuizLayout() {
 
                     <div
                         id="confirm-modal-summary"
-
                         class="
                             hidden
-
                             mt-5
-
                             rounded-2xl
-
                             bg-slate-950/60
-
                             border
                             border-slate-800
-
                             p-4
                         "
                     ></div>
@@ -2604,77 +2069,50 @@ function renderQuizLayout() {
                 </div>
 
 
-
                 <div class="
                     px-6
                     sm:px-7
-
                     py-4
-
                     border-t
                     border-slate-800
-
                     bg-slate-950/30
-
                     flex
-
                     flex-col-reverse
                     sm:flex-row
-
                     justify-end
-
                     gap-2.5
                 ">
 
-
                     <button
                         type="button"
-
                         onclick="closeConfirmModal()"
-
                         class="
                             px-5
                             py-2.5
-
                             rounded-xl
-
                             bg-slate-800
-
                             hover:bg-slate-700
-
                             border
                             border-slate-700
-
                             text-xs
-
                             font-bold
-
                             text-slate-300
-
                             transition
                         "
                     >
-
                         Batal
-
                     </button>
 
 
                     <button
                         id="confirm-modal-action"
-
                         type="button"
-
                         class="
                             px-5
                             py-2.5
-
                             rounded-xl
-
                             text-xs
-
                             font-black
-
                             transition
                         "
                     ></button>
@@ -2704,7 +2142,11 @@ function loadQuestion(
 
     if (
         !currentQuestions.length
-    ) return;
+    ) {
+
+        return;
+
+    }
 
 
     currentIndex =
@@ -2727,7 +2169,9 @@ function loadQuestion(
 
 
 
+    // =====================================================
     // QUESTION NUMBER
+    // =====================================================
 
     const numberTitle =
         document.getElementById(
@@ -2744,7 +2188,9 @@ function loadQuestion(
 
 
 
-    // SECTION
+    // =====================================================
+    // QUESTION SECTION
+    // =====================================================
 
     const sectionLabel =
         document.getElementById(
@@ -2763,7 +2209,9 @@ function loadQuestion(
 
 
 
-    // QUESTION
+    // =====================================================
+    // QUESTION TEXT
+    // =====================================================
 
     const questionText =
         document.getElementById(
@@ -2780,12 +2228,21 @@ function loadQuestion(
 
 
 
+    // =====================================================
     // OPTIONS
+    // =====================================================
 
     const optionsContainer =
         document.getElementById(
             'options-container'
         );
+
+
+    if (!optionsContainer) {
+
+        return;
+
+    }
 
 
     optionsContainer.innerHTML =
@@ -2846,6 +2303,8 @@ function loadQuestion(
 
 
 
+            // LETTER
+
             const letter =
                 document.createElement(
                     'span'
@@ -2871,6 +2330,8 @@ function loadQuestion(
                 );
 
 
+
+            // TEXT
 
             const text =
                 document.createElement(
@@ -2898,6 +2359,8 @@ function loadQuestion(
 
 
 
+            // CHECKMARK
+
             if (isSelected) {
 
                 const check =
@@ -2920,13 +2383,8 @@ function loadQuestion(
                         stroke="currentColor"
                         stroke-width="2.5"
                     >
-
-                        <path
-                            d="M20 6 9 17l-5-5"
-                        />
-
+                        <path d="M20 6 9 17l-5-5" />
                     </svg>
-
                 `;
 
 
@@ -2953,6 +2411,10 @@ function loadQuestion(
     );
 
 
+
+    // =====================================================
+    // PREVIOUS / NEXT BUTTON
+    // =====================================================
 
     const prevBtn =
         document.getElementById(
@@ -2997,7 +2459,7 @@ function loadQuestion(
 
 
 // =========================================================
-// QUESTION CATEGORY
+// QUESTION SECTION
 // =========================================================
 
 function getQuestionSection(
@@ -3059,7 +2521,7 @@ function getQuestionSection(
 
 
 // =========================================================
-// SELECT ANSWER
+// SELECT OPTION
 // =========================================================
 
 function selectOption(
@@ -3080,7 +2542,7 @@ function selectOption(
 
 
 // =========================================================
-// NAVIGATE QUESTION
+// NAVIGATION
 // =========================================================
 
 function navigateQuestion(
@@ -3169,7 +2631,11 @@ function updateMarkButton() {
     if (
         !btn ||
         !label
-    ) return;
+    ) {
+
+        return;
+
+    }
 
 
     const isMarked =
@@ -3205,7 +2671,7 @@ function updateMarkButton() {
 
 
 // =========================================================
-// GRID NOMOR SOAL
+// RENDER QUESTION GRID
 // =========================================================
 
 function renderQuestionGrid() {
@@ -3218,7 +2684,11 @@ function renderQuestionGrid() {
 
     if (
         !gridContainer
-    ) return;
+    ) {
+
+        return;
+
+    }
 
 
     gridContainer.innerHTML =
@@ -3282,37 +2752,52 @@ function renderQuestionGrid() {
 
 
 
+            // =================================================
+            // BIGGER QUESTION NUMBER BUTTONS
+            // =================================================
+
             let styleClass =
 
-                'relative h-7 min-w-0 w-full rounded-md text-[8px] sm:text-[9px] font-black transition-all flex items-center justify-center border ';
+                'relative h-9 min-w-0 w-full rounded-lg text-[10px] sm:text-[11px] xl:text-xs font-black transition-all flex items-center justify-center border';
 
 
+
+            // CURRENT
 
             if (isCurrent) {
 
                 styleClass +=
-                    'bg-blue-600 text-white border-blue-400 ring-2 ring-blue-400/60 shadow-lg shadow-blue-950/20 ';
+                    ' bg-blue-600 text-white border-blue-400 ring-2 ring-blue-400/60 shadow-lg shadow-blue-950/20';
 
             }
+
+
+            // MARKED
 
             else if (isMarked) {
 
                 styleClass +=
-                    'bg-amber-500/15 text-amber-300 border-amber-500/40 hover:bg-amber-500/25 ';
+                    ' bg-amber-500/15 text-amber-300 border-amber-500/40 hover:bg-amber-500/25';
 
             }
+
+
+            // ANSWERED
 
             else if (isAnswered) {
 
                 styleClass +=
-                    'bg-emerald-600/90 text-white border-emerald-500 hover:bg-emerald-500 ';
+                    ' bg-emerald-600/90 text-white border-emerald-500 hover:bg-emerald-500';
 
             }
+
+
+            // UNANSWERED
 
             else {
 
                 styleClass +=
-                    'bg-slate-900 text-slate-500 border-slate-800 hover:bg-slate-800 hover:text-slate-200 hover:border-slate-700 ';
+                    ' bg-slate-900 text-slate-400 border-slate-800 hover:bg-slate-800 hover:text-slate-100 hover:border-slate-700';
 
             }
 
@@ -3325,6 +2810,8 @@ function renderQuestionGrid() {
                 i + 1;
 
 
+
+            // MARK DOT
 
             if (isMarked) {
 
@@ -3345,6 +2832,8 @@ function renderQuestionGrid() {
             }
 
 
+
+            // CLICK
 
             btn.onclick =
                 () => {
@@ -3373,7 +2862,7 @@ function renderQuestionGrid() {
 
 
 // =========================================================
-// PROGRESS UI
+// UPDATE PROGRESS
 // =========================================================
 
 function updateProgressUI(
@@ -3479,7 +2968,7 @@ function updateProgressUI(
 
 
 // =========================================================
-// FIT QUESTION TO VIEWPORT
+// FIT CONTENT TO SCREEN
 // =========================================================
 
 function fitQuestionToViewport() {
@@ -3499,7 +2988,11 @@ function fitQuestionToViewport() {
     if (
         !panel ||
         !content
-    ) return;
+    ) {
+
+        return;
+
+    }
 
 
 
@@ -3507,7 +3000,6 @@ function fitQuestionToViewport() {
         'exam-compact',
         'exam-ultra-compact'
     );
-
 
 
     requestAnimationFrame(
@@ -3552,7 +3044,7 @@ function fitQuestionToViewport() {
 
 
 // =========================================================
-// MOBILE QUESTION DRAWER
+// MOBILE DRAWER
 // =========================================================
 
 function openQuestionDrawer() {
@@ -3572,7 +3064,11 @@ function openQuestionDrawer() {
     if (
         !sidebar ||
         !overlay
-    ) return;
+    ) {
+
+        return;
+
+    }
 
 
     sidebar.classList.remove(
@@ -3594,7 +3090,7 @@ function openQuestionDrawer() {
 
 
 // =========================================================
-// CLOSE DRAWER
+// CLOSE MOBILE DRAWER
 // =========================================================
 
 function closeQuestionDrawer() {
@@ -3624,7 +3120,11 @@ function closeQuestionDrawer() {
     if (
         !sidebar ||
         !overlay
-    ) return;
+    ) {
+
+        return;
+
+    }
 
 
     sidebar.classList.add(
@@ -3685,6 +3185,8 @@ function startTimer() {
 
 
 
+                // SAVE PER 5 DETIK
+
                 if (
                     timeRemaining %
                     5 === 0
@@ -3695,6 +3197,8 @@ function startTimer() {
                 }
 
 
+
+                // TIME OUT
 
                 if (
                     timeRemaining <= 0
@@ -3725,7 +3229,7 @@ function startTimer() {
 
 
 // =========================================================
-// UPDATE TIMER
+// TIMER DISPLAY
 // =========================================================
 
 function updateTimerDisplay() {
@@ -3744,7 +3248,11 @@ function updateTimerDisplay() {
 
     if (
         !timerDisplay
-    ) return;
+    ) {
+
+        return;
+
+    }
 
 
 
@@ -3801,7 +3309,9 @@ function updateTimerDisplay() {
 
 
 
-    // < 10 MENIT
+    // =====================================================
+    // <= 10 MENIT
+    // =====================================================
 
     if (
         timeRemaining <=
@@ -3837,7 +3347,9 @@ function updateTimerDisplay() {
     }
 
 
-    // 10 - 30 MENIT
+    // =====================================================
+    // <= 30 MENIT
+    // =====================================================
 
     else if (
         timeRemaining <=
@@ -3861,7 +3373,9 @@ function updateTimerDisplay() {
     }
 
 
+    // =====================================================
     // > 30 MENIT
+    // =====================================================
 
     else {
 
@@ -3938,14 +3452,18 @@ function requestExitExam() {
 
 
 // =========================================================
-// SUBMIT EXAM
+// REQUEST SUBMIT
 // =========================================================
 
 function requestSubmitExam() {
 
     if (
         isExamFinished
-    ) return;
+    ) {
+
+        return;
+
+    }
 
 
     const answered =
@@ -3997,7 +3515,6 @@ function requestSubmitExam() {
                 text-center
             ">
 
-
                 <div>
 
                     <span class="
@@ -4008,9 +3525,7 @@ function requestSubmitExam() {
                         tracking-wider
                         text-slate-600
                     ">
-
                         Terjawab
-
                     </span>
 
 
@@ -4020,9 +3535,7 @@ function requestSubmitExam() {
                         text-lg
                         text-emerald-400
                     ">
-
                         ${answered}
-
                     </strong>
 
                 </div>
@@ -4038,9 +3551,7 @@ function requestSubmitExam() {
                         tracking-wider
                         text-slate-600
                     ">
-
                         Belum
-
                     </span>
 
 
@@ -4050,9 +3561,7 @@ function requestSubmitExam() {
                         text-lg
                         text-slate-300
                     ">
-
                         ${unanswered}
-
                     </strong>
 
                 </div>
@@ -4068,9 +3577,7 @@ function requestSubmitExam() {
                         tracking-wider
                         text-slate-600
                     ">
-
                         Ditandai
-
                     </span>
 
 
@@ -4080,15 +3587,12 @@ function requestSubmitExam() {
                         text-lg
                         text-amber-400
                     ">
-
                         ${marked}
-
                     </strong>
 
                 </div>
 
             </div>
-
         `,
 
 
@@ -4113,7 +3617,7 @@ function requestSubmitExam() {
 
 
 // =========================================================
-// OPEN CONFIRMATION MODAL
+// OPEN CONFIRM MODAL
 // =========================================================
 
 function openConfirmModal(
@@ -4170,7 +3674,11 @@ function openConfirmModal(
 
         !icon
 
-    ) return;
+    ) {
+
+        return;
+
+    }
 
 
 
@@ -4231,17 +3739,9 @@ function openConfirmModal(
                     stroke="currentColor"
                     stroke-width="2"
                 >
-
-                    <path
-                        d="M5 5v14"
-                    />
-
-                    <path
-                        d="M5 5h11l-2 4 2 4H5"
-                    />
-
+                    <path d="M5 5v14" />
+                    <path d="M5 5h11l-2 4 2 4H5" />
                 </svg>
-
             `
 
             : `
@@ -4254,21 +3754,10 @@ function openConfirmModal(
                     stroke="currentColor"
                     stroke-width="2"
                 >
-
-                    <path
-                        d="M10 17l5-5-5-5"
-                    />
-
-                    <path
-                        d="M15 12H3"
-                    />
-
-                    <path
-                        d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"
-                    />
-
+                    <path d="M10 17l5-5-5-5" />
+                    <path d="M15 12H3" />
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
                 </svg>
-
             `;
 
 
@@ -4313,7 +3802,7 @@ function openConfirmModal(
 
 
 // =========================================================
-// CLOSE MODAL
+// CLOSE CONFIRM MODAL
 // =========================================================
 
 function closeConfirmModal() {
@@ -4326,7 +3815,11 @@ function closeConfirmModal() {
 
     if (
         !modal
-    ) return;
+    ) {
+
+        return;
+
+    }
 
 
     modal.classList.add(
@@ -4347,7 +3840,9 @@ function closeConfirmModal() {
 
 
 
-// compatibility
+// =========================================================
+// COMPATIBILITY
+// =========================================================
 
 function submitExam() {
 
@@ -4367,7 +3862,11 @@ function finalizeExam(
 
     if (
         isExamFinished
-    ) return;
+    ) {
+
+        return;
+
+    }
 
 
     isExamFinished =
@@ -4390,6 +3889,10 @@ function finalizeExam(
     }
 
 
+
+    // =====================================================
+    // CORRECT ANSWERS
+    // =====================================================
 
     const correctAnswers =
         currentQuestions.reduce(
@@ -4419,6 +3922,10 @@ function finalizeExam(
 
 
 
+    // =====================================================
+    // SCORE 0 - 100
+    // =====================================================
+
     const score =
         currentQuestions.length
 
@@ -4447,6 +3954,10 @@ function finalizeExam(
 
 
 
+    // =====================================================
+    // OPTIONAL LOGIN USER
+    // =====================================================
+
     const currentUser =
         (
             typeof auth !==
@@ -4460,7 +3971,7 @@ function finalizeExam(
 
 
     // =====================================================
-    // FIREBASE HANYA JIKA USER SUDAH LOGIN
+    // FIRESTORE ONLY IF USER LOGGED IN
     // =====================================================
 
     if (
@@ -4478,6 +3989,7 @@ function finalizeExam(
         db.collection(
             'leaderboard'
         )
+
             .add({
 
                 name:
@@ -4496,7 +4008,8 @@ function finalizeExam(
                     score,
 
                 category:
-                    selectedCategory.toUpperCase(),
+                    selectedCategory
+                        .toUpperCase(),
 
                 timestamp:
                     firebase.firestore
@@ -4608,53 +4121,34 @@ function showResultScreen(
 
         <div class="
             flex-1
-
             flex
-
             items-center
-
             justify-center
-
             p-5
             sm:p-8
         ">
 
-
             <div class="
                 w-full
-
                 max-w-2xl
-
                 text-center
             ">
 
 
-                <!-- RESULT ICON -->
-
                 <div class="
                     w-16
                     h-16
-
                     sm:w-20
                     sm:h-20
-
                     bg-emerald-500/10
-
                     text-emerald-400
-
                     border
                     border-emerald-500/20
-
                     rounded-3xl
-
                     flex
-
                     items-center
-
                     justify-center
-
                     mx-auto
-
                     shadow-xl
                     shadow-emerald-950/10
                 ">
@@ -4662,58 +4156,29 @@ function showResultScreen(
                     <svg
                         width="32"
                         height="32"
-
                         viewBox="0 0 24 24"
-
                         fill="none"
-
                         stroke="currentColor"
-
                         stroke-width="1.8"
                     >
-
-                        <path
-                            d="M8 21h8"
-                        />
-
-                        <path
-                            d="M12 17v4"
-                        />
-
-                        <path
-                            d="M7 4h10"
-                        />
-
-                        <path
-                            d="M5 4v5a7 7 0 0 0 14 0V4"
-                        />
-
-                        <path
-                            d="M5 8H3a2 2 0 0 0 0 4h2"
-                        />
-
-                        <path
-                            d="M19 8h2a2 2 0 0 1 0 4h-2"
-                        />
-
+                        <path d="M8 21h8" />
+                        <path d="M12 17v4" />
+                        <path d="M7 4h10" />
+                        <path d="M5 4v5a7 7 0 0 0 14 0V4" />
+                        <path d="M5 8H3a2 2 0 0 0 0 4h2" />
+                        <path d="M19 8h2a2 2 0 0 1 0 4h-2" />
                     </svg>
 
                 </div>
 
 
 
-                <!-- TITLE -->
-
                 <h2 class="
                     mt-6
-
                     text-2xl
                     sm:text-3xl
-
                     font-black
-
                     text-white
-
                     tracking-tight
                 ">
 
@@ -4729,10 +4194,8 @@ function showResultScreen(
 
                 <p class="
                     mt-2
-
                     text-xs
                     sm:text-sm
-
                     text-slate-400
                 ">
 
@@ -4741,7 +4204,7 @@ function showResultScreen(
 
                             ? 'Nilai berhasil dihitung, tetapi penyimpanan ke papan peringkat mengalami kendala.'
 
-                            : 'Hasil simulasi Anda telah dihitung dan diproses.'
+                            : 'Hasil simulasi Anda telah dihitung.'
                     }
 
                 </p>
@@ -4752,62 +4215,43 @@ function showResultScreen(
 
                 <div class="
                     mt-7
-
                     grid
                     grid-cols-3
-
                     gap-3
-
                     max-w-lg
-
                     mx-auto
                 ">
 
 
                     <div class="
                         bg-slate-950/50
-
                         border
                         border-slate-800
-
                         rounded-2xl
-
                         p-4
                     ">
 
                         <span class="
                             text-[8px]
                             sm:text-[9px]
-
                             uppercase
-
                             font-black
-
                             tracking-wider
-
                             text-slate-600
                         ">
-
                             Nilai
-
                         </span>
 
 
                         <strong class="
                             block
-
                             mt-1
-
                             text-3xl
                             sm:text-4xl
-
                             font-black
-
                             text-emerald-400
                         ">
-
                             ${score}
-
                         </strong>
 
                     </div>
@@ -4816,48 +4260,33 @@ function showResultScreen(
 
                     <div class="
                         bg-slate-950/50
-
                         border
                         border-slate-800
-
                         rounded-2xl
-
                         p-4
                     ">
 
                         <span class="
                             text-[8px]
                             sm:text-[9px]
-
                             uppercase
-
                             font-black
-
                             tracking-wider
-
                             text-slate-600
                         ">
-
                             Benar
-
                         </span>
 
 
                         <strong class="
                             block
-
                             mt-1
-
                             text-2xl
                             sm:text-3xl
-
                             font-black
-
                             text-white
                         ">
-
                             ${correctAnswers}
-
                         </strong>
 
                     </div>
@@ -4866,48 +4295,33 @@ function showResultScreen(
 
                     <div class="
                         bg-slate-950/50
-
                         border
                         border-slate-800
-
                         rounded-2xl
-
                         p-4
                     ">
 
                         <span class="
                             text-[8px]
                             sm:text-[9px]
-
                             uppercase
-
                             font-black
-
                             tracking-wider
-
                             text-slate-600
                         ">
-
                             Terjawab
-
                         </span>
 
 
                         <strong class="
                             block
-
                             mt-1
-
                             text-2xl
                             sm:text-3xl
-
                             font-black
-
                             text-white
                         ">
-
                             ${answered}/${total}
-
                         </strong>
 
                     </div>
@@ -4916,84 +4330,56 @@ function showResultScreen(
 
 
 
-                <!-- RESULT BUTTONS -->
+                <!-- BUTTONS -->
 
                 <div class="
                     mt-7
-
                     flex
-
                     flex-col
                     sm:flex-row
-
                     gap-3
-
                     justify-center
                 ">
 
-
                     <a
                         href="leaderboard.html"
-
                         class="
                             bg-blue-600
-
                             hover:bg-blue-500
-
                             text-white
-
                             font-black
-
                             text-xs
                             sm:text-sm
-
                             px-6
                             py-3
-
                             rounded-xl
-
                             shadow-lg
                             shadow-blue-600/20
-
                             transition
                         "
                     >
-
                         Lihat Papan Peringkat
-
                     </a>
-
 
 
                     <a
                         href="index.html"
-
                         class="
                             bg-slate-800
-
                             hover:bg-slate-700
-
                             text-slate-300
-
                             font-bold
-
                             text-xs
                             sm:text-sm
-
                             px-6
                             py-3
-
                             rounded-xl
-
                             border
                             border-slate-700
-
                             transition
                         "
                     >
-
                         Kembali ke Beranda
-
                     </a>
 
                 </div>
@@ -5001,7 +4387,6 @@ function showResultScreen(
             </div>
 
         </div>
-
     `;
 
 }
@@ -5009,7 +4394,7 @@ function showResultScreen(
 
 
 // =========================================================
-// AUTOSAVE STORAGE KEY
+// STORAGE KEY
 // =========================================================
 
 function getStorageKey() {
@@ -5030,9 +4415,7 @@ function getStorageKey() {
 
 
     return (
-
         `ruangtryout_exam_${selectedCategory}_${uid}`
-
     );
 
 }
@@ -5053,7 +4436,11 @@ function persistProgress() {
 
         !currentQuestions.length
 
-    ) return;
+    ) {
+
+        return;
+
+    }
 
 
 
@@ -5179,7 +4566,7 @@ function clearSavedProgress() {
 
 
 // =========================================================
-// KEYBOARD SHORTCUTS
+// KEYBOARD SHORTCUT
 // =========================================================
 
 function handleExamKeyboard(
@@ -5196,7 +4583,11 @@ function handleExamKeyboard(
             'question-text'
         )
 
-    ) return;
+    ) {
+
+        return;
+
+    }
 
 
 
@@ -5240,7 +4631,11 @@ function handleExamKeyboard(
 
         event.altKey
 
-    ) return;
+    ) {
+
+        return;
+
+    }
 
 
 
@@ -5256,7 +4651,9 @@ function handleExamKeyboard(
 
 
 
-    // A B C D
+    // =====================================================
+    // A / B / C / D
+    // =====================================================
 
     if (
 
@@ -5299,7 +4696,9 @@ function handleExamKeyboard(
 
 
 
-    // PREVIOUS
+    // =====================================================
+    // LEFT
+    // =====================================================
 
     if (
         event.key ===
@@ -5316,7 +4715,9 @@ function handleExamKeyboard(
     }
 
 
-    // NEXT
+    // =====================================================
+    // RIGHT
+    // =====================================================
 
     else if (
         event.key ===
@@ -5333,7 +4734,9 @@ function handleExamKeyboard(
     }
 
 
-    // MARK
+    // =====================================================
+    // M
+    // =====================================================
 
     else if (
         key === 'm'
