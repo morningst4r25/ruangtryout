@@ -1,4 +1,4 @@
-// app.js - Logika Ujian CAT, Grid Navigasi Soal 1-100, & Firebase Integration
+// app.js - Logika Ujian CAT Instant Access (Tanpa Login Wajib)
 
 const urlParams = new URLSearchParams(window.location.search);
 const selectedCategory = urlParams.get('cat') || 'cpns';
@@ -9,49 +9,10 @@ let userAnswers = {};
 let timerInterval = null;
 let timeRemaining = 90 * 60; // 90 menit
 
-// Auth Guard: Cek Login saat DOM Siap
+// Langsung mulai proses kuis saat DOM siap (Tanpa Penguncian Login)
 document.addEventListener("DOMContentLoaded", () => {
-    if (typeof auth !== "undefined") {
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                startQuizProcess();
-            } else {
-                showAuthLockScreen();
-            }
-        });
-    } else {
-        console.error("Firebase Auth belum terpasang di exam.html");
-    }
+    startQuizProcess();
 });
-
-// Layar Penguncian Login
-function showAuthLockScreen() {
-    if (timerInterval) clearInterval(timerInterval);
-    const quizCard = document.getElementById("quiz-card");
-    if (!quizCard) return;
-
-    quizCard.innerHTML = `
-        <div class="p-8 sm:p-12 text-center space-y-6 my-auto">
-            <div class="w-16 h-16 bg-blue-900/40 text-blue-400 border border-blue-500/30 rounded-2xl flex items-center justify-center text-3xl mx-auto shadow-lg">
-                🔒
-            </div>
-            <div class="space-y-2">
-                <h2 class="text-2xl sm:text-3xl font-black text-white">Login Diperlukan</h2>
-                <p class="text-xs sm:text-sm text-slate-400 max-w-md mx-auto leading-relaxed">
-                    Untuk menjaga integritas papan peringkat dan mencatat hasil ujian secara akurat, Anda wajib masuk menggunakan Akun Google sebelum mengerjakan soal.
-                </p>
-            </div>
-            <div class="pt-2 flex flex-col sm:flex-row gap-3 justify-center">
-                <button onclick="loginWithGoogle()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
-                    🔑 Masuk / Login dengan Google
-                </button>
-                <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs sm:text-sm px-6 py-3 rounded-xl border border-slate-700 transition text-center">
-                    🏠 Kembali ke Beranda
-                </a>
-            </div>
-        </div>
-    `;
-}
 
 // Membaca Data Soal dari quizCategories
 function startQuizProcess() {
@@ -82,12 +43,10 @@ function startQuizProcess() {
     loadQuestion(currentIndex);
 }
 
-// Render Tata Letak Utama (Dengan Panel Grid Nomor Soal)
+// Render Tata Letak Utama Ujian
 function renderQuizLayout() {
     const quizCard = document.getElementById("quiz-card");
-    const categoryTitle = (typeof quizCategories !== "undefined" && quizCategories[selectedCategory.toLowerCase()]) 
-        ? quizCategories[selectedCategory.toLowerCase()].title 
-        : selectedCategory.toUpperCase();
+    const categoryTitle = (selectedCategory.toLowerCase() === 'utbk') ? 'UTBK / SNBT' : 'CPNS & PPPK';
 
     quizCard.innerHTML = `
         <!-- Top Info Header -->
@@ -102,7 +61,7 @@ function renderQuizLayout() {
             </div>
         </div>
 
-        <!-- Main Workspace (Split View: Lembar Soal + Navigasi Grid) -->
+        <!-- Main Workspace: Lembar Soal + Grid Navigasi -->
         <div class="flex-1 flex flex-col lg:flex-row overflow-hidden">
             <!-- Left Area: Pertanyaan & Pilihan Jawaban -->
             <div class="flex-1 p-6 sm:p-8 overflow-y-auto space-y-6 flex flex-col justify-between">
@@ -177,18 +136,15 @@ function loadQuestion(index) {
         optionsContainer.appendChild(btn);
     });
 
-    // Control Tombol Sebelumnya / Berikutnya
     document.getElementById("prev-btn").disabled = currentIndex === 0;
     document.getElementById("prev-btn").style.opacity = currentIndex === 0 ? "0.5" : "1";
     
     document.getElementById("next-btn").disabled = currentIndex === currentQuestions.length - 1;
     document.getElementById("next-btn").style.opacity = currentIndex === currentQuestions.length - 1 ? "0.5" : "1";
 
-    // Update Grid Nomor Soal
     renderQuestionGrid();
 }
 
-// Render Ulang Tombol Navigasi Nomor Soal 1-100
 function renderQuestionGrid() {
     const gridContainer = document.getElementById("question-grid");
     if (!gridContainer) return;
@@ -219,7 +175,6 @@ function renderQuestionGrid() {
         gridContainer.appendChild(btn);
     });
 
-    // Update Counter Jumlah Soal Terjawab
     const badge = document.getElementById("answered-count-badge");
     if (badge) {
         badge.innerText = `${answeredCount}/${currentQuestions.length} Dijawab`;
@@ -238,7 +193,6 @@ function navigateQuestion(step) {
     }
 }
 
-// Timer Ujian
 function startTimer() {
     if (timerInterval) clearInterval(timerInterval);
     timerInterval = setInterval(() => {
@@ -256,7 +210,7 @@ function startTimer() {
     }, 1000);
 }
 
-// Simpan Hasil Ujian ke Firestore
+// Simpan Hasil Ujian ke Firestore (Tanyakan nama panggilan pengguna)
 function submitExam() {
     if (!confirm("Apakah Anda yakin ingin menyelesaikan ujian ini?")) return;
     if (timerInterval) clearInterval(timerInterval);
@@ -268,28 +222,32 @@ function submitExam() {
         }
     });
 
-    const currentUser = auth.currentUser;
-    if (currentUser) {
+    // Minta input nama dari peserta untuk ditampilkan di Papan Peringkat
+    let participantName = prompt("Ujian Selesai! Masukkan nama Anda untuk dimasukkan ke Papan Peringkat (Opsional):", "Peserta Tryout");
+    if (!participantName || participantName.trim() === "") {
+        participantName = "Peserta Anonim";
+    }
+
+    if (typeof db !== "undefined") {
         db.collection("leaderboard").add({
-            name: currentUser.displayName || "Peserta Anonim",
-            email: currentUser.email || "",
-            photoURL: currentUser.photoURL || "",
+            name: participantName.trim(),
+            photoURL: "https://ui-avatars.com/api/?name=" + encodeURIComponent(participantName) + "&background=2563eb&color=fff",
             score: score,
             category: selectedCategory.toUpperCase(),
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         }).then(() => {
-            showResultScreen(score);
+            showResultScreen(score, participantName);
         }).catch((err) => {
             console.error("Gagal menyimpan skor:", err);
-            showResultScreen(score);
+            showResultScreen(score, participantName);
         });
     } else {
-        showResultScreen(score);
+        showResultScreen(score, participantName);
     }
 }
 
 // Layar Skor Akhir Ujian
-function showResultScreen(score) {
+function showResultScreen(score, name) {
     const quizCard = document.getElementById("quiz-card");
     quizCard.innerHTML = `
         <div class="p-8 sm:p-12 text-center space-y-6 my-auto">
@@ -297,8 +255,8 @@ function showResultScreen(score) {
                 🏆
             </div>
             <div class="space-y-2">
-                <h2 class="text-2xl sm:text-3xl font-black text-white">Ujian Selesai!</h2>
-                <p class="text-xs sm:text-sm text-slate-400">Skor Anda telah tersimpan otomatis ke papan peringkat global.</p>
+                <h2 class="text-2xl sm:text-3xl font-black text-white">Hebat, ${name}!</h2>
+                <p class="text-xs sm:text-sm text-slate-400">Skor ujian Anda telah berhasil dicatat ke papan peringkat global.</p>
             </div>
             <div class="bg-slate-800/80 border border-slate-700 p-6 rounded-2xl max-w-xs mx-auto">
                 <span class="text-xs text-slate-400 uppercase font-bold block mb-1">Total Nilai</span>
