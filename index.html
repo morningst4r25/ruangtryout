@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +9,9 @@
     <title>Ruang Tryout | Simulasi CAT CPNS & UTBK SNBT Gratis</title>
 
     <meta name="description"
-        content="Ruang Tryout adalah platform simulasi CAT CPNS dan UTBK SNBT 100% gratis dengan ribuan latihan soal HOTS, timer real-time, evaluasi instan, dan leaderboard global.">
+        content="Ruang Tryout adalah platform simulasi CAT CPNS dan UTBK SNBT gratis dengan ratusan latihan soal, timer real-time, evaluasi instan, pembahasan, dan leaderboard.">
 
     <meta name="theme-color" content="#ffffff">
-
     <link rel="manifest" href="manifest.json">
 
     <!-- GOOGLE ADSENSE SCRIPT -->
@@ -24,12 +22,10 @@
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-
     <script>
         tailwind.config = {
             theme: {
@@ -40,7 +36,7 @@
                     boxShadow: {
                         premium: '0 25px 70px rgba(15, 23, 42, 0.10)',
                         card: '0 10px 35px rgba(15, 23, 42, 0.06)',
-                        mascot: '0 35px 80px rgba(37, 99, 235, 0.16)'
+                        soft: '0 18px 50px rgba(15, 23, 42, 0.07)'
                     }
                 }
             }
@@ -52,121 +48,200 @@
 
 <body class="bg-white text-slate-800 font-sans antialiased selection:bg-blue-600 selection:text-white">
 
-<!-- NAVBAR -->
-<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-slate-200/70 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[96px] flex items-center justify-between gap-4">
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-200/70">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
 
-        <!-- LOGO JUMBO (MENGGUNAKAN SKALA LEBAR AGAR VISUAL SANGAT BESAR) -->
-        <a href="#" class="flex items-center shrink-0 group">
-            <img src="logoRTO.png" alt="Ruang Tryout Logo" class="w-[210px] sm:w-[260px] lg:w-[310px] h-auto object-contain transition-transform duration-300 group-hover:scale-105">
+        <a href="#" class="flex items-center shrink-0 group" aria-label="Ruang Tryout">
+            <img
+                src="logoRTO.png"
+                alt="Ruang Tryout Logo"
+                class="w-[175px] sm:w-[205px] lg:w-[225px] h-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+            >
         </a>
 
-        <!-- DESKTOP NAVIGATION -->
-        <nav class="hidden lg:flex items-center gap-8 text-[14px] font-semibold text-slate-500">
+        <nav class="hidden lg:flex items-center gap-8 text-[13px] font-semibold text-slate-500">
             <a href="#program" class="hover:text-blue-600 transition-colors">Program</a>
+            <a href="#cara-kerja" class="hover:text-blue-600 transition-colors">Cara Kerja</a>
             <a href="#keunggulan" class="hover:text-blue-600 transition-colors">Keunggulan</a>
             <a href="leaderboard.html" class="flex items-center gap-2 text-blue-600 font-bold hover:text-blue-700 transition-colors">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M8 21h8" /><path d="M12 17v4" /><path d="M7 4h10" /><path d="M5 4v5a7 7 0 0 0 14 0V4" />
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10"/><path d="M5 4v5a7 7 0 0 0 14 0V4"/>
                 </svg>
                 Papan Peringkat
             </a>
-            <a href="about.html" class="hover:text-blue-600 transition-colors">Tentang Kami</a>
-            <a href="contact.html" class="hover:text-blue-600 transition-colors">Kontak</a>
+            <a href="about.html" class="hover:text-blue-600 transition-colors">Tentang</a>
         </nav>
 
+        <div class="flex items-center gap-2">
+            <a href="#program"
+                class="hidden sm:inline-flex items-center justify-center gap-2 rounded-xl bg-slate-950 hover:bg-blue-600 text-white text-xs font-bold px-4 py-2.5 shadow-lg shadow-slate-950/10 transition-all duration-300">
+                Mulai Tryout
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14"/><path d="m13 6 6 6-6 6"/>
+                </svg>
+            </a>
+
+            <button id="mobile-menu-button" type="button"
+                class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 transition"
+                aria-label="Buka menu" aria-expanded="false" aria-controls="mobile-menu">
+                <svg id="menu-open-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+                <svg id="menu-close-icon" class="hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 6l12 12M18 6 6 18"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- MOBILE MENU -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200/70 bg-white">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 py-4 grid gap-1 text-sm font-semibold text-slate-600">
+            <a href="#program" class="mobile-nav-link px-3 py-3 rounded-xl hover:bg-slate-50 hover:text-blue-600">Program</a>
+            <a href="#cara-kerja" class="mobile-nav-link px-3 py-3 rounded-xl hover:bg-slate-50 hover:text-blue-600">Cara Kerja</a>
+            <a href="#keunggulan" class="mobile-nav-link px-3 py-3 rounded-xl hover:bg-slate-50 hover:text-blue-600">Keunggulan</a>
+            <a href="leaderboard.html" class="px-3 py-3 rounded-xl hover:bg-blue-50 text-blue-600">Papan Peringkat</a>
+            <a href="about.html" class="px-3 py-3 rounded-xl hover:bg-slate-50 hover:text-blue-600">Tentang Kami</a>
+            <a href="contact.html" class="px-3 py-3 rounded-xl hover:bg-slate-50 hover:text-blue-600">Kontak</a>
+            <a href="#program" class="mobile-nav-link mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 text-white px-4 py-3 font-bold">
+                Mulai Tryout Gratis
+            </a>
+        </nav>
     </div>
 </header>
 
-<!-- HERO -->
+<!-- =========================================================
+     HERO
+========================================================= -->
 <section class="relative overflow-hidden bg-white">
     <div class="absolute inset-0 pointer-events-none overflow-hidden">
-        <div class="absolute -top-[250px] left-[25%] w-[650px] h-[650px] rounded-full bg-blue-100/70 blur-[130px]"></div>
-        <div class="absolute top-[100px] right-[-200px] w-[500px] h-[500px] rounded-full bg-violet-100/50 blur-[120px]"></div>
-        <div class="absolute bottom-[-300px] left-[-200px] w-[500px] h-[500px] rounded-full bg-sky-100/50 blur-[120px]"></div>
+        <div class="absolute -top-[250px] left-[22%] w-[650px] h-[650px] rounded-full bg-blue-100/70 blur-[130px]"></div>
+        <div class="absolute top-[80px] right-[-220px] w-[520px] h-[520px] rounded-full bg-violet-100/55 blur-[120px]"></div>
+        <div class="absolute bottom-[-320px] left-[-220px] w-[520px] h-[520px] rounded-full bg-sky-100/50 blur-[120px]"></div>
     </div>
 
-    <div class="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 pt-10 pb-16 sm:pt-14 sm:pb-20 lg:pt-16 lg:pb-24">
-        <div class="grid lg:grid-cols-[1.03fr_.97fr] gap-12 lg:gap-16 items-center">
+    <div class="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 pt-12 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24">
+        <div class="grid lg:grid-cols-[1.03fr_.97fr] gap-10 lg:gap-16 items-center">
 
-            <!-- HERO TEXT -->
             <div class="relative z-20">
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-[11px] font-extrabold tracking-wide mb-6">
                     <span class="relative flex h-2 w-2">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-60"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
                     </span>
-                    PLATFORM TRYOUT GRATIS TANPA LOGIN
+                    100% GRATIS • TANPA LOGIN
                 </div>
 
                 <h1 class="text-[2.55rem] sm:text-5xl lg:text-[4rem] xl:text-[4.25rem] leading-[1.04] tracking-[-0.045em] font-black text-slate-950 max-w-3xl">
-                    Persiapkan ujianmu.
+                    Tryout CPNS & UTBK Gratis.
                     <span class="block mt-1 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600">
                         Uji kemampuanmu.
                     </span>
                 </h1>
 
                 <p class="mt-6 text-sm sm:text-base lg:text-lg leading-7 sm:leading-8 text-slate-500 max-w-2xl">
-                    Simulasi CAT CPNS dan UTBK SNBT dengan sistem ujian berbasis waktu, evaluasi instan, pembahasan soal, dan papan peringkat peserta.
+                    Latihan simulasi berbasis waktu untuk CPNS, PPPK, dan UTBK SNBT. Kerjakan soal, lihat skor, pelajari pembahasan, lalu ukur perkembanganmu tanpa proses pendaftaran yang rumit.
                 </p>
 
                 <div class="mt-8 flex flex-col sm:flex-row sm:items-center gap-3">
-                    <a href="#program" class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-xl shadow-blue-600/20 hover:shadow-blue-600/30 hover:-translate-y-0.5 transition-all duration-300">
+                    <a href="#program"
+                        class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-xl shadow-blue-600/20 hover:shadow-blue-600/30 hover:-translate-y-0.5 transition-all duration-300">
                         Mulai Tryout Sekarang
                         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14" /><path d="m13 6 6 6-6 6" />
+                            <path d="M5 12h14"/><path d="m13 6 6 6-6 6"/>
                         </svg>
                     </a>
 
-                    <a href="leaderboard.html" class="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-700 font-bold text-sm px-6 py-3.5 rounded-xl border border-slate-200 hover:border-slate-300 transition-all">
+                    <a href="leaderboard.html"
+                        class="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-700 font-bold text-sm px-6 py-3.5 rounded-xl border border-slate-200 hover:border-slate-300 transition-all">
                         Lihat Leaderboard
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M8 21h8" /><path d="M12 17v4" /><path d="M7 4h10" />
+                            <path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10"/>
                         </svg>
                     </a>
                 </div>
 
                 <div class="mt-7 flex flex-wrap gap-x-6 gap-y-3 text-[11px] sm:text-xs font-semibold text-slate-400">
-                    <span class="flex items-center gap-2"><span class="text-emerald-500 font-black">✓</span> Direct Access (Tanpa Login)</span>
-                    <span class="flex items-center gap-2"><span class="text-emerald-500 font-black">✓</span> Timer Real-time</span>
-                    <span class="flex items-center gap-2"><span class="text-emerald-500 font-black">✓</span> Evaluasi Instan</span>
+                    <span class="flex items-center gap-2"><span class="text-emerald-500 font-black">✓</span> Langsung mulai tanpa login</span>
+                    <span class="flex items-center gap-2"><span class="text-emerald-500 font-black">✓</span> Timer real-time</span>
+                    <span class="flex items-center gap-2"><span class="text-emerald-500 font-black">✓</span> Evaluasi instan</span>
                 </div>
             </div>
 
             <!-- HERO MASCOT -->
-            <div class="relative flex items-center justify-center mt-4 lg:mt-0 min-h-[420px] sm:min-h-[500px] lg:min-h-[560px]">
+            <div class="relative flex items-center justify-center mt-2 lg:mt-0 min-h-[430px] sm:min-h-[500px] lg:min-h-[560px]">
                 <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[330px] h-[330px] sm:w-[430px] sm:h-[430px] lg:w-[500px] lg:h-[500px] bg-gradient-to-br from-blue-100/90 via-indigo-50/70 to-violet-100/50 rounded-full blur-2xl"></div>
+                <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[290px] h-[290px] sm:w-[380px] sm:h-[380px] lg:w-[440px] lg:h-[440px] rounded-full border border-blue-100/70 bg-white/45"></div>
+
+                <div class="absolute z-20 top-[10%] right-[4%] sm:right-[9%] hidden sm:flex items-center gap-3 bg-white/95 backdrop-blur-xl border border-slate-200 rounded-2xl shadow-soft px-4 py-3">
+                    <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+                    </div>
+                    <div>
+                        <div class="text-xs font-black text-slate-900">Gratis</div>
+                        <div class="text-[9px] text-slate-400 mt-0.5">Tanpa biaya tersembunyi</div>
+                    </div>
+                </div>
+
+                <div class="absolute z-20 left-[1%] sm:left-[3%] top-[39%] hidden sm:flex items-center gap-3 bg-white/95 backdrop-blur-xl border border-slate-200 rounded-2xl shadow-soft px-4 py-3">
+                    <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                    </div>
+                    <div>
+                        <div class="text-xs font-black text-slate-900">90 Menit</div>
+                        <div class="text-[9px] text-slate-400 mt-0.5">Simulasi berbasis waktu</div>
+                    </div>
+                </div>
+
+                <div class="absolute z-20 right-[0%] sm:right-[2%] bottom-[17%] hidden sm:flex items-center gap-3 bg-white/95 backdrop-blur-xl border border-slate-200 rounded-2xl shadow-soft px-4 py-3">
+                    <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m7 16 4-5 3 3 5-7"/></svg>
+                    </div>
+                    <div>
+                        <div class="text-xs font-black text-slate-900">Skor Instan</div>
+                        <div class="text-[9px] text-slate-400 mt-0.5">Evaluasi setelah selesai</div>
+                    </div>
+                </div>
+
                 <div class="relative z-10 flex items-center justify-center w-full">
-                    <img src="maskotRTO.png" alt="Maskot Ruang Tryout" draggable="false" class="w-[330px] sm:w-[420px] lg:w-[500px] xl:w-[530px] max-w-full h-auto object-contain select-none drop-shadow-[0_30px_35px_rgba(30,64,175,0.16)]">
+                    <img src="maskotRTO.png" alt="Maskot Ruang Tryout" draggable="false"
+                        class="w-[330px] sm:w-[420px] lg:w-[500px] xl:w-[530px] max-w-full h-auto object-contain select-none drop-shadow-[0_30px_35px_rgba(30,64,175,0.16)]">
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- STATISTICS -->
+<!-- =========================================================
+     STATS
+========================================================= -->
 <section class="bg-slate-950 text-white">
-    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-8 grid grid-cols-2 lg:grid-cols-4 gap-y-8 gap-x-6">
-        <div class="text-center">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-8 grid grid-cols-2 lg:grid-cols-4 gap-y-8">
+        <div class="text-center lg:border-r lg:border-white/10 px-4">
             <div class="text-2xl sm:text-3xl font-black tracking-tight">100%</div>
             <div class="text-[10px] sm:text-xs text-slate-400 mt-1">Gratis & Tanpa Login</div>
         </div>
-        <div class="text-center">
-            <div class="text-2xl sm:text-3xl font-black tracking-tight">200+</div>
-            <div class="text-[10px] sm:text-xs text-slate-400 mt-1">Soal latihan HOTS</div>
+        <div class="text-center lg:border-r lg:border-white/10 px-4">
+            <div class="text-2xl sm:text-3xl font-black tracking-tight">190</div>
+            <div class="text-[10px] sm:text-xs text-slate-400 mt-1">Soal Latihan</div>
         </div>
-        <div class="text-center">
+        <div class="text-center lg:border-r lg:border-white/10 px-4">
             <div class="text-2xl sm:text-3xl font-black tracking-tight">90 Menit</div>
             <div class="text-[10px] sm:text-xs text-slate-400 mt-1">Simulasi Ujian</div>
         </div>
-        <div class="text-center">
+        <div class="text-center px-4">
             <div class="text-2xl sm:text-3xl font-black tracking-tight">Real-time</div>
             <div class="text-[10px] sm:text-xs text-slate-400 mt-1">Evaluasi & Leaderboard</div>
         </div>
     </div>
 </section>
 
-<!-- PROGRAM UJIAN -->
+<!-- =========================================================
+     PROGRAM UJIAN
+========================================================= -->
 <main id="program" class="bg-slate-50">
     <div class="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
         <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-10">
@@ -174,87 +249,346 @@
                 <div class="text-[11px] uppercase tracking-[0.20em] font-black text-blue-600 mb-3">Pilih simulasi</div>
                 <h2 class="text-3xl sm:text-4xl font-black tracking-[-0.03em] text-slate-950">Ujian yang ingin kamu hadapi</h2>
                 <p class="text-sm sm:text-base text-slate-500 mt-3 max-w-2xl leading-7">
-                    Klik pada program ujian untuk langsung mulai mengerjakan tanpa perlu mendaftar.
+                    Pilih program, mulai simulasi, dan ukur kemampuanmu tanpa perlu membuat akun terlebih dahulu.
                 </p>
+            </div>
+            <div class="hidden md:flex items-center gap-2 text-[10px] font-bold text-emerald-600 bg-emerald-50 border border-emerald-100 rounded-full px-3 py-2">
+                <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
+                DIRECT ACCESS
             </div>
         </div>
 
-        <!-- PROGRAM GRID -->
         <div class="grid md:grid-cols-2 gap-6">
             <!-- CPNS -->
             <a href="exam.html?cat=cpns" class="group relative overflow-hidden bg-white border border-slate-200 rounded-3xl p-6 sm:p-7 shadow-card hover:shadow-premium hover:-translate-y-1 hover:border-blue-300 transition-all duration-300">
                 <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
-                <div class="flex items-start justify-between gap-4">
+                <div class="absolute -right-16 -top-16 w-40 h-40 rounded-full bg-blue-50 group-hover:scale-110 transition-transform duration-500"></div>
+
+                <div class="relative flex items-start justify-between gap-4">
                     <div class="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:scale-105 transition-transform">
-                        🏛️
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M4 21h16"/><path d="M6 21V8l6-4 6 4v13"/><path d="M9 21v-5h6v5"/><path d="M9 10h.01M15 10h.01M9 13h.01M15 13h.01"/>
+                        </svg>
                     </div>
-                    <span class="text-[10px] uppercase tracking-wider font-black text-blue-700 bg-blue-50 border border-blue-100 px-3 py-1.5 rounded-full">
-                        100 Soal HOTS
-                    </span>
+                    <span class="text-[10px] uppercase tracking-wider font-black text-blue-700 bg-blue-50 border border-blue-100 px-3 py-1.5 rounded-full">100 Soal</span>
                 </div>
-                <div class="mt-7">
+
+                <div class="relative mt-7">
                     <h3 class="text-2xl font-black tracking-tight text-slate-950 group-hover:text-blue-600 transition-colors">CPNS & PPPK</h3>
                     <p class="text-sm leading-6 text-slate-500 mt-2 max-w-md">
-                        Simulasi SKD mencakup TWK, TIU, dan TKP untuk melatih kemampuan menghadapi ujian CPNS.
+                        Simulasi SKD dengan fokus latihan TWK, TIU, dan TKP untuk membantu mengasah kecepatan serta ketelitian.
                     </p>
+
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span class="text-[10px] font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-lg">TWK</span>
+                        <span class="text-[10px] font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-lg">TIU</span>
+                        <span class="text-[10px] font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-lg">TKP</span>
+                    </div>
                 </div>
-                <div class="mt-7 pt-5 border-t border-slate-100 flex items-center justify-between gap-3">
-                    <div class="flex items-center gap-2 text-xs font-bold text-slate-500">⏱️ 90 Menit</div>
-                    <span class="text-xs font-black text-blue-600 flex items-center gap-1 group-hover:gap-2 transition-all">
-                        Mulai Ujian Langsung →
-                    </span>
+
+                <div class="relative mt-7 pt-5 border-t border-slate-100 flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-2 text-xs font-bold text-slate-500">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                        90 Menit
+                    </div>
+                    <span class="text-xs font-black text-blue-600 flex items-center gap-1 group-hover:gap-2 transition-all">Mulai Ujian <span>→</span></span>
                 </div>
             </a>
 
             <!-- UTBK -->
             <a href="exam.html?cat=utbk" class="group relative overflow-hidden bg-white border border-slate-200 rounded-3xl p-6 sm:p-7 shadow-card hover:shadow-premium hover:-translate-y-1 hover:border-emerald-300 transition-all duration-300">
                 <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-500"></div>
-                <div class="flex items-start justify-between gap-4">
+                <div class="absolute -right-16 -top-16 w-40 h-40 rounded-full bg-emerald-50 group-hover:scale-110 transition-transform duration-500"></div>
+
+                <div class="relative flex items-start justify-between gap-4">
                     <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:scale-105 transition-transform">
-                        🎓
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M3 10l9-5 9 5-9 5-9-5Z"/><path d="M7 12.5V17c3 2 7 2 10 0v-4.5"/><path d="M21 10v6"/>
+                        </svg>
                     </div>
-                    <span class="text-[10px] uppercase tracking-wider font-black text-emerald-700 bg-emerald-50 border border-emerald-100 px-3 py-1.5 rounded-full">
-                        100 Soal HOTS
-                    </span>
+                    <span class="text-[10px] uppercase tracking-wider font-black text-emerald-700 bg-emerald-50 border border-emerald-100 px-3 py-1.5 rounded-full">90 Soal</span>
                 </div>
-                <div class="mt-7">
+
+                <div class="relative mt-7">
                     <h3 class="text-2xl font-black tracking-tight text-slate-950 group-hover:text-emerald-600 transition-colors">UTBK / SNBT</h3>
                     <p class="text-sm leading-6 text-slate-500 mt-2 max-w-md">
-                        Latihan TPS, penalaran kuantitatif, penalaran umum, dan literasi untuk persiapan SNBT.
+                        Latihan TPS, penalaran kuantitatif, penalaran umum, dan literasi untuk membantu membangun ritme mengerjakan soal.
                     </p>
+
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg">TPS</span>
+                        <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg">Literasi</span>
+                        <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg">Penalaran</span>
+                    </div>
                 </div>
-                <div class="mt-7 pt-5 border-t border-slate-100 flex items-center justify-between gap-3">
-                    <div class="flex items-center gap-2 text-xs font-bold text-slate-500">⏱️ 90 Menit</div>
-                    <span class="text-xs font-black text-emerald-600 flex items-center gap-1 group-hover:gap-2 transition-all">
-                        Mulai Ujian Langsung →
-                    </span>
+
+                <div class="relative mt-7 pt-5 border-t border-slate-100 flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-2 text-xs font-bold text-slate-500">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                        90 Menit
+                    </div>
+                    <span class="text-xs font-black text-emerald-600 flex items-center gap-1 group-hover:gap-2 transition-all">Mulai Ujian <span>→</span></span>
                 </div>
             </a>
         </div>
     </div>
 </main>
 
-<!-- FEATURES & FOOTER -->
-<section id="keunggulan" class="bg-white border-t border-slate-200 py-16">
-    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-        <div class="max-w-2xl mb-12">
-            <h2 class="text-3xl font-black text-slate-950">Fokus Latihan Tanpa Ribet</h2>
-            <p class="text-sm text-slate-500 mt-2">Bebas tes kapan saja, langsung dapat evaluasi nilai di akhir kuis.</p>
+<!-- =========================================================
+     HOW IT WORKS
+========================================================= -->
+<section id="cara-kerja" class="bg-white border-t border-slate-200/70">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <div class="text-[11px] uppercase tracking-[0.20em] font-black text-blue-600 mb-3">Cara memulai</div>
+            <h2 class="text-3xl sm:text-4xl font-black tracking-[-0.03em] text-slate-950">Tiga langkah. Langsung latihan.</h2>
+            <p class="text-sm sm:text-base text-slate-500 mt-4 leading-7">Tidak ada alur panjang. Pilih simulasi, kerjakan, lalu lihat hasilmu.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-5">
+            <div class="relative rounded-3xl border border-slate-200 bg-slate-50/70 p-6 sm:p-7">
+                <div class="absolute top-5 right-5 text-5xl font-black text-slate-100">01</div>
+                <div class="w-11 h-11 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-5">
+                    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+                </div>
+                <h3 class="text-lg font-black text-slate-950">Pilih Program</h3>
+                <p class="text-sm text-slate-500 leading-6 mt-2">Tentukan simulasi CPNS/PPPK atau UTBK/SNBT sesuai target latihanmu.</p>
+            </div>
+
+            <div class="relative rounded-3xl border border-slate-200 bg-slate-50/70 p-6 sm:p-7">
+                <div class="absolute top-5 right-5 text-5xl font-black text-slate-100">02</div>
+                <div class="w-11 h-11 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center mb-5">
+                    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                </div>
+                <h3 class="text-lg font-black text-slate-950">Kerjakan Simulasi</h3>
+                <p class="text-sm text-slate-500 leading-6 mt-2">Jawab soal dengan batas waktu agar terbiasa mengambil keputusan secara cepat dan terukur.</p>
+            </div>
+
+            <div class="relative rounded-3xl border border-slate-200 bg-slate-50/70 p-6 sm:p-7">
+                <div class="absolute top-5 right-5 text-5xl font-black text-slate-100">03</div>
+                <div class="w-11 h-11 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-5">
+                    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m7 16 4-5 3 3 5-7"/></svg>
+                </div>
+                <h3 class="text-lg font-black text-slate-950">Lihat Evaluasi</h3>
+                <p class="text-sm text-slate-500 leading-6 mt-2">Dapatkan skor dan pembahasan agar kamu tahu bagian yang perlu ditingkatkan.</p>
+            </div>
         </div>
     </div>
 </section>
 
+<!-- =========================================================
+     PRODUCT PREVIEW
+========================================================= -->
+<section class="bg-slate-50 border-y border-slate-200/70">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+        <div class="grid lg:grid-cols-[.9fr_1.1fr] gap-10 lg:gap-16 items-center">
+            <div>
+                <div class="text-[11px] uppercase tracking-[0.20em] font-black text-blue-600 mb-3">Pengalaman ujian</div>
+                <h2 class="text-3xl sm:text-4xl font-black tracking-[-0.03em] text-slate-950">Fokus pada soal, bukan pada tampilan yang rumit.</h2>
+                <p class="text-sm sm:text-base text-slate-500 mt-4 leading-7">
+                    Antarmuka ujian dibuat sederhana supaya perhatian tetap tertuju pada soal, navigasi, dan waktu yang tersisa.
+                </p>
+
+                <div class="mt-7 space-y-4">
+                    <div class="flex gap-3">
+                        <div class="w-9 h-9 shrink-0 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+                        </div>
+                        <div><div class="text-sm font-bold text-slate-900">Navigasi jelas</div><div class="text-xs text-slate-500 mt-1">Pindah soal dan melihat progres tanpa kehilangan fokus.</div></div>
+                    </div>
+                    <div class="flex gap-3">
+                        <div class="w-9 h-9 shrink-0 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                        </div>
+                        <div><div class="text-sm font-bold text-slate-900">Timer terlihat setiap saat</div><div class="text-xs text-slate-500 mt-1">Membantu melatih manajemen waktu selama simulasi.</div></div>
+                    </div>
+                    <div class="flex gap-3">
+                        <div class="w-9 h-9 shrink-0 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m7 16 4-5 3 3 5-7"/></svg>
+                        </div>
+                        <div><div class="text-sm font-bold text-slate-900">Hasil langsung</div><div class="text-xs text-slate-500 mt-1">Skor dan pembahasan tersedia setelah simulasi selesai.</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXAM UI MOCKUP -->
+            <div class="relative">
+                <div class="absolute inset-8 bg-blue-500/10 blur-3xl rounded-full"></div>
+                <div class="relative bg-white rounded-3xl border border-slate-200 shadow-premium overflow-hidden">
+                    <div class="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-slate-100">
+                        <div>
+                            <div class="text-[10px] font-black uppercase tracking-[0.16em] text-blue-600">Simulasi CPNS</div>
+                            <div class="text-sm font-black text-slate-900 mt-1">Soal 24 dari 100</div>
+                        </div>
+                        <div class="bg-slate-950 text-white rounded-xl px-3.5 py-2 text-xs font-black tracking-wider">01:12:31</div>
+                    </div>
+
+                    <div class="p-5 sm:p-6">
+                        <div class="flex items-center justify-between gap-3 mb-5">
+                            <span class="text-[10px] font-bold text-blue-700 bg-blue-50 px-3 py-1.5 rounded-lg">TIU • Penalaran</span>
+                            <span class="text-[10px] font-semibold text-slate-400">24%</span>
+                        </div>
+
+                        <h3 class="text-sm sm:text-base font-bold text-slate-900 leading-6">
+                            Manakah pernyataan berikut yang paling tepat berdasarkan informasi pada soal?
+                        </h3>
+
+                        <div class="space-y-2.5 mt-5">
+                            <div class="border border-slate-200 rounded-xl px-4 py-3 text-xs font-semibold text-slate-500">A. Pernyataan pertama</div>
+                            <div class="border-2 border-blue-500 bg-blue-50 rounded-xl px-4 py-3 text-xs font-bold text-blue-700">B. Pernyataan kedua</div>
+                            <div class="border border-slate-200 rounded-xl px-4 py-3 text-xs font-semibold text-slate-500">C. Pernyataan ketiga</div>
+                            <div class="border border-slate-200 rounded-xl px-4 py-3 text-xs font-semibold text-slate-500">D. Pernyataan keempat</div>
+                        </div>
+
+                        <div class="mt-6 flex items-center justify-between gap-3 pt-5 border-t border-slate-100">
+                            <button class="text-xs font-bold text-slate-500 bg-slate-100 px-4 py-2.5 rounded-xl">← Sebelumnya</button>
+                            <button class="text-xs font-bold text-white bg-blue-600 px-4 py-2.5 rounded-xl">Berikutnya →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     FEATURES
+========================================================= -->
+<section id="keunggulan" class="bg-white">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+        <div class="max-w-2xl mb-12">
+            <div class="text-[11px] uppercase tracking-[0.20em] font-black text-blue-600 mb-3">Kenapa Ruang Tryout?</div>
+            <h2 class="text-3xl sm:text-4xl font-black tracking-[-0.03em] text-slate-950">Fokus latihan tanpa ribet.</h2>
+            <p class="text-sm sm:text-base text-slate-500 mt-4 leading-7">Akses cepat, sistem ujian sederhana, dan hasil yang langsung bisa dipelajari kembali.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:-translate-y-1 hover:shadow-card transition-all duration-300">
+                <div class="w-11 h-11 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-5">
+                    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+                </div>
+                <h3 class="font-black text-slate-950">Tanpa Login</h3>
+                <p class="text-xs leading-6 text-slate-500 mt-2">Buka program dan langsung mulai mengerjakan simulasi.</p>
+            </div>
+
+            <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:-translate-y-1 hover:shadow-card transition-all duration-300">
+                <div class="w-11 h-11 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center mb-5">
+                    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                </div>
+                <h3 class="font-black text-slate-950">Timer Real-time</h3>
+                <p class="text-xs leading-6 text-slate-500 mt-2">Biasakan diri bekerja di bawah batas waktu seperti saat simulasi.</p>
+            </div>
+
+            <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:-translate-y-1 hover:shadow-card transition-all duration-300">
+                <div class="w-11 h-11 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-5">
+                    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m7 16 4-5 3 3 5-7"/></svg>
+                </div>
+                <h3 class="font-black text-slate-950">Evaluasi Instan</h3>
+                <p class="text-xs leading-6 text-slate-500 mt-2">Lihat skor dan pembahasan setelah menyelesaikan simulasi.</p>
+            </div>
+
+            <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:-translate-y-1 hover:shadow-card transition-all duration-300">
+                <div class="w-11 h-11 rounded-xl bg-violet-100 text-violet-600 flex items-center justify-center mb-5">
+                    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10"/><path d="M5 4v5a7 7 0 0 0 14 0V4"/></svg>
+                </div>
+                <h3 class="font-black text-slate-950">Leaderboard</h3>
+                <p class="text-xs leading-6 text-slate-500 mt-2">Bandingkan hasil latihan dengan peserta lain di papan peringkat.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     MATERI & FOKUS LATIHAN
+========================================================= -->
+<section class="bg-slate-50 border-y border-slate-200/70">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-10">
+            <div class="max-w-2xl">
+                <div class="text-[11px] uppercase tracking-[0.20em] font-black text-blue-600 mb-3">Materi & fokus latihan</div>
+                <h2 class="text-3xl sm:text-4xl font-black tracking-[-0.03em] text-slate-950">Kenali area yang perlu kamu kuasai.</h2>
+                <p class="text-sm sm:text-base text-slate-500 mt-4 leading-7">Gunakan simulasi untuk melatih kemampuan inti pada setiap jenis ujian.</p>
+            </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <article class="bg-white border border-slate-200 rounded-2xl p-6 shadow-card">
+                <div class="text-[10px] font-black tracking-wider uppercase text-blue-600">CPNS • TWK</div>
+                <h3 class="text-lg font-black text-slate-950 mt-3">Wawasan Kebangsaan</h3>
+                <p class="text-xs text-slate-500 leading-6 mt-2">Latihan memahami nilai kebangsaan, konstitusi, dan konteks nasional.</p>
+                <a href="exam.html?cat=cpns" class="inline-flex mt-5 text-xs font-black text-blue-600 hover:text-blue-700">Mulai latihan →</a>
+            </article>
+
+            <article class="bg-white border border-slate-200 rounded-2xl p-6 shadow-card">
+                <div class="text-[10px] font-black tracking-wider uppercase text-indigo-600">CPNS • TIU</div>
+                <h3 class="text-lg font-black text-slate-950 mt-3">Intelegensi Umum</h3>
+                <p class="text-xs text-slate-500 leading-6 mt-2">Asah kemampuan verbal, numerik, logika, dan penalaran secara terukur.</p>
+                <a href="exam.html?cat=cpns" class="inline-flex mt-5 text-xs font-black text-indigo-600 hover:text-indigo-700">Mulai latihan →</a>
+            </article>
+
+            <article class="bg-white border border-slate-200 rounded-2xl p-6 shadow-card">
+                <div class="text-[10px] font-black tracking-wider uppercase text-emerald-600">CPNS • TKP</div>
+                <h3 class="text-lg font-black text-slate-950 mt-3">Karakteristik Pribadi</h3>
+                <p class="text-xs text-slate-500 leading-6 mt-2">Latih pemilihan respons berdasarkan situasi kerja dan pelayanan publik.</p>
+                <a href="exam.html?cat=cpns" class="inline-flex mt-5 text-xs font-black text-emerald-600 hover:text-emerald-700">Mulai latihan →</a>
+            </article>
+
+            <article class="bg-white border border-slate-200 rounded-2xl p-6 shadow-card">
+                <div class="text-[10px] font-black tracking-wider uppercase text-violet-600">UTBK • TPS</div>
+                <h3 class="text-lg font-black text-slate-950 mt-3">Penalaran & Literasi</h3>
+                <p class="text-xs text-slate-500 leading-6 mt-2">Bangun kemampuan memahami teks, angka, pola, dan penalaran kuantitatif.</p>
+                <a href="exam.html?cat=utbk" class="inline-flex mt-5 text-xs font-black text-violet-600 hover:text-violet-700">Mulai latihan →</a>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     FINAL CTA
+========================================================= -->
+<section class="relative overflow-hidden bg-slate-950">
+    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-blue-600/10 blur-[110px] rounded-full"></div>
+    <div class="relative max-w-5xl mx-auto px-5 sm:px-6 lg:px-8 py-16 sm:py-20 text-center">
+        <div class="inline-flex items-center gap-2 text-[10px] tracking-wider font-black text-blue-300 bg-blue-500/10 border border-blue-500/20 px-4 py-2 rounded-full mb-6">
+            SIAP MENGUKUR KEMAMPUANMU?
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-[-0.04em] text-white">
+            Jangan hanya belajar.
+            <span class="block text-blue-400 mt-1">Uji hasil belajarmu.</span>
+        </h2>
+        <p class="text-sm sm:text-base text-slate-400 max-w-xl mx-auto mt-5 leading-7">
+            Pilih program, kerjakan simulasi, dan gunakan hasilnya sebagai bahan evaluasi latihan berikutnya.
+        </p>
+        <a href="#program" class="inline-flex items-center gap-2 mt-8 bg-white hover:bg-blue-50 text-slate-950 font-black text-sm px-7 py-3.5 rounded-xl hover:-translate-y-0.5 transition-all">
+            Mulai Tryout Gratis
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </a>
+    </div>
+</section>
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
 <footer class="bg-slate-950 border-t border-white/10 text-slate-400 py-12">
     <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10 pb-10 border-b border-slate-900">
-            <div class="space-y-3 md:col-span-2">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10 pb-10 border-b border-white/10">
+
+            <div class="space-y-4 md:col-span-2">
                 <div class="flex items-center gap-3">
-                    <img src="logoRTO.png" alt="Ruang Tryout Logo" class="w-[220px] h-auto object-contain brightness-0 invert">
+                    <div class="w-10 h-10 rounded-xl bg-white text-slate-950 flex items-center justify-center font-black text-lg">R</div>
+                    <div>
+                        <div class="text-lg font-black tracking-tight text-white">Ruang<span class="text-blue-400">Tryout</span></div>
+                        <div class="text-[9px] uppercase tracking-[0.18em] font-bold text-slate-500 mt-1">Exam Simulation Platform</div>
+                    </div>
                 </div>
-                <p class="text-xs text-slate-400 leading-relaxed max-w-sm">
-                    Platform simulasi CAT CPNS & UTBK SNBT terlengkap dan gratis di Indonesia.
+                <p class="text-xs text-slate-400 leading-relaxed max-w-md">
+                    Platform latihan dan simulasi CAT CPNS & UTBK SNBT gratis untuk membantu peserta mengukur kemampuan sebelum menghadapi ujian.
+                </p>
+                <p class="text-[10px] text-slate-500 leading-5 max-w-md">
+                    Ruang Tryout merupakan platform latihan independen dan bukan situs resmi atau bagian dari instansi penyelenggara seleksi CPNS maupun SNBT.
                 </p>
             </div>
+
             <div>
                 <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">Program Ujian</h4>
                 <ul class="space-y-2.5 text-xs">
@@ -263,26 +597,55 @@
                     <li><a href="leaderboard.html" class="hover:text-white transition-colors">Papan Peringkat Global</a></li>
                 </ul>
             </div>
+
             <div>
                 <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">Kebijakan & Bantuan</h4>
                 <ul class="space-y-2.5 text-xs">
-                    <li><a href="about.html" class="hover:text-white transition-colors">Tentang Kami</a></li>
-                    <li><a href="contact.html" class="hover:text-white transition-colors">Hubungi Kami</a></li>
-                    <li><a href="privacy.html" class="hover:text-white transition-colors">Kebijakan Privasi</a></li>
-                    <li><a href="terms.html" class="hover:text-white transition-colors">Syarat & Ketentuan</a></li>
+                    <li><a href="https://www.ruangtryout.my.id/about.html" class="hover:text-white transition-colors">Tentang Kami</a></li>
+                    <li><a href="https://www.ruangtryout.my.id/contact.html" class="hover:text-white transition-colors">Hubungi Kami</a></li>
+                    <li><a href="https://www.ruangtryout.my.id/privacy.html" class="hover:text-white transition-colors">Kebijakan Privasi</a></li>
+                    <li><a href="https://www.ruangtryout.my.id/terms.html" class="hover:text-white transition-colors">Syarat & Ketentuan</a></li>
                 </ul>
             </div>
         </div>
+
         <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
             <div>&copy; 2026 Ruang Tryout. All rights reserved.</div>
-            <div class="flex gap-4">
-                <a href="privacy.html" class="hover:underline">Privacy Policy</a>
-                <a href="terms.html" class="hover:underline">Terms of Service</a>
-                <a href="contact.html" class="hover:underline">Contact</a>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="https://www.ruangtryout.my.id/privacy.html" class="hover:text-slate-300 transition">Privacy Policy</a>
+                <a href="https://www.ruangtryout.my.id/terms.html" class="hover:text-slate-300 transition">Terms of Service</a>
+                <a href="https://www.ruangtryout.my.id/contact.html" class="hover:text-slate-300 transition">Contact</a>
             </div>
         </div>
     </div>
 </footer>
+
+<script>
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuOpenIcon = document.getElementById('menu-open-icon');
+    const menuCloseIcon = document.getElementById('menu-close-icon');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+            const isOpen = !mobileMenu.classList.contains('hidden');
+            mobileMenu.classList.toggle('hidden');
+            menuOpenIcon.classList.toggle('hidden');
+            menuCloseIcon.classList.toggle('hidden');
+            mobileMenuButton.setAttribute('aria-expanded', String(!isOpen));
+        });
+
+        mobileNavLinks.forEach((link) => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuOpenIcon.classList.remove('hidden');
+                menuCloseIcon.classList.add('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+            });
+        });
+    }
+</script>
 
 </body>
 </html>
