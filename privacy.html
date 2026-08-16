@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Kebijakan Privasi - Ruang Tryout</title>
+    <link rel="canonical" href="https://www.ruangtryout.my.id/privacy.html">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
     <meta
         name="description"
@@ -16,8 +20,9 @@
         content="#ffffff"
     >
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    
 
+    <link rel="stylesheet" href="tailwind.css">
     <link
         rel="stylesheet"
         href="style.css"
@@ -105,44 +110,12 @@
                 class="flex items-center shrink-0"
                 aria-label="Ruang Tryout - Beranda"
             >
-
-                <span
-                    class="
-                        relative
-                        block
-                        w-[158px]
-                        h-11
-                        sm:w-[220px]
-                        sm:h-[60px]
-                        overflow-hidden
-                        shrink-0
-                    "
-                    aria-hidden="true"
+                <img
+                    src="logoRTO.webp"
+                    alt="Ruang Tryout"
+                    class="w-[158px] sm:w-[220px] h-auto object-contain select-none"
+                    draggable="false"
                 >
-
-                    <img
-                        src="logoRTO.png"
-                        alt=""
-                        class="
-                            absolute
-                            left-1/2
-                            top-1/2
-                            w-[158px]
-                            sm:w-[220px]
-                            max-w-none
-                            -translate-x-1/2
-                            -translate-y-1/2
-                            select-none
-                            pointer-events-none
-                        "
-                        draggable="false"
-                    >
-
-                </span>
-
-                <span class="sr-only">
-                    Ruang Tryout
-                </span>
 
             </a>
 
@@ -210,7 +183,8 @@
                     transition
                 "
             >
-                Kembali ke Beranda
+                <span class="hidden sm:inline">Kembali ke Beranda</span>
+                <span class="sm:hidden">Beranda</span>
             </a>
 
         </div>
@@ -1463,5 +1437,6 @@
 
     </footer>
 
+<script src="site.js"></script>
 </body>
 </html>

@@ -9,6 +9,7 @@
     >
 
     <title>Papan Peringkat - Ruang Tryout</title>
+    <link rel="canonical" href="https://www.ruangtryout.my.id/leaderboard.html">
 
     <meta
         name="description"
@@ -19,9 +20,13 @@
         name="theme-color"
         content="#ffffff"
     >
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="favicon.png">
+    <link rel="stylesheet" href="tailwind.css">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    
 
     <!-- Global stylesheet -->
     <link
@@ -131,7 +136,7 @@
                 max-w-7xl
                 mx-auto
 
-                h-16
+                h-[76px]
 
                 px-4
                 sm:px-6
@@ -147,120 +152,9 @@
 
 
             <!-- BRAND -->
-
-            <a
-                href="index.html"
-
-                class="
-                    flex
-                    items-center
-
-                    gap-2.5
-
-                    min-w-0
-
-                    group
-                "
-            >
-
-                <div
-                    class="
-                        w-9
-                        h-9
-
-                        rounded-xl
-
-                        bg-gradient-to-tr
-                        from-blue-600
-                        to-indigo-600
-
-                        flex
-                        items-center
-                        justify-center
-
-                        font-black
-
-                        text-white
-                        text-lg
-
-                        shadow-md
-                        shadow-blue-500/20
-
-                        group-hover:shadow-lg
-
-                        transition
-                    "
-                >
-
-                    R
-
-                </div>
-
-
-                <div
-                    class="
-                        min-w-0
-                        leading-tight
-                    "
-                >
-
-                    <div
-                        class="
-                            text-lg
-                            sm:text-xl
-
-                            font-black
-
-                            tracking-tight
-
-                            text-slate-900
-
-                            whitespace-nowrap
-                        "
-                    >
-
-                        Ruang<span
-                            class="
-                                text-transparent
-                                bg-clip-text
-
-                                bg-gradient-to-r
-                                from-blue-600
-                                to-indigo-600
-                            "
-                        >Tryout</span>
-
-                    </div>
-
-
-                    <div
-                        class="
-                            hidden
-                            sm:block
-
-                            mt-0.5
-
-                            text-[8px]
-
-                            uppercase
-
-                            tracking-[0.18em]
-
-                            font-black
-
-                            text-slate-400
-                        "
-                    >
-
-                        Papan Peringkat
-
-                    </div>
-
-                </div>
-
+            <a href="index.html" class="flex items-center shrink-0" aria-label="Ruang Tryout - Beranda">
+                <img src="logoRTO.webp" alt="Ruang Tryout" class="rt-brand-logo">
             </a>
-
-
 
             <!-- RIGHT -->
 
@@ -2741,7 +2635,8 @@
 
             if (
                 typeof db ===
-                "undefined"
+                "undefined" ||
+                !db
             ) {
 
                 showErrorState();
@@ -5642,5 +5537,6 @@
 
     </script>
 
+<script src="site.js"></script>
 </body>
 </html>

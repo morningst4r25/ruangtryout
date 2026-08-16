@@ -1,5 +1,5 @@
-// firebase-config.js - Konfigurasi & Autentikasi Firebase Ruang Tryout
-
+// Firebase configuration for RuangTryout.
+// Firebase web API keys are public identifiers; access control must live in Firestore Rules/App Check.
 const firebaseConfig = {
   apiKey: "AIzaSyBIJLmC0ms1gU_xXSL8N1WpyHOdyTesnYE",
   authDomain: "ruang-tryout-b6624.firebaseapp.com",
@@ -10,44 +10,29 @@ const firebaseConfig = {
   measurementId: "G-LQ0LF0HPRK"
 };
 
-// Inisialisasi Firebase
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
+if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
 }
 
-const auth = firebase.auth();
-const db = firebase.firestore();
-const googleProvider = new firebase.auth.GoogleAuthProvider();
+const auth = typeof firebase !== 'undefined' ? firebase.auth() : null;
+const db = typeof firebase !== 'undefined' ? firebase.firestore() : null;
+const googleProvider = typeof firebase !== 'undefined' ? new firebase.auth.GoogleAuthProvider() : null;
 
-// Tangani hasil redirect jika ada
-auth.getRedirectResult().then((result) => {
-    if (result && result.user) {
-        console.log("Login Redirect Berhasil:", result.user.displayName);
-        window.location.reload();
+async function loginWithGoogle() {
+  if (!auth || !googleProvider) throw new Error('Firebase Auth belum tersedia.');
+  try {
+    return await auth.signInWithPopup(googleProvider);
+  } catch (error) {
+    if (error.code === 'auth/popup-blocked') {
+      alert('Pop-up login diblokir browser. Izinkan pop-up untuk ruangtryout.my.id lalu coba lagi.');
+    } else if (error.code !== 'auth/popup-closed-by-user') {
+      console.error('Login gagal:', error);
+      alert('Login belum berhasil. Silakan coba lagi.');
     }
-}).catch((error) => {
-    console.error("Error Redirect:", error);
-});
-
-// Fungsi Login Google (Pop-up Aman & Stabil)
-function loginWithGoogle() {
-    auth.signInWithPopup(googleProvider)
-        .then((result) => {
-            console.log("Login Berhasil:", result.user.displayName);
-            window.location.reload();
-        })
-        .catch((error) => {
-            if (error.code === 'auth/popup-blocked') {
-                alert("Pop-up diblokir browser! Silakan klik 'Options' di bagian atas Firefox lalu pilih 'Allow pop-ups for www.ruangtryout.my.id'.");
-            } else if (error.code !== 'auth/popup-closed-by-user') {
-                alert("Gagal Login: " + error.message);
-            }
-        });
+    throw error;
+  }
 }
 
-// Fungsi Logout
-function logoutUser() {
-    auth.signOut().then(() => {
-        window.location.reload();
-    });
+async function logoutUser() {
+  if (auth) await auth.signOut();
 }

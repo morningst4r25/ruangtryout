@@ -1,8 +1,8 @@
-// Bank Soal 100% Unik & HOTS (100 CPNS + 100 UTBK)
+// Bank soal latihan RuangTryout (100 CPNS + 90 UTBK)
 const quizCategories = {
     cpns: {
-        title: "CPNS & PPPK (Soal HOTS)",
-        description: "Latihan Soal SKD Lengkap: TWK, TIU, & TKP Berstandar BKN",
+        title: "CPNS & PPPK (Latihan)",
+        description: "Latihan SKD: TWK, TIU, dan TKP untuk simulasi mandiri",
         questions: [
             // ==================== TWK (1 - 30) ====================
             { question: "Indonesia menghadapi era digitalisasi di mana budaya asing sangat cepat masuk. Langkah konkret pengamalan Pancasila Sila ke-3 dalam menjaga integrasi bangsa di era digital adalah...", options: ["Menolak seluruh produk budaya luar", "Menyaring informasi serta memanfaatkan media sosial untuk mengamplifikasi narasi kebangsaan dan toleransi", "Membatasi akses internet masyarakat", "Melaporkan setiap akun media sosial yang mengkritik pemerintah"], answer: 1, explanation: "Sila ke-3 di era digital diwujudkan dengan menggunakan teknologi secara positif demi mempererat persatuan." },

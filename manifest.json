@@ -1,20 +1,73 @@
 {
-  "name": "Ruang Tryout",
+  "id": "/",
+  "name": "Ruang Tryout - CPNS & UTBK",
   "short_name": "RuangTryout",
-  "start_url": "/index.html",
+  "description": "Simulasi tryout CPNS, PPPK dan UTBK/SNBT dengan timer, evaluasi, pembahasan, progres, dan leaderboard.",
+  "start_url": "/index.html?source=pwa",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "any",
   "background_color": "#ffffff",
   "theme_color": "#2563eb",
   "icons": [
     {
-      "src": "https://via.placeholder.com/192",
+      "src": "/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "https://via.placeholder.com/512",
+      "src": "/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Tryout CPNS",
+      "short_name": "CPNS",
+      "url": "/exam.html?cat=cpns",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Tryout UTBK",
+      "short_name": "UTBK",
+      "url": "/exam.html?cat=utbk",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Perkembangan Saya",
+      "short_name": "Progres",
+      "url": "/progress.html",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }
