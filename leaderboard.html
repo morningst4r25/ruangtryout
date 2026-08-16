@@ -2,192 +2,5645 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Papan Peringkat Klasemen - Ruang Tryout</title>
-    <meta name="theme-color" content="#ffffff">
-    <!-- Tailwind CSS CDN -->
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Papan Peringkat - Ruang Tryout</title>
+
+    <meta
+        name="description"
+        content="Papan peringkat real-time peserta simulasi CAT CPNS, PPPK, UTBK dan SNBT di Ruang Tryout."
+    >
+
+    <meta
+        name="theme-color"
+        content="#ffffff"
+    >
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
 
-    <!-- NAVBAR HEADER -->
-    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-200/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <a href="index.html" class="flex items-center space-x-2.5">
-                <div class="w-9 h-9 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center font-black text-white text-lg shadow-md shadow-blue-500/20">
-                    R
-                </div>
-                <span class="text-xl font-black tracking-tight text-slate-900">
-                    Ruang<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Tryout</span>
-                </span>
-            </a>
-            <a href="index.html" class="text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-2 rounded-xl border border-slate-300 transition flex items-center gap-1.5">
-                🏠 Kembali ke Beranda
-            </a>
-        </div>
-    </header>
+    <!-- Global stylesheet -->
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
-    <!-- MAIN CONTENT -->
-    <main class="max-w-5xl mx-auto px-4 py-10 w-full flex-1">
-        <div class="text-center space-y-3 mb-8">
-            <span class="bg-blue-50 border border-blue-200 text-blue-700 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                PAPAN PERINGKAT REAL-TIME
-            </span>
-            <h1 class="text-3xl sm:text-4xl font-black text-slate-900">🏆 Klasemen Skor Peserta</h1>
-            <p class="text-xs sm:text-sm text-slate-500 max-w-md mx-auto">
-                Peringkat tertinggi peserta yang telah menyelesaikan simulasi kuis BKN & SNPMB.
-            </p>
-        </div>
+    <style>
 
-        <!-- TAB TOGGLE KATEGORI -->
-        <div class="flex justify-center gap-3 mb-8">
-            <button id="btn-cpns" onclick="switchCategory('CPNS')" class="px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all bg-blue-600 text-white shadow-md">
-                🏛️ CPNS & PPPK
-            </button>
-            <button id="btn-utbk" onclick="switchCategory('UTBK')" class="px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all bg-white text-slate-600 border border-slate-200 hover:bg-slate-100">
-                🎓 UTBK SNBT
-            </button>
-        </div>
-
-        <!-- TABEL KLASEMEN -->
-        <div class="bg-white border border-slate-200/80 rounded-2xl shadow-sm overflow-hidden">
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                            <th class="py-3.5 px-4 text-center w-16">RANK</th>
-                            <th class="py-3.5 px-4">NAMA PESERTA</th>
-                            <th class="py-3.5 px-4 text-center">SKOR AKHIR</th>
-                            <th class="py-3.5 px-4 text-center">PERSENTASE</th>
-                            <th class="py-3.5 px-4 text-center">WAKTU TANGGAL</th>
-                        </tr>
-                    </thead>
-                    <tbody id="leaderboard-body" class="divide-y divide-slate-100 text-xs sm:text-sm">
-                        <tr>
-                            <td colspan="5" class="text-center py-10 text-slate-400 animate-pulse font-medium">
-                                Memuat data papan peringkat...
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </main>
-
-    <!-- FOOTER MINIMALIS -->
-    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-400">
-        &copy; 2026 Ruang Tryout. Papan Peringkat Resmi Terintegrasi Cloud Firebase.
-    </footer>
-
-    <!-- Firebase SDK Compat -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-    <script src="firebase-config.js"></script>
-
-    <script>
-        let currentCategory = "CPNS";
-
-        function switchCategory(cat) {
-            currentCategory = cat;
-            
-            const btnCpns = document.getElementById("btn-cpns");
-            const btnUtbk = document.getElementById("btn-utbk");
-
-            if (cat === "CPNS") {
-                btnCpns.className = "px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all bg-blue-600 text-white shadow-md";
-                btnUtbk.className = "px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all bg-white text-slate-600 border border-slate-200 hover:bg-slate-100";
-            } else {
-                btnUtbk.className = "px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all bg-emerald-600 text-white shadow-md";
-                btnCpns.className = "px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all bg-white text-slate-600 border border-slate-200 hover:bg-slate-100";
-            }
-
-            fetchLeaderboardData();
+        html {
+            scroll-behavior: smooth;
         }
 
-        function fetchLeaderboardData() {
-            const tableBody = document.getElementById("leaderboard-body");
-            tableBody.innerHTML = `
-                <tr>
-                    <td colspan="5" class="text-center py-10 text-slate-400 animate-pulse font-medium">
-                        Memuat data papan peringkat...
+        body {
+            min-height: 100vh;
+        }
+
+        /*
+        =============================================
+        Subtle background grid
+        =============================================
+        */
+
+        .leaderboard-bg {
+            background-image:
+                linear-gradient(
+                    rgba(37, 99, 235, 0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(37, 99, 235, 0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 32px 32px;
+        }
+
+
+        /*
+        =============================================
+        Scrollbar
+        =============================================
+        */
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 999px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+    </style>
+</head>
+
+
+
+<body
+    class="
+        bg-slate-50
+        text-slate-800
+        font-sans
+        antialiased
+
+        min-h-screen
+
+        flex
+        flex-col
+
+        selection:bg-blue-600
+        selection:text-white
+    "
+>
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header
+        class="
+            sticky
+            top-0
+            z-50
+
+            bg-white/90
+            backdrop-blur-xl
+
+            border-b
+            border-slate-200/80
+        "
+    >
+
+        <div
+            class="
+                max-w-7xl
+                mx-auto
+
+                h-16
+
+                px-4
+                sm:px-6
+                lg:px-8
+
+                flex
+                items-center
+                justify-between
+
+                gap-4
+            "
+        >
+
+
+            <!-- BRAND -->
+
+            <a
+                href="index.html"
+
+                class="
+                    flex
+                    items-center
+
+                    gap-2.5
+
+                    min-w-0
+
+                    group
+                "
+            >
+
+                <div
+                    class="
+                        w-9
+                        h-9
+
+                        rounded-xl
+
+                        bg-gradient-to-tr
+                        from-blue-600
+                        to-indigo-600
+
+                        flex
+                        items-center
+                        justify-center
+
+                        font-black
+
+                        text-white
+                        text-lg
+
+                        shadow-md
+                        shadow-blue-500/20
+
+                        group-hover:shadow-lg
+
+                        transition
+                    "
+                >
+
+                    R
+
+                </div>
+
+
+                <div
+                    class="
+                        min-w-0
+                        leading-tight
+                    "
+                >
+
+                    <div
+                        class="
+                            text-lg
+                            sm:text-xl
+
+                            font-black
+
+                            tracking-tight
+
+                            text-slate-900
+
+                            whitespace-nowrap
+                        "
+                    >
+
+                        Ruang<span
+                            class="
+                                text-transparent
+                                bg-clip-text
+
+                                bg-gradient-to-r
+                                from-blue-600
+                                to-indigo-600
+                            "
+                        >Tryout</span>
+
+                    </div>
+
+
+                    <div
+                        class="
+                            hidden
+                            sm:block
+
+                            mt-0.5
+
+                            text-[8px]
+
+                            uppercase
+
+                            tracking-[0.18em]
+
+                            font-black
+
+                            text-slate-400
+                        "
+                    >
+
+                        Papan Peringkat
+
+                    </div>
+
+                </div>
+
+            </a>
+
+
+
+            <!-- RIGHT -->
+
+            <div
+                class="
+                    flex
+                    items-center
+
+                    gap-3
+                "
+            >
+
+
+                <!-- CONNECTION STATUS -->
+
+                <div
+                    id="connection-status"
+
+                    class="
+                        hidden
+                        lg:inline-flex
+
+                        items-center
+
+                        gap-1.5
+
+                        text-[10px]
+
+                        font-semibold
+
+                        text-slate-400
+                    "
+                >
+
+                    <span
+                        id="connection-dot"
+
+                        class="
+                            w-1.5
+                            h-1.5
+
+                            rounded-full
+
+                            bg-slate-300
+                        "
+                    ></span>
+
+                    Menghubungkan...
+
+                </div>
+
+
+
+                <!-- HOME -->
+
+                <a
+                    href="index.html"
+
+                    class="
+                        inline-flex
+                        items-center
+                        justify-center
+
+                        gap-2
+
+                        bg-slate-100
+
+                        hover:bg-slate-200
+
+                        text-slate-700
+
+                        text-[10px]
+                        sm:text-xs
+
+                        font-bold
+
+                        px-3
+                        sm:px-4
+
+                        py-2.5
+
+                        rounded-xl
+
+                        border
+                        border-slate-200
+
+                        transition
+                    "
+                >
+
+                    <svg
+                        width="14"
+                        height="14"
+
+                        viewBox="0 0 24 24"
+
+                        fill="none"
+
+                        stroke="currentColor"
+
+                        stroke-width="2"
+                    >
+
+                        <path
+                            d="m3 11 9-8 9 8"
+                        />
+
+                        <path
+                            d="M5 10v10h14V10"
+                        />
+
+                        <path
+                            d="M9 20v-6h6v6"
+                        />
+
+                    </svg>
+
+
+                    <span
+                        class="
+                            hidden
+                            sm:inline
+                        "
+                    >
+
+                        Kembali ke Beranda
+
+                    </span>
+
+
+                    <span
+                        class="
+                            sm:hidden
+                        "
+                    >
+
+                        Beranda
+
+                    </span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main
+        class="
+            leaderboard-bg
+
+            flex-1
+        "
+    >
+
+
+        <!-- =================================================
+             HERO
+        ================================================== -->
+
+        <section
+            class="
+                relative
+
+                overflow-hidden
+
+                pt-12
+                sm:pt-16
+
+                pb-8
+            "
+        >
+
+
+            <!-- DECORATIVE GRADIENT -->
+
+            <div
+                class="
+                    absolute
+
+                    -top-40
+                    left-1/2
+                    -translate-x-1/2
+
+                    w-[700px]
+                    h-[500px]
+
+                    rounded-full
+
+                    bg-blue-200/30
+
+                    blur-3xl
+
+                    pointer-events-none
+                "
+            ></div>
+
+
+
+            <div
+                class="
+                    relative
+
+                    max-w-6xl
+
+                    mx-auto
+
+                    px-4
+                    sm:px-6
+                    lg:px-8
+
+                    text-center
+                "
+            >
+
+
+                <!-- BADGE -->
+
+                <div
+                    class="
+                        inline-flex
+
+                        items-center
+
+                        gap-2
+
+                        bg-blue-50
+
+                        border
+                        border-blue-200
+
+                        text-blue-700
+
+                        text-[10px]
+
+                        font-black
+
+                        uppercase
+
+                        tracking-[0.12em]
+
+                        px-3.5
+
+                        py-1.5
+
+                        rounded-full
+                    "
+                >
+
+                    <span
+                        class="
+                            relative
+
+                            flex
+
+                            w-2
+                            h-2
+                        "
+                    >
+
+                        <span
+                            class="
+                                absolute
+                                inline-flex
+
+                                w-full
+                                h-full
+
+                                rounded-full
+
+                                bg-blue-400
+
+                                opacity-75
+
+                                animate-ping
+                            "
+                        ></span>
+
+                        <span
+                            class="
+                                relative
+
+                                inline-flex
+
+                                w-2
+                                h-2
+
+                                rounded-full
+
+                                bg-blue-600
+                            "
+                        ></span>
+
+                    </span>
+
+                    Papan Peringkat Real-Time
+
+                </div>
+
+
+
+                <!-- TROPHY -->
+
+                <div
+                    class="
+                        mt-6
+
+                        w-14
+                        h-14
+
+                        mx-auto
+
+                        rounded-2xl
+
+                        bg-gradient-to-br
+                        from-amber-400
+                        to-orange-500
+
+                        text-white
+
+                        flex
+                        items-center
+                        justify-center
+
+                        shadow-lg
+                        shadow-amber-500/20
+                    "
+                >
+
+                    <svg
+                        width="28"
+                        height="28"
+
+                        viewBox="0 0 24 24"
+
+                        fill="none"
+
+                        stroke="currentColor"
+
+                        stroke-width="1.8"
+                    >
+
+                        <path
+                            d="M8 21h8"
+                        />
+
+                        <path
+                            d="M12 17v4"
+                        />
+
+                        <path
+                            d="M7 4h10"
+                        />
+
+                        <path
+                            d="M5 4v5a7 7 0 0 0 14 0V4"
+                        />
+
+                        <path
+                            d="M5 8H3a2 2 0 0 0 0 4h2"
+                        />
+
+                        <path
+                            d="M19 8h2a2 2 0 0 1 0 4h-2"
+                        />
+
+                    </svg>
+
+                </div>
+
+
+
+                <!-- TITLE -->
+
+                <h1
+                    class="
+                        mt-5
+
+                        text-3xl
+                        sm:text-4xl
+                        lg:text-5xl
+
+                        font-black
+
+                        tracking-tight
+
+                        text-slate-950
+                    "
+                >
+
+                    Klasemen Peserta
+
+                </h1>
+
+
+
+                <!-- DESCRIPTION -->
+
+                <p
+                    class="
+                        mt-3
+
+                        max-w-xl
+
+                        mx-auto
+
+                        text-sm
+                        sm:text-base
+
+                        leading-relaxed
+
+                        text-slate-500
+                    "
+                >
+
+                    Bandingkan hasil simulasi, tingkatkan skor,
+                    dan raih posisi terbaik di RuangTryout.
+
+                </p>
+
+
+
+                <!-- LAST UPDATE -->
+
+                <p
+                    id="last-updated"
+
+                    class="
+                        mt-3
+
+                        text-[10px]
+
+                        font-semibold
+
+                        text-slate-400
+                    "
+                >
+
+                    Menyiapkan papan peringkat...
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             LEADERBOARD CONTENT
+        ================================================== -->
+
+        <section
+            class="
+                max-w-6xl
+
+                mx-auto
+
+                px-4
+                sm:px-6
+                lg:px-8
+
+                pb-16
+            "
+        >
+
+
+            <!-- =================================================
+                 ERROR BANNER
+            ================================================== -->
+
+            <div
+                id="error-banner"
+
+                class="
+                    hidden
+
+                    mb-6
+
+                    bg-red-50
+
+                    border
+                    border-red-200
+
+                    rounded-2xl
+
+                    p-4
+                    sm:p-5
+                "
+            >
+
+                <div
+                    class="
+                        flex
+
+                        flex-col
+                        sm:flex-row
+
+                        sm:items-center
+
+                        justify-between
+
+                        gap-4
+                    "
+                >
+
+                    <div
+                        class="
+                            flex
+
+                            items-start
+
+                            gap-3
+                        "
+                    >
+
+                        <div
+                            class="
+                                w-9
+                                h-9
+
+                                shrink-0
+
+                                rounded-xl
+
+                                bg-red-100
+
+                                text-red-600
+
+                                flex
+                                items-center
+                                justify-center
+                            "
+                        >
+
+                            !
+
+                        </div>
+
+
+                        <div>
+
+                            <p
+                                class="
+                                    text-sm
+
+                                    font-black
+
+                                    text-red-800
+                                "
+                            >
+
+                                Papan peringkat gagal dimuat
+
+                            </p>
+
+
+                            <p
+                                class="
+                                    mt-1
+
+                                    text-xs
+
+                                    text-red-600
+                                "
+                            >
+
+                                Periksa koneksi lalu coba kembali.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+
+                        onclick="startRealtimeLeaderboard()"
+
+                        class="
+                            bg-white
+
+                            hover:bg-red-50
+
+                            border
+                            border-red-200
+
+                            text-red-700
+
+                            text-xs
+
+                            font-black
+
+                            px-4
+                            py-2.5
+
+                            rounded-xl
+
+                            transition
+                        "
+                    >
+
+                        Coba Lagi
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CATEGORY SELECTOR
+            ================================================== -->
+
+            <div
+                class="
+                    flex
+
+                    justify-center
+                "
+            >
+
+                <div
+                    class="
+                        inline-flex
+
+                        bg-white
+
+                        border
+                        border-slate-200
+
+                        rounded-2xl
+
+                        p-1.5
+
+                        shadow-sm
+                    "
+                >
+
+                    <button
+                        id="btn-cpns"
+
+                        type="button"
+
+                        onclick="switchCategory('CPNS')"
+
+                        class="
+                            inline-flex
+
+                            items-center
+                            justify-center
+
+                            gap-2
+
+                            px-4
+                            sm:px-6
+
+                            py-2.5
+
+                            rounded-xl
+
+                            text-xs
+                            sm:text-sm
+
+                            font-black
+
+                            transition-all
+                        "
+                    >
+
+                        <span>🏛️</span>
+
+                        CPNS & PPPK
+
+                    </button>
+
+
+                    <button
+                        id="btn-utbk"
+
+                        type="button"
+
+                        onclick="switchCategory('UTBK')"
+
+                        class="
+                            inline-flex
+
+                            items-center
+                            justify-center
+
+                            gap-2
+
+                            px-4
+                            sm:px-6
+
+                            py-2.5
+
+                            rounded-xl
+
+                            text-xs
+                            sm:text-sm
+
+                            font-black
+
+                            transition-all
+                        "
+                    >
+
+                        <span>🎓</span>
+
+                        UTBK SNBT
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SUMMARY STATS
+            ================================================== -->
+
+            <div
+                class="
+                    mt-8
+
+                    grid
+
+                    grid-cols-1
+                    sm:grid-cols-3
+
+                    gap-3
+                "
+            >
+
+
+                <!-- PARTICIPANTS -->
+
+                <div
+                    class="
+                        bg-white
+
+                        border
+                        border-slate-200
+
+                        rounded-2xl
+
+                        p-4
+
+                        shadow-sm
+                    "
+                >
+
+                    <div
+                        class="
+                            flex
+
+                            items-center
+
+                            gap-3
+                        "
+                    >
+
+                        <div
+                            class="
+                                w-10
+                                h-10
+
+                                rounded-xl
+
+                                bg-blue-50
+
+                                text-blue-600
+
+                                flex
+                                items-center
+                                justify-center
+                            "
+                        >
+
+                            <svg
+                                width="19"
+                                height="19"
+
+                                viewBox="0 0 24 24"
+
+                                fill="none"
+
+                                stroke="currentColor"
+
+                                stroke-width="2"
+                            >
+
+                                <path
+                                    d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
+                                />
+
+                                <circle
+                                    cx="9"
+                                    cy="7"
+                                    r="4"
+                                />
+
+                                <path
+                                    d="M22 21v-2a4 4 0 0 0-3-3.87"
+                                />
+
+                                <path
+                                    d="M16 3.13a4 4 0 0 1 0 7.75"
+                                />
+
+                            </svg>
+
+                        </div>
+
+
+                        <div>
+
+                            <p
+                                class="
+                                    text-[9px]
+
+                                    uppercase
+
+                                    tracking-[0.12em]
+
+                                    font-black
+
+                                    text-slate-400
+                                "
+                            >
+
+                                Peserta
+
+                            </p>
+
+
+                            <p
+                                id="participant-count"
+
+                                class="
+                                    mt-0.5
+
+                                    text-xl
+
+                                    font-black
+
+                                    text-slate-900
+                                "
+                            >
+
+                                —
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ATTEMPTS -->
+
+                <div
+                    class="
+                        bg-white
+
+                        border
+                        border-slate-200
+
+                        rounded-2xl
+
+                        p-4
+
+                        shadow-sm
+                    "
+                >
+
+                    <div
+                        class="
+                            flex
+
+                            items-center
+
+                            gap-3
+                        "
+                    >
+
+                        <div
+                            class="
+                                w-10
+                                h-10
+
+                                rounded-xl
+
+                                bg-violet-50
+
+                                text-violet-600
+
+                                flex
+                                items-center
+                                justify-center
+                            "
+                        >
+
+                            <svg
+                                width="19"
+                                height="19"
+
+                                viewBox="0 0 24 24"
+
+                                fill="none"
+
+                                stroke="currentColor"
+
+                                stroke-width="2"
+                            >
+
+                                <path
+                                    d="M3 12a9 9 0 1 0 3-6.7L3 8"
+                                />
+
+                                <path
+                                    d="M3 3v5h5"
+                                />
+
+                            </svg>
+
+                        </div>
+
+
+                        <div>
+
+                            <p
+                                class="
+                                    text-[9px]
+
+                                    uppercase
+
+                                    tracking-[0.12em]
+
+                                    font-black
+
+                                    text-slate-400
+                                "
+                            >
+
+                                Percobaan
+
+                            </p>
+
+
+                            <p
+                                id="attempt-count"
+
+                                class="
+                                    mt-0.5
+
+                                    text-xl
+
+                                    font-black
+
+                                    text-slate-900
+                                "
+                            >
+
+                                —
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- BEST SCORE -->
+
+                <div
+                    class="
+                        bg-white
+
+                        border
+                        border-slate-200
+
+                        rounded-2xl
+
+                        p-4
+
+                        shadow-sm
+                    "
+                >
+
+                    <div
+                        class="
+                            flex
+
+                            items-center
+
+                            gap-3
+                        "
+                    >
+
+                        <div
+                            class="
+                                w-10
+                                h-10
+
+                                rounded-xl
+
+                                bg-emerald-50
+
+                                text-emerald-600
+
+                                flex
+                                items-center
+                                justify-center
+                            "
+                        >
+
+                            <svg
+                                width="19"
+                                height="19"
+
+                                viewBox="0 0 24 24"
+
+                                fill="none"
+
+                                stroke="currentColor"
+
+                                stroke-width="2"
+                            >
+
+                                <path
+                                    d="m3 17 6-6 4 4 8-8"
+                                />
+
+                                <path
+                                    d="M14 7h7v7"
+                                />
+
+                            </svg>
+
+                        </div>
+
+
+                        <div>
+
+                            <p
+                                class="
+                                    text-[9px]
+
+                                    uppercase
+
+                                    tracking-[0.12em]
+
+                                    font-black
+
+                                    text-slate-400
+                                "
+                            >
+
+                                Skor Tertinggi
+
+                            </p>
+
+
+                            <p
+                                id="highest-score"
+
+                                class="
+                                    mt-0.5
+
+                                    text-xl
+
+                                    font-black
+
+                                    text-slate-900
+                                "
+                            >
+
+                                —
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 TOP 3 TITLE
+            ================================================== -->
+
+            <div
+                class="
+                    mt-12
+
+                    flex
+
+                    items-end
+                    justify-between
+
+                    gap-4
+                "
+            >
+
+                <div>
+
+                    <p
+                        class="
+                            text-[10px]
+
+                            uppercase
+
+                            tracking-[0.15em]
+
+                            font-black
+
+                            text-blue-600
+                        "
+                    >
+
+                        Hall of Fame
+
+                    </p>
+
+
+                    <h2
+                        class="
+                            mt-1
+
+                            text-xl
+                            sm:text-2xl
+
+                            font-black
+
+                            tracking-tight
+
+                            text-slate-950
+                        "
+                    >
+
+                        Top 3 Peserta
+
+                    </h2>
+
+                </div>
+
+
+                <p
+                    class="
+                        hidden
+                        sm:block
+
+                        text-xs
+
+                        text-slate-400
+                    "
+                >
+
+                    Berdasarkan skor terbaik
+
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 TOP 3 PODIUM
+            ================================================== -->
+
+            <div
+                id="podium-container"
+
+                class="
+                    mt-5
+
+                    grid
+
+                    grid-cols-1
+                    md:grid-cols-3
+
+                    gap-4
+                "
+            >
+
+                <!-- rendered with JavaScript -->
+
+            </div>
+
+
+
+            <!-- =================================================
+                 YOUR RANK
+            ================================================== -->
+
+            <div
+                id="your-rank-card"
+
+                class="
+                    hidden
+
+                    mt-6
+
+                    bg-gradient-to-r
+                    from-blue-600
+                    to-indigo-600
+
+                    text-white
+
+                    rounded-2xl
+
+                    p-5
+
+                    shadow-lg
+                    shadow-blue-500/15
+                "
+            ></div>
+
+
+
+            <!-- =================================================
+                 LIST HEADER
+            ================================================== -->
+
+            <div
+                class="
+                    mt-12
+
+                    flex
+
+                    flex-col
+                    lg:flex-row
+
+                    lg:items-end
+                    lg:justify-between
+
+                    gap-5
+                "
+            >
+
+
+                <div>
+
+                    <p
+                        class="
+                            text-[10px]
+
+                            uppercase
+
+                            tracking-[0.15em]
+
+                            font-black
+
+                            text-blue-600
+                        "
+                    >
+
+                        Daftar Peserta
+
+                    </p>
+
+
+                    <h2
+                        id="list-title"
+
+                        class="
+                            mt-1
+
+                            text-xl
+                            sm:text-2xl
+
+                            font-black
+
+                            tracking-tight
+
+                            text-slate-950
+                        "
+                    >
+
+                        Skor Terbaik
+
+                    </h2>
+
+                </div>
+
+
+
+                <div
+                    class="
+                        flex
+
+                        flex-col
+                        sm:flex-row
+
+                        gap-3
+                    "
+                >
+
+
+                    <!-- VIEW MODE -->
+
+                    <div
+                        class="
+                            flex
+
+                            bg-white
+
+                            border
+                            border-slate-200
+
+                            rounded-xl
+
+                            p-1
+                        "
+                    >
+
+                        <button
+                            id="view-best"
+
+                            type="button"
+
+                            onclick="setView('best')"
+
+                            class="
+                                px-3.5
+
+                                py-2
+
+                                rounded-lg
+
+                                text-[10px]
+                                sm:text-xs
+
+                                font-black
+
+                                transition
+                            "
+                        >
+
+                            Skor Terbaik
+
+                        </button>
+
+
+                        <button
+                            id="view-latest"
+
+                            type="button"
+
+                            onclick="setView('latest')"
+
+                            class="
+                                px-3.5
+
+                                py-2
+
+                                rounded-lg
+
+                                text-[10px]
+                                sm:text-xs
+
+                                font-black
+
+                                transition
+                            "
+                        >
+
+                            Percobaan Terbaru
+
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- SEARCH -->
+
+                    <div
+                        class="
+                            relative
+                        "
+                    >
+
+                        <label
+                            for="participant-search"
+
+                            class="sr-only"
+                        >
+
+                            Cari peserta
+
+                        </label>
+
+
+                        <svg
+                            class="
+                                absolute
+
+                                left-3.5
+                                top-1/2
+
+                                -translate-y-1/2
+
+                                text-slate-400
+                            "
+
+                            width="15"
+                            height="15"
+
+                            viewBox="0 0 24 24"
+
+                            fill="none"
+
+                            stroke="currentColor"
+
+                            stroke-width="2"
+                        >
+
+                            <circle
+                                cx="11"
+                                cy="11"
+                                r="8"
+                            />
+
+                            <path
+                                d="m21 21-4.3-4.3"
+                            />
+
+                        </svg>
+
+
+                        <input
+                            id="participant-search"
+
+                            type="search"
+
+                            autocomplete="off"
+
+                            placeholder="Cari nama peserta..."
+
+                            class="
+                                w-full
+                                sm:w-[230px]
+
+                                bg-white
+
+                                border
+                                border-slate-200
+
+                                focus:border-blue-400
+
+                                focus:ring-2
+                                focus:ring-blue-100
+
+                                outline-none
+
+                                text-xs
+
+                                text-slate-700
+
+                                placeholder:text-slate-400
+
+                                pl-10
+                                pr-4
+
+                                py-2.5
+
+                                rounded-xl
+
+                                transition
+                            "
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SEARCH INFO -->
+
+            <div
+                class="
+                    mt-3
+
+                    flex
+
+                    items-center
+                    justify-between
+
+                    gap-4
+                "
+            >
+
+                <p
+                    id="result-summary"
+
+                    class="
+                        text-[10px]
+                        sm:text-xs
+
+                        text-slate-400
+
+                        font-semibold
+                    "
+                >
+
+                    Memuat peserta...
+
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 TABLE
+            ================================================== -->
+
+            <div
+                class="
+                    mt-4
+
+                    bg-white
+
+                    border
+                    border-slate-200
+
+                    rounded-2xl
+
+                    shadow-sm
+
+                    overflow-hidden
+                "
+            >
+
+                <div
+                    class="
+                        overflow-x-auto
+                    "
+                >
+
+                    <table
+                        class="
+                            w-full
+
+                            min-w-[760px]
+
+                            text-left
+
+                            border-collapse
+                        "
+                    >
+
+                        <thead>
+
+                            <tr
+                                class="
+                                    bg-slate-50
+
+                                    border-b
+                                    border-slate-200
+
+                                    text-[10px]
+
+                                    font-black
+
+                                    text-slate-400
+
+                                    uppercase
+
+                                    tracking-[0.1em]
+                                "
+                            >
+
+                                <th
+                                    id="rank-header"
+
+                                    class="
+                                        py-4
+                                        px-5
+
+                                        text-center
+
+                                        w-20
+                                    "
+                                >
+
+                                    Rank
+
+                                </th>
+
+
+                                <th
+                                    class="
+                                        py-4
+                                        px-5
+                                    "
+                                >
+
+                                    Nama Peserta
+
+                                </th>
+
+
+                                <th
+                                    class="
+                                        py-4
+                                        px-5
+
+                                        text-center
+                                    "
+                                >
+
+                                    Nilai
+
+                                </th>
+
+
+                                <th
+                                    class="
+                                        py-4
+                                        px-5
+
+                                        text-center
+                                    "
+                                >
+
+                                    Benar
+
+                                </th>
+
+
+                                <th
+                                    class="
+                                        py-4
+                                        px-5
+
+                                        text-center
+                                    "
+                                >
+
+                                    Waktu
+
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody
+                            id="leaderboard-body"
+
+                            class="
+                                divide-y
+                                divide-slate-100
+
+                                text-xs
+                                sm:text-sm
+                            "
+                        >
+
+                            <!-- rendered with JavaScript -->
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CTA
+            ================================================== -->
+
+            <div
+                class="
+                    mt-12
+
+                    relative
+
+                    overflow-hidden
+
+                    bg-slate-950
+
+                    rounded-3xl
+
+                    px-6
+                    sm:px-10
+
+                    py-9
+                    sm:py-10
+
+                    text-center
+
+                    shadow-xl
+                "
+            >
+
+                <div
+                    class="
+                        absolute
+
+                        -top-20
+                        left-1/2
+
+                        -translate-x-1/2
+
+                        w-80
+                        h-80
+
+                        rounded-full
+
+                        bg-blue-600/25
+
+                        blur-3xl
+
+                        pointer-events-none
+                    "
+                ></div>
+
+
+                <div
+                    class="
+                        relative
+                    "
+                >
+
+                    <p
+                        class="
+                            text-[10px]
+
+                            uppercase
+
+                            tracking-[0.16em]
+
+                            font-black
+
+                            text-blue-400
+                        "
+                    >
+
+                        Tantang Skormu
+
+                    </p>
+
+
+                    <h2
+                        class="
+                            mt-2
+
+                            text-2xl
+                            sm:text-3xl
+
+                            font-black
+
+                            tracking-tight
+
+                            text-white
+                        "
+                    >
+
+                        Belum masuk papan peringkat?
+
+                    </h2>
+
+
+                    <p
+                        class="
+                            mt-3
+
+                            max-w-lg
+
+                            mx-auto
+
+                            text-sm
+
+                            leading-relaxed
+
+                            text-slate-400
+                        "
+                    >
+
+                        Kerjakan simulasi, tingkatkan skor terbaikmu,
+                        dan rebut posisi di klasemen RuangTryout.
+
+                    </p>
+
+
+                    <a
+                        id="cta-start-exam"
+
+                        href="exam.html?cat=cpns"
+
+                        class="
+                            inline-flex
+
+                            mt-6
+
+                            items-center
+                            justify-center
+
+                            gap-2
+
+                            bg-blue-600
+
+                            hover:bg-blue-500
+
+                            text-white
+
+                            text-sm
+
+                            font-black
+
+                            px-6
+                            py-3
+
+                            rounded-xl
+
+                            shadow-lg
+                            shadow-blue-600/20
+
+                            transition
+                        "
+                    >
+
+                        Mulai Tryout
+
+                        <svg
+                            width="15"
+                            height="15"
+
+                            viewBox="0 0 24 24"
+
+                            fill="none"
+
+                            stroke="currentColor"
+
+                            stroke-width="2"
+                        >
+
+                            <path
+                                d="M5 12h14"
+                            />
+
+                            <path
+                                d="m13 6 6 6-6 6"
+                            />
+
+                        </svg>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer
+        class="
+            bg-white
+
+            border-t
+            border-slate-200
+        "
+    >
+
+        <div
+            class="
+                max-w-7xl
+
+                mx-auto
+
+                px-4
+                sm:px-6
+                lg:px-8
+
+                py-7
+
+                flex
+
+                flex-col
+                md:flex-row
+
+                items-center
+                justify-between
+
+                gap-4
+            "
+        >
+
+            <p
+                class="
+                    text-[10px]
+                    sm:text-xs
+
+                    text-slate-400
+                "
+            >
+
+                &copy; 2026 Ruang Tryout. Platform Simulasi Ujian Independen.
+
+            </p>
+
+
+            <nav
+                class="
+                    flex
+
+                    flex-wrap
+
+                    items-center
+                    justify-center
+
+                    gap-x-5
+                    gap-y-2
+
+                    text-[10px]
+                    sm:text-xs
+
+                    font-semibold
+
+                    text-slate-500
+                "
+            >
+
+                <a
+                    href="about.html"
+
+                    class="
+                        hover:text-blue-600
+                        transition
+                    "
+                >
+
+                    Tentang Kami
+
+                </a>
+
+
+                <a
+                    href="contact.html"
+
+                    class="
+                        hover:text-blue-600
+                        transition
+                    "
+                >
+
+                    Hubungi Kami
+
+                </a>
+
+
+                <a
+                    href="privacy.html"
+
+                    class="
+                        hover:text-blue-600
+                        transition
+                    "
+                >
+
+                    Kebijakan Privasi
+
+                </a>
+
+
+                <a
+                    href="terms.html"
+
+                    class="
+                        hover:text-blue-600
+                        transition
+                    "
+                >
+
+                    Syarat & Ketentuan
+
+                </a>
+
+            </nav>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         FIREBASE
+    ====================================================== -->
+
+    <script
+        src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"
+    ></script>
+
+    <script
+        src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"
+    ></script>
+
+    <script
+        src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"
+    ></script>
+
+    <script src="firebase-config.js"></script>
+
+
+
+    <!-- =====================================================
+         LEADERBOARD APPLICATION
+    ====================================================== -->
+
+    <script>
+
+        // =====================================================
+        // STATE
+        // =====================================================
+
+        let currentCategory =
+            "CPNS";
+
+
+        let currentView =
+            "best";
+
+
+        let currentRecords =
+            [];
+
+
+        let currentSearch =
+            "";
+
+
+        let unsubscribeLeaderboard =
+            null;
+
+
+
+        // =====================================================
+        // DOM READY
+        // =====================================================
+
+        document.addEventListener(
+            "DOMContentLoaded",
+
+            () => {
+
+                const searchInput =
+                    document.getElementById(
+                        "participant-search"
+                    );
+
+
+                if (searchInput) {
+
+                    searchInput.addEventListener(
+                        "input",
+
+                        event => {
+
+                            currentSearch =
+                                event.target.value
+                                    .trim()
+                                    .toLowerCase();
+
+
+                            renderLeaderboard();
+
+                        }
+                    );
+
+                }
+
+
+                updateCategoryButtons();
+
+                updateViewButtons();
+
+                startRealtimeLeaderboard();
+
+
+
+                // Jika user login Google,
+                // update kartu "Peringkat Anda"
+                // setelah status auth diketahui.
+
+                if (
+                    typeof auth !==
+                    "undefined" &&
+
+                    auth &&
+                    typeof auth.onAuthStateChanged ===
+                    "function"
+                ) {
+
+                    auth.onAuthStateChanged(
+                        () => {
+
+                            renderYourRank(
+                                getBestRecords(
+                                    currentRecords
+                                )
+                            );
+
+                        }
+                    );
+
+                }
+
+            }
+        );
+
+
+
+        // =====================================================
+        // CATEGORY
+        // =====================================================
+
+        function switchCategory(
+            category
+        ) {
+
+            if (
+                currentCategory ===
+                category
+            ) {
+
+                return;
+
+            }
+
+
+            currentCategory =
+                category;
+
+
+            currentSearch =
+                "";
+
+
+            const searchInput =
+                document.getElementById(
+                    "participant-search"
+                );
+
+
+            if (searchInput) {
+
+                searchInput.value =
+                    "";
+
+            }
+
+
+            updateCategoryButtons();
+
+
+            const cta =
+                document.getElementById(
+                    "cta-start-exam"
+                );
+
+
+            if (cta) {
+
+                cta.href =
+                    currentCategory ===
+                    "CPNS"
+
+                        ? "exam.html?cat=cpns"
+
+                        : "exam.html?cat=utbk";
+
+            }
+
+
+            startRealtimeLeaderboard();
+
+        }
+
+
+
+        // =====================================================
+        // CATEGORY BUTTON VISUAL
+        // =====================================================
+
+        function updateCategoryButtons() {
+
+            const cpns =
+                document.getElementById(
+                    "btn-cpns"
+                );
+
+
+            const utbk =
+                document.getElementById(
+                    "btn-utbk"
+                );
+
+
+            if (
+                !cpns ||
+                !utbk
+            ) {
+
+                return;
+
+            }
+
+
+            const activeClass =
+                "bg-blue-600 text-white shadow-md shadow-blue-500/15";
+
+
+            const inactiveClass =
+                "bg-transparent text-slate-500 hover:bg-slate-50 hover:text-slate-800";
+
+
+            cpns.className =
+                `
+                    inline-flex
+                    items-center
+                    justify-center
+                    gap-2
+                    px-4
+                    sm:px-6
+                    py-2.5
+                    rounded-xl
+                    text-xs
+                    sm:text-sm
+                    font-black
+                    transition-all
+                    ${
+                        currentCategory ===
+                        "CPNS"
+
+                            ? activeClass
+
+                            : inactiveClass
+                    }
+                `;
+
+
+            utbk.className =
+                `
+                    inline-flex
+                    items-center
+                    justify-center
+                    gap-2
+                    px-4
+                    sm:px-6
+                    py-2.5
+                    rounded-xl
+                    text-xs
+                    sm:text-sm
+                    font-black
+                    transition-all
+                    ${
+                        currentCategory ===
+                        "UTBK"
+
+                            ? activeClass
+
+                            : inactiveClass
+                    }
+                `;
+
+        }
+
+
+
+        // =====================================================
+        // VIEW MODE
+        // =====================================================
+
+        function setView(
+            view
+        ) {
+
+            currentView =
+                view;
+
+
+            updateViewButtons();
+
+
+            renderLeaderboard();
+
+        }
+
+
+
+        // =====================================================
+        // VIEW BUTTONS
+        // =====================================================
+
+        function updateViewButtons() {
+
+            const best =
+                document.getElementById(
+                    "view-best"
+                );
+
+
+            const latest =
+                document.getElementById(
+                    "view-latest"
+                );
+
+
+            if (
+                !best ||
+                !latest
+            ) {
+
+                return;
+
+            }
+
+
+            const active =
+                "bg-slate-900 text-white shadow-sm";
+
+
+            const inactive =
+                "bg-transparent text-slate-500 hover:text-slate-800";
+
+
+            best.className =
+                `
+                    px-3.5
+                    py-2
+                    rounded-lg
+                    text-[10px]
+                    sm:text-xs
+                    font-black
+                    transition
+                    ${
+                        currentView ===
+                        "best"
+
+                            ? active
+
+                            : inactive
+                    }
+                `;
+
+
+            latest.className =
+                `
+                    px-3.5
+                    py-2
+                    rounded-lg
+                    text-[10px]
+                    sm:text-xs
+                    font-black
+                    transition
+                    ${
+                        currentView ===
+                        "latest"
+
+                            ? active
+
+                            : inactive
+                    }
+                `;
+
+
+
+            const listTitle =
+                document.getElementById(
+                    "list-title"
+                );
+
+
+            const rankHeader =
+                document.getElementById(
+                    "rank-header"
+                );
+
+
+            if (listTitle) {
+
+                listTitle.textContent =
+                    currentView ===
+                    "best"
+
+                        ? "Skor Terbaik"
+
+                        : "Percobaan Terbaru";
+
+            }
+
+
+            if (rankHeader) {
+
+                rankHeader.textContent =
+                    currentView ===
+                    "best"
+
+                        ? "Rank"
+
+                        : "Urutan";
+
+            }
+
+        }
+
+
+
+        // =====================================================
+        // REAL-TIME FIRESTORE
+        // =====================================================
+
+        function startRealtimeLeaderboard() {
+
+            hideError();
+
+
+            setLoadingState();
+
+
+
+            if (
+                unsubscribeLeaderboard
+            ) {
+
+                unsubscribeLeaderboard();
+
+                unsubscribeLeaderboard =
+                    null;
+
+            }
+
+
+
+            if (
+                typeof db ===
+                "undefined"
+            ) {
+
+                showErrorState();
+
+                return;
+
+            }
+
+
+
+            setConnectionStatus(
+                "loading"
+            );
+
+
+
+            try {
+
+                unsubscribeLeaderboard =
+                    db
+                        .collection(
+                            "leaderboard"
+                        )
+
+                        .where(
+                            "category",
+                            "==",
+                            currentCategory
+                        )
+
+                        .onSnapshot(
+
+                            snapshot => {
+
+                                currentRecords =
+                                    snapshot.docs.map(
+                                        doc => {
+
+                                            return normalizeRecord(
+
+                                                doc.id,
+
+                                                doc.data()
+
+                                            );
+
+                                        }
+                                    );
+
+
+                                setConnectionStatus(
+                                    "online"
+                                );
+
+
+                                updateLastUpdated();
+
+
+                                renderDashboard();
+
+                            },
+
+
+                            error => {
+
+                                console.error(
+                                    "Leaderboard Firestore Error:",
+                                    error
+                                );
+
+
+                                setConnectionStatus(
+                                    "error"
+                                );
+
+
+                                showErrorState();
+
+                            }
+
+                        );
+
+            }
+
+            catch (
+                error
+            ) {
+
+                console.error(
+                    "Leaderboard Error:",
+                    error
+                );
+
+
+                setConnectionStatus(
+                    "error"
+                );
+
+
+                showErrorState();
+
+            }
+
+        }
+
+
+
+        // =====================================================
+        // NORMALIZE RECORD
+        // =====================================================
+
+        function normalizeRecord(
+            id,
+            data
+        ) {
+
+            const name =
+                String(
+                    data.name ||
+                    "Peserta Anonim"
+                ).trim();
+
+
+
+            let score =
+                Number(
+                    data.score
+                );
+
+
+            if (
+                !Number.isFinite(
+                    score
+                )
+            ) {
+
+                score = 0;
+
+            }
+
+
+            score =
+                Math.max(
+                    0,
+                    Math.min(
+                        100,
+                        Math.round(
+                            score
+                        )
+                    )
+                );
+
+
+
+            let totalQuestions =
+                Number(
+                    data.totalQuestions
+                );
+
+
+            if (
+                !Number.isFinite(
+                    totalQuestions
+                ) ||
+                totalQuestions <= 0
+            ) {
+
+                totalQuestions =
+                    currentCategory ===
+                    "UTBK"
+
+                        ? 90
+
+                        : 100;
+
+            }
+
+
+
+            let correctAnswers =
+                Number(
+                    data.correctAnswers
+                );
+
+
+            if (
+                !Number.isFinite(
+                    correctAnswers
+                )
+            ) {
+
+                correctAnswers =
+                    Math.round(
+                        (
+                            score /
+                            100
+                        ) *
+                        totalQuestions
+                    );
+
+            }
+
+
+
+            correctAnswers =
+                Math.max(
+                    0,
+                    Math.min(
+                        totalQuestions,
+                        Math.round(
+                            correctAnswers
+                        )
+                    )
+                );
+
+
+
+            let timestampMs =
+                0;
+
+
+            if (
+                data.timestamp &&
+                typeof data.timestamp.toDate ===
+                "function"
+            ) {
+
+                timestampMs =
+                    data.timestamp
+                        .toDate()
+                        .getTime();
+
+            }
+
+
+
+            return {
+
+                id:
+                    id,
+
+                name:
+                    name,
+
+                normalizedName:
+                    normalizeName(
+                        name
+                    ),
+
+                score:
+                    score,
+
+                correctAnswers:
+                    correctAnswers,
+
+                totalQuestions:
+                    totalQuestions,
+
+                timestamp:
+                    data.timestamp ||
+                    null,
+
+                timestampMs:
+                    timestampMs
+
+            };
+
+        }
+
+
+
+        // =====================================================
+        // BEST SCORE PER PARTICIPANT
+        // =====================================================
+
+        function getBestRecords(
+            records
+        ) {
+
+            const bestMap =
+                new Map();
+
+
+
+            records.forEach(
+                record => {
+
+                    const key =
+                        record.normalizedName ||
+                        record.id;
+
+
+                    const existing =
+                        bestMap.get(
+                            key
+                        );
+
+
+                    if (
+                        !existing
+                    ) {
+
+                        bestMap.set(
+                            key,
+                            record
+                        );
+
+
+                        return;
+
+                    }
+
+
+
+                    const betterScore =
+                        record.score >
+                        existing.score;
+
+
+                    const sameScoreNewer =
+                        record.score ===
+                            existing.score &&
+
+                        record.timestampMs >
+                            existing.timestampMs;
+
+
+
+                    if (
+                        betterScore ||
+                        sameScoreNewer
+                    ) {
+
+                        bestMap.set(
+                            key,
+                            record
+                        );
+
+                    }
+
+                }
+            );
+
+
+
+            return Array.from(
+                bestMap.values()
+            )
+
+                .sort(
+                    (
+                        a,
+                        b
+                    ) => {
+
+                        if (
+                            b.score !==
+                            a.score
+                        ) {
+
+                            return (
+                                b.score -
+                                a.score
+                            );
+
+                        }
+
+
+                        if (
+                            b.correctAnswers !==
+                            a.correctAnswers
+                        ) {
+
+                            return (
+                                b.correctAnswers -
+                                a.correctAnswers
+                            );
+
+                        }
+
+
+                        if (
+                            a.timestampMs ===
+                            0
+                        ) {
+
+                            return 1;
+
+                        }
+
+
+                        if (
+                            b.timestampMs ===
+                            0
+                        ) {
+
+                            return -1;
+
+                        }
+
+
+                        // Jika nilai sama,
+                        // pencapai skor lebih awal
+                        // berada di atas.
+
+                        return (
+                            a.timestampMs -
+                            b.timestampMs
+                        );
+
+                    }
+                );
+
+        }
+
+
+
+        // =====================================================
+        // LATEST ATTEMPTS
+        // =====================================================
+
+        function getLatestRecords(
+            records
+        ) {
+
+            return [
+                ...records
+            ]
+
+                .sort(
+                    (
+                        a,
+                        b
+                    ) => {
+
+                        return (
+                            b.timestampMs -
+                            a.timestampMs
+                        );
+
+                    }
+                );
+
+        }
+
+
+
+        // =====================================================
+        // RENDER ALL
+        // =====================================================
+
+        function renderDashboard() {
+
+            hideError();
+
+
+            const bestRecords =
+                getBestRecords(
+                    currentRecords
+                );
+
+
+            document
+                .getElementById(
+                    "participant-count"
+                )
+                .textContent =
+                    bestRecords.length;
+
+
+            document
+                .getElementById(
+                    "attempt-count"
+                )
+                .textContent =
+                    currentRecords.length;
+
+
+            document
+                .getElementById(
+                    "highest-score"
+                )
+                .textContent =
+                    bestRecords.length
+
+                        ? bestRecords[0].score
+
+                        : "—";
+
+
+            renderPodium(
+                bestRecords
+            );
+
+
+            renderYourRank(
+                bestRecords
+            );
+
+
+            renderLeaderboard();
+
+        }
+
+
+
+        // =====================================================
+        // PODIUM
+        // =====================================================
+
+        function renderPodium(
+            bestRecords
+        ) {
+
+            const container =
+                document.getElementById(
+                    "podium-container"
+                );
+
+
+            if (!container) {
+
+                return;
+
+            }
+
+
+            container.innerHTML =
+                "";
+
+
+
+            for (
+                let index = 0;
+                index < 3;
+                index++
+            ) {
+
+                const record =
+                    bestRecords[
+                        index
+                    ];
+
+
+                const rank =
+                    index + 1;
+
+
+
+                if (!record) {
+
+                    container.insertAdjacentHTML(
+
+                        "beforeend",
+
+                        renderEmptyPodiumCard(
+                            rank
+                        )
+
+                    );
+
+
+                    continue;
+
+                }
+
+
+
+                container.insertAdjacentHTML(
+
+                    "beforeend",
+
+                    renderPodiumCard(
+
+                        record,
+
+                        rank
+
+                    )
+
+                );
+
+            }
+
+        }
+
+
+
+        // =====================================================
+        // PODIUM CARD
+        // =====================================================
+
+        function renderPodiumCard(
+            record,
+            rank
+        ) {
+
+            const initials =
+                getInitials(
+                    record.name
+                );
+
+
+            let rankStyle =
+                "";
+
+
+            let rankLabel =
+                "";
+
+
+            let avatarStyle =
+                "";
+
+
+            if (
+                rank === 1
+            ) {
+
+                rankStyle =
+                    "border-amber-300 bg-gradient-to-br from-amber-50 via-white to-white shadow-amber-100/80 md:-translate-y-2";
+
+
+                rankLabel =
+                    "bg-amber-400 text-amber-950";
+
+
+                avatarStyle =
+                    "bg-gradient-to-br from-amber-400 to-orange-500 text-white";
+
+            }
+
+
+            else if (
+                rank === 2
+            ) {
+
+                rankStyle =
+                    "border-slate-300 bg-gradient-to-br from-slate-100 via-white to-white";
+
+
+                rankLabel =
+                    "bg-slate-300 text-slate-800";
+
+
+                avatarStyle =
+                    "bg-gradient-to-br from-slate-400 to-slate-600 text-white";
+
+            }
+
+
+            else {
+
+                rankStyle =
+                    "border-orange-200 bg-gradient-to-br from-orange-50 via-white to-white";
+
+
+                rankLabel =
+                    "bg-orange-300 text-orange-950";
+
+
+                avatarStyle =
+                    "bg-gradient-to-br from-orange-400 to-amber-700 text-white";
+
+            }
+
+
+
+            return `
+
+                <article
+                    class="
+                        relative
+
+                        ${rankStyle}
+
+                        border
+
+                        rounded-3xl
+
+                        p-5
+                        sm:p-6
+
+                        shadow-lg
+
+                        transition-transform
+
+                        hover:-translate-y-1
+                    "
+                >
+
+
+                    <div
+                        class="
+                            flex
+
+                            items-center
+                            justify-between
+
+                            gap-3
+                        "
+                    >
+
+                        <span
+                            class="
+                                ${rankLabel}
+
+                                inline-flex
+
+                                items-center
+                                justify-center
+
+                                px-3
+
+                                py-1.5
+
+                                rounded-full
+
+                                text-[9px]
+
+                                font-black
+
+                                uppercase
+
+                                tracking-[0.1em]
+                            "
+                        >
+
+                            Peringkat ${rank}
+
+                        </span>
+
+
+                        <span
+                            class="
+                                text-[10px]
+
+                                font-bold
+
+                                text-slate-400
+                            "
+                        >
+
+                            TOP ${rank}
+
+                        </span>
+
+                    </div>
+
+
+
+                    <div
+                        class="
+                            mt-6
+
+                            flex
+
+                            items-center
+
+                            gap-4
+                        "
+                    >
+
+                        <div
+                            class="
+                                ${avatarStyle}
+
+                                w-14
+                                h-14
+
+                                shrink-0
+
+                                rounded-2xl
+
+                                flex
+                                items-center
+                                justify-center
+
+                                text-base
+
+                                font-black
+
+                                shadow-md
+                            "
+                        >
+
+                            ${escapeHtml(initials)}
+
+                        </div>
+
+
+                        <div
+                            class="
+                                min-w-0
+                            "
+                        >
+
+                            <h3
+                                class="
+                                    font-black
+
+                                    text-slate-900
+
+                                    truncate
+                                "
+                            >
+
+                                ${escapeHtml(record.name)}
+
+                            </h3>
+
+
+                            <p
+                                class="
+                                    mt-1
+
+                                    text-xs
+
+                                    text-slate-400
+                                "
+                            >
+
+                                ${record.correctAnswers}/${record.totalQuestions}
+                                jawaban benar
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div
+                        class="
+                            mt-6
+
+                            pt-4
+
+                            border-t
+                            border-slate-200/70
+
+                            flex
+
+                            items-end
+                            justify-between
+                        "
+                    >
+
+                        <div>
+
+                            <span
+                                class="
+                                    text-[9px]
+
+                                    uppercase
+
+                                    tracking-wider
+
+                                    font-black
+
+                                    text-slate-400
+                                "
+                            >
+
+                                Nilai
+
+                            </span>
+
+
+                            <strong
+                                class="
+                                    block
+
+                                    mt-0.5
+
+                                    text-3xl
+
+                                    leading-none
+
+                                    font-black
+
+                                    text-blue-600
+                                "
+                            >
+
+                                ${record.score}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="
+                                text-right
+                            "
+                        >
+
+                            ${renderCompactDate(record)}
+
+                        </div>
+
+                    </div>
+
+                </article>
+            `;
+
+        }
+
+
+
+        // =====================================================
+        // EMPTY PODIUM
+        // =====================================================
+
+        function renderEmptyPodiumCard(
+            rank
+        ) {
+
+            return `
+
+                <div
+                    class="
+                        border
+                        border-dashed
+                        border-slate-300
+
+                        bg-white/50
+
+                        rounded-3xl
+
+                        p-6
+
+                        min-h-[210px]
+
+                        flex
+                        flex-col
+
+                        items-center
+                        justify-center
+
+                        text-center
+                    "
+                >
+
+                    <div
+                        class="
+                            w-11
+                            h-11
+
+                            rounded-xl
+
+                            bg-slate-100
+
+                            text-slate-400
+
+                            flex
+                            items-center
+                            justify-center
+
+                            font-black
+                        "
+                    >
+
+                        #${rank}
+
+                    </div>
+
+
+                    <p
+                        class="
+                            mt-3
+
+                            text-xs
+
+                            font-bold
+
+                            text-slate-400
+                        "
+                    >
+
+                        Posisi belum terisi
+
+                    </p>
+
+                </div>
+            `;
+
+        }
+
+
+
+        // =====================================================
+        // YOUR RANK
+        // =====================================================
+
+        function renderYourRank(
+            bestRecords
+        ) {
+
+            const card =
+                document.getElementById(
+                    "your-rank-card"
+                );
+
+
+            if (!card) {
+
+                return;
+
+            }
+
+
+
+            const viewerName =
+                resolveViewerName();
+
+
+            if (!viewerName) {
+
+                card.classList.add(
+                    "hidden"
+                );
+
+
+                return;
+
+            }
+
+
+
+            const normalized =
+                normalizeName(
+                    viewerName
+                );
+
+
+            const index =
+                bestRecords.findIndex(
+                    record => {
+
+                        return (
+                            record.normalizedName ===
+                            normalized
+                        );
+
+                    }
+                );
+
+
+
+            if (
+                index ===
+                -1
+            ) {
+
+                card.classList.add(
+                    "hidden"
+                );
+
+
+                return;
+
+            }
+
+
+
+            const record =
+                bestRecords[
+                    index
+                ];
+
+
+            const rank =
+                index + 1;
+
+
+
+            card.innerHTML = `
+
+                <div
+                    class="
+                        flex
+
+                        flex-col
+                        sm:flex-row
+
+                        sm:items-center
+                        sm:justify-between
+
+                        gap-4
+                    "
+                >
+
+                    <div>
+
+                        <p
+                            class="
+                                text-[9px]
+
+                                uppercase
+
+                                tracking-[0.15em]
+
+                                font-black
+
+                                text-blue-100
+                            "
+                        >
+
+                            Peringkat Anda
+
+                        </p>
+
+
+                        <p
+                            class="
+                                mt-1
+
+                                text-lg
+
+                                font-black
+                            "
+                        >
+
+                            ${escapeHtml(record.name)}
+
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="
+                            flex
+
+                            items-center
+
+                            gap-6
+                        "
+                    >
+
+                        <div>
+
+                            <span
+                                class="
+                                    text-[9px]
+
+                                    uppercase
+
+                                    font-bold
+
+                                    text-blue-200
+                                "
+                            >
+
+                                Rank
+
+                            </span>
+
+
+                            <strong
+                                class="
+                                    block
+
+                                    text-2xl
+
+                                    font-black
+                                "
+                            >
+
+                                #${rank}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span
+                                class="
+                                    text-[9px]
+
+                                    uppercase
+
+                                    font-bold
+
+                                    text-blue-200
+                                "
+                            >
+
+                                Nilai
+
+                            </span>
+
+
+                            <strong
+                                class="
+                                    block
+
+                                    text-2xl
+
+                                    font-black
+                                "
+                            >
+
+                                ${record.score}
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            `;
+
+
+            card.classList.remove(
+                "hidden"
+            );
+
+        }
+
+
+
+        // =====================================================
+        // RENDER TABLE
+        // =====================================================
+
+        function renderLeaderboard() {
+
+            const body =
+                document.getElementById(
+                    "leaderboard-body"
+                );
+
+
+            const summary =
+                document.getElementById(
+                    "result-summary"
+                );
+
+
+            if (!body) {
+
+                return;
+
+            }
+
+
+
+            const bestRecords =
+                getBestRecords(
+                    currentRecords
+                );
+
+
+            const latestRecords =
+                getLatestRecords(
+                    currentRecords
+                );
+
+
+            let source =
+                currentView ===
+                "best"
+
+                    ? bestRecords
+
+                    : latestRecords;
+
+
+
+            const originalSource =
+                source;
+
+
+
+            if (
+                currentSearch
+            ) {
+
+                source =
+                    source.filter(
+                        record => {
+
+                            return (
+                                record.normalizedName
+                                    .includes(
+                                        currentSearch
+                                    )
+                            );
+
+                        }
+                    );
+
+            }
+
+
+
+            // =================================================
+            // BEST VIEW
+            // Top 3 tidak perlu diulang di tabel,
+            // kecuali user sedang melakukan pencarian.
+            // =================================================
+
+            let displayRecords =
+                source;
+
+
+            let startingRank =
+                1;
+
+
+            if (
+                currentView ===
+                    "best" &&
+
+                !currentSearch
+            ) {
+
+                displayRecords =
+                    source.slice(
+                        3
+                    );
+
+
+                startingRank =
+                    4;
+
+            }
+
+
+
+            if (
+                summary
+            ) {
+
+                if (
+                    currentSearch
+                ) {
+
+                    summary.textContent =
+                        `${displayRecords.length} hasil ditemukan`;
+
+                }
+
+                else if (
+                    currentView ===
+                    "best"
+                ) {
+
+                    summary.textContent =
+                        `${bestRecords.length} peserta • skor terbaik setiap peserta`;
+
+                }
+
+                else {
+
+                    summary.textContent =
+                        `${latestRecords.length} percobaan • diurutkan berdasarkan waktu terbaru`;
+
+                }
+
+            }
+
+
+
+            // =================================================
+            // NO DATA AT ALL
+            // =================================================
+
+            if (
+                currentRecords.length ===
+                0
+            ) {
+
+                body.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+
+                            class="
+                                py-14
+                                px-6
+
+                                text-center
+                            "
+                        >
+
+                            <div
+                                class="
+                                    w-12
+                                    h-12
+
+                                    mx-auto
+
+                                    rounded-2xl
+
+                                    bg-blue-50
+
+                                    text-blue-500
+
+                                    flex
+                                    items-center
+                                    justify-center
+                                "
+                            >
+
+                                <svg
+                                    width="22"
+                                    height="22"
+
+                                    viewBox="0 0 24 24"
+
+                                    fill="none"
+
+                                    stroke="currentColor"
+
+                                    stroke-width="2"
+                                >
+
+                                    <path
+                                        d="M8 21h8"
+                                    />
+
+                                    <path
+                                        d="M12 17v4"
+                                    />
+
+                                    <path
+                                        d="M7 4h10"
+                                    />
+
+                                    <path
+                                        d="M5 4v5a7 7 0 0 0 14 0V4"
+                                    />
+
+                                </svg>
+
+                            </div>
+
+
+                            <p
+                                class="
+                                    mt-4
+
+                                    font-black
+
+                                    text-slate-800
+                                "
+                            >
+
+                                Belum ada peserta
+
+                            </p>
+
+
+                            <p
+                                class="
+                                    mt-1
+
+                                    text-xs
+
+                                    text-slate-400
+                                "
+                            >
+
+                                Jadilah peserta pertama yang masuk papan peringkat.
+
+                            </p>
+
+                        </td>
+
+                    </tr>
+                `;
+
+
+                return;
+
+            }
+
+
+
+            // =================================================
+            // NO SEARCH RESULT
+            // =================================================
+
+            if (
+                currentSearch &&
+                displayRecords.length ===
+                    0
+            ) {
+
+                body.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+
+                            class="
+                                py-12
+                                px-6
+
+                                text-center
+                            "
+                        >
+
+                            <p
+                                class="
+                                    font-black
+
+                                    text-slate-700
+                                "
+                            >
+
+                                Peserta tidak ditemukan
+
+                            </p>
+
+
+                            <p
+                                class="
+                                    mt-1
+
+                                    text-xs
+
+                                    text-slate-400
+                                "
+                            >
+
+                                Coba gunakan nama atau kata kunci lain.
+
+                            </p>
+
+                        </td>
+
+                    </tr>
+                `;
+
+
+                return;
+
+            }
+
+
+
+            // =================================================
+            // BEST ONLY HAS TOP 3
+            // =================================================
+
+            if (
+                currentView ===
+                    "best" &&
+
+                !currentSearch &&
+
+                displayRecords.length ===
+                    0
+            ) {
+
+                body.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+
+                            class="
+                                py-10
+
+                                text-center
+
+                                text-xs
+
+                                font-semibold
+
+                                text-slate-400
+                            "
+                        >
+
+                            Peringkat peserta saat ini telah ditampilkan pada Top 3 di atas.
+
+                        </td>
+
+                    </tr>
+                `;
+
+
+                return;
+
+            }
+
+
+
+            // =================================================
+            // TABLE HTML
+            // =================================================
+
+            let html =
+                "";
+
+
+
+            displayRecords.forEach(
+                (
+                    record,
+                    index
+                ) => {
+
+
+                    let position;
+
+
+                    if (
+                        currentView ===
+                        "best"
+                    ) {
+
+                        if (
+                            currentSearch
+                        ) {
+
+                            position =
+                                originalSource.findIndex(
+                                    item => {
+
+                                        return (
+                                            item.id ===
+                                            record.id
+                                        );
+
+                                    }
+                                ) + 1;
+
+                        }
+
+                        else {
+
+                            position =
+                                startingRank +
+                                index;
+
+                        }
+
+                    }
+
+                    else {
+
+                        position =
+                            originalSource.findIndex(
+                                item => {
+
+                                    return (
+                                        item.id ===
+                                        record.id
+                                    );
+
+                                }
+                            ) + 1;
+
+                    }
+
+
+
+                    html +=
+                        renderTableRow(
+
+                            record,
+
+                            position
+
+                        );
+
+                }
+            );
+
+
+            body.innerHTML =
+                html;
+
+        }
+
+
+
+        // =====================================================
+        // TABLE ROW
+        // =====================================================
+
+        function renderTableRow(
+            record,
+            position
+        ) {
+
+            const initials =
+                getInitials(
+                    record.name
+                );
+
+
+            let rankBadge;
+
+
+            if (
+                currentView ===
+                    "best" &&
+
+                position === 1
+            ) {
+
+                rankBadge = `
+                    <span
+                        class="
+                            inline-flex
+
+                            w-8
+                            h-8
+
+                            items-center
+                            justify-center
+
+                            rounded-xl
+
+                            bg-amber-100
+
+                            text-amber-700
+
+                            font-black
+                        "
+                    >
+                        1
+                    </span>
+                `;
+
+            }
+
+
+            else if (
+                currentView ===
+                    "best" &&
+
+                position === 2
+            ) {
+
+                rankBadge = `
+                    <span
+                        class="
+                            inline-flex
+
+                            w-8
+                            h-8
+
+                            items-center
+                            justify-center
+
+                            rounded-xl
+
+                            bg-slate-200
+
+                            text-slate-700
+
+                            font-black
+                        "
+                    >
+                        2
+                    </span>
+                `;
+
+            }
+
+
+            else if (
+                currentView ===
+                    "best" &&
+
+                position === 3
+            ) {
+
+                rankBadge = `
+                    <span
+                        class="
+                            inline-flex
+
+                            w-8
+                            h-8
+
+                            items-center
+                            justify-center
+
+                            rounded-xl
+
+                            bg-orange-100
+
+                            text-orange-700
+
+                            font-black
+                        "
+                    >
+                        3
+                    </span>
+                `;
+
+            }
+
+
+            else {
+
+                rankBadge = `
+                    <span
+                        class="
+                            font-black
+
+                            text-slate-400
+                        "
+                    >
+                        #${position}
+                    </span>
+                `;
+
+            }
+
+
+
+            return `
+
+                <tr
+                    class="
+                        group
+
+                        hover:bg-blue-50/40
+
+                        transition-colors
+                    "
+                >
+
+                    <td
+                        class="
+                            py-4
+                            px-5
+
+                            text-center
+                        "
+                    >
+
+                        ${rankBadge}
+
                     </td>
+
+
+                    <td
+                        class="
+                            py-4
+                            px-5
+                        "
+                    >
+
+                        <div
+                            class="
+                                flex
+
+                                items-center
+
+                                gap-3
+                            "
+                        >
+
+                            <div
+                                class="
+                                    w-9
+                                    h-9
+
+                                    shrink-0
+
+                                    rounded-xl
+
+                                    bg-gradient-to-br
+                                    from-blue-500
+                                    to-indigo-600
+
+                                    text-white
+
+                                    flex
+                                    items-center
+                                    justify-center
+
+                                    text-[10px]
+
+                                    font-black
+
+                                    shadow-sm
+                                "
+                            >
+
+                                ${escapeHtml(initials)}
+
+                            </div>
+
+
+                            <div
+                                class="
+                                    min-w-0
+                                "
+                            >
+
+                                <p
+                                    class="
+                                        font-black
+
+                                        text-slate-800
+
+                                        truncate
+                                    "
+                                >
+
+                                    ${escapeHtml(record.name)}
+
+                                </p>
+
+
+                                <p
+                                    class="
+                                        mt-0.5
+
+                                        text-[9px]
+
+                                        text-slate-400
+                                    "
+                                >
+
+                                    ${
+                                        currentCategory ===
+                                        "CPNS"
+
+                                            ? "CPNS & PPPK"
+
+                                            : "UTBK SNBT"
+                                    }
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+
+                    <td
+                        class="
+                            py-4
+                            px-5
+
+                            text-center
+                        "
+                    >
+
+                        <span
+                            class="
+                                inline-flex
+
+                                min-w-[48px]
+
+                                items-center
+                                justify-center
+
+                                bg-blue-50
+
+                                text-blue-700
+
+                                border
+                                border-blue-100
+
+                                px-2.5
+
+                                py-1.5
+
+                                rounded-lg
+
+                                text-sm
+
+                                font-black
+                            "
+                        >
+
+                            ${record.score}
+
+                        </span>
+
+                    </td>
+
+
+                    <td
+                        class="
+                            py-4
+                            px-5
+
+                            text-center
+                        "
+                    >
+
+                        <span
+                            class="
+                                font-black
+
+                                text-slate-700
+                            "
+                        >
+
+                            ${record.correctAnswers}
+
+                        </span>
+
+
+                        <span
+                            class="
+                                text-slate-400
+                            "
+                        >
+
+                            / ${record.totalQuestions}
+
+                        </span>
+
+                    </td>
+
+
+                    <td
+                        class="
+                            py-4
+                            px-5
+
+                            text-center
+                        "
+                    >
+
+                        ${renderTableDate(record)}
+
+                    </td>
+
                 </tr>
             `;
 
-            // Ambil data tanpa orderBy di Firestore agar TIDAK melempar error Missing Index
-            db.collection("leaderboard")
-                .where("category", "==", currentCategory)
-                .get()
-                .then((querySnapshot) => {
-                    if (querySnapshot.empty) {
-                        tableBody.innerHTML = `
-                            <tr>
-                                <td colspan="5" class="text-center py-10 text-slate-400 font-medium">
-                                    Belum ada skor yang tercatat untuk kategori ini.
-                                </td>
-                            </tr>
-                        `;
-                        return;
-                    }
-
-                    let records = [];
-                    querySnapshot.forEach((doc) => {
-                        records.push(doc.data());
-                    });
-
-                    // Urutkan skor tertinggi ke terendah secara lokal (Client-Side)
-                    records.sort((a, b) => (b.score || 0) - (a.score || 0));
-
-                    let htmlContent = "";
-                    records.forEach((data, index) => {
-                        const rank = index + 1;
-                        let rankBadge = `<span class="font-bold text-slate-400">#${rank}</span>`;
-                        if (rank === 1) rankBadge = `<span class="text-xl">🥇</span>`;
-                        else if (rank === 2) rankBadge = `<span class="text-xl">🥈</span>`;
-                        else if (rank === 3) rankBadge = `<span class="text-xl">🥉</span>`;
-
-                        let formattedDate = "-";
-                        if (data.timestamp && data.timestamp.toDate) {
-                            const dateObj = data.timestamp.toDate();
-                            formattedDate = dateObj.toLocaleDateString("id-ID", { day: 'numeric', month: 'short', year: 'numeric' });
-                        }
-
-                        htmlContent += `
-                            <tr class="hover:bg-slate-50/80 transition-colors">
-                                <td class="py-4 px-4 text-center font-bold">${rankBadge}</td>
-                                <td class="py-4 px-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="${data.photoURL || 'https://via.placeholder.com/32'}" class="w-8 h-8 rounded-full border border-slate-200 shrink-0" alt="Avatar">
-                                        <span class="font-bold text-slate-800">${data.name || 'Peserta Anonim'}</span>
-                                    </div>
-                                </td>
-                                <td class="py-4 px-4 text-center font-black text-blue-600 text-base">${data.score || 0}</td>
-                                <td class="py-4 px-4 text-center font-bold text-slate-600">${data.score || 0}%</td>
-                                <td class="py-4 px-4 text-center text-slate-400 text-xs">${formattedDate}</td>
-                            </tr>
-                        `;
-                    });
-
-                    tableBody.innerHTML = htmlContent;
-                })
-                .catch((error) => {
-                    console.error("Firestore Error:", error);
-                    tableBody.innerHTML = `
-                        <tr>
-                            <td colspan="5" class="text-center py-10 text-red-500 font-medium">
-                                Gagal memuat data: ${error.message}
-                            </td>
-                        </tr>
-                    `;
-                });
         }
 
-        // Jalankan saat halaman siap
-        document.addEventListener("DOMContentLoaded", () => {
-            fetchLeaderboardData();
-        });
+
+
+        // =====================================================
+        // DATE
+        // =====================================================
+
+        function renderTableDate(
+            record
+        ) {
+
+            if (
+                !record.timestampMs
+            ) {
+
+                return `
+                    <span
+                        class="
+                            text-xs
+
+                            text-slate-400
+                        "
+                    >
+                        —
+                    </span>
+                `;
+
+            }
+
+
+
+            const date =
+                new Date(
+                    record.timestampMs
+                );
+
+
+            const dateText =
+                new Intl.DateTimeFormat(
+                    "id-ID",
+
+                    {
+                        day:
+                            "numeric",
+
+                        month:
+                            "short",
+
+                        year:
+                            "numeric",
+
+                        timeZone:
+                            "Asia/Jakarta"
+                    }
+                )
+                    .format(
+                        date
+                    );
+
+
+            const timeText =
+                new Intl.DateTimeFormat(
+                    "id-ID",
+
+                    {
+                        hour:
+                            "2-digit",
+
+                        minute:
+                            "2-digit",
+
+                        hour12:
+                            false,
+
+                        timeZone:
+                            "Asia/Jakarta"
+                    }
+                )
+                    .format(
+                        date
+                    );
+
+
+            return `
+
+                <div
+                    class="
+                        leading-tight
+                    "
+                >
+
+                    <p
+                        class="
+                            text-xs
+
+                            font-bold
+
+                            text-slate-600
+                        "
+                    >
+
+                        ${escapeHtml(dateText)}
+
+                    </p>
+
+
+                    <p
+                        class="
+                            mt-1
+
+                            text-[9px]
+
+                            text-slate-400
+                        "
+                    >
+
+                        ${escapeHtml(timeText)} WIB
+
+                    </p>
+
+                </div>
+            `;
+
+        }
+
+
+
+        // =====================================================
+        // COMPACT DATE FOR PODIUM
+        // =====================================================
+
+        function renderCompactDate(
+            record
+        ) {
+
+            if (
+                !record.timestampMs
+            ) {
+
+                return `
+                    <span
+                        class="
+                            text-[10px]
+
+                            text-slate-400
+                        "
+                    >
+                        —
+                    </span>
+                `;
+
+            }
+
+
+            const date =
+                new Date(
+                    record.timestampMs
+                );
+
+
+            const text =
+                new Intl.DateTimeFormat(
+                    "id-ID",
+
+                    {
+                        day:
+                            "numeric",
+
+                        month:
+                            "short",
+
+                        year:
+                            "numeric",
+
+                        timeZone:
+                            "Asia/Jakarta"
+                    }
+                )
+                    .format(
+                        date
+                    );
+
+
+            return `
+
+                <span
+                    class="
+                        text-[10px]
+
+                        font-semibold
+
+                        text-slate-400
+                    "
+                >
+
+                    ${escapeHtml(text)}
+
+                </span>
+            `;
+
+        }
+
+
+
+        // =====================================================
+        // LOADING
+        // =====================================================
+
+        function setLoadingState() {
+
+            document
+                .getElementById(
+                    "participant-count"
+                )
+                .textContent =
+                    "—";
+
+
+            document
+                .getElementById(
+                    "attempt-count"
+                )
+                .textContent =
+                    "—";
+
+
+            document
+                .getElementById(
+                    "highest-score"
+                )
+                .textContent =
+                    "—";
+
+
+
+            const podium =
+                document.getElementById(
+                    "podium-container"
+                );
+
+
+            podium.innerHTML =
+                Array(
+                    3
+                )
+                    .fill(
+                        `
+                            <div
+                                class="
+                                    h-[220px]
+
+                                    rounded-3xl
+
+                                    border
+                                    border-slate-200
+
+                                    bg-white
+
+                                    animate-pulse
+                                "
+                            >
+
+                                <div
+                                    class="
+                                        p-6
+                                    "
+                                >
+
+                                    <div
+                                        class="
+                                            w-24
+                                            h-5
+
+                                            rounded-full
+
+                                            bg-slate-100
+                                        "
+                                    ></div>
+
+
+                                    <div
+                                        class="
+                                            mt-7
+
+                                            flex
+
+                                            items-center
+
+                                            gap-4
+                                        "
+                                    >
+
+                                        <div
+                                            class="
+                                                w-14
+                                                h-14
+
+                                                rounded-2xl
+
+                                                bg-slate-100
+                                            "
+                                        ></div>
+
+
+                                        <div
+                                            class="
+                                                flex-1
+                                            "
+                                        >
+
+                                            <div
+                                                class="
+                                                    w-28
+                                                    h-4
+
+                                                    bg-slate-100
+
+                                                    rounded
+                                                "
+                                            ></div>
+
+
+                                            <div
+                                                class="
+                                                    mt-2
+
+                                                    w-20
+                                                    h-3
+
+                                                    bg-slate-100
+
+                                                    rounded
+                                                "
+                                            ></div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        `
+                    )
+                    .join(
+                        ""
+                    );
+
+
+
+            document
+                .getElementById(
+                    "leaderboard-body"
+                )
+                .innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+
+                            class="
+                                py-14
+
+                                text-center
+                            "
+                        >
+
+                            <div
+                                class="
+                                    inline-flex
+
+                                    items-center
+
+                                    gap-2
+
+                                    text-xs
+
+                                    font-semibold
+
+                                    text-slate-400
+                                "
+                            >
+
+                                <span
+                                    class="
+                                        w-4
+                                        h-4
+
+                                        rounded-full
+
+                                        border-2
+                                        border-blue-500
+
+                                        border-t-transparent
+
+                                        animate-spin
+                                    "
+                                ></span>
+
+                                Memuat papan peringkat...
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+                `;
+
+
+            document
+                .getElementById(
+                    "result-summary"
+                )
+                .textContent =
+                    "Memuat peserta...";
+
+        }
+
+
+
+        // =====================================================
+        // ERROR
+        // =====================================================
+
+        function showErrorState() {
+
+            const banner =
+                document.getElementById(
+                    "error-banner"
+                );
+
+
+            if (banner) {
+
+                banner.classList.remove(
+                    "hidden"
+                );
+
+            }
+
+
+
+            document
+                .getElementById(
+                    "leaderboard-body"
+                )
+                .innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+
+                            class="
+                                py-14
+
+                                text-center
+                            "
+                        >
+
+                            <p
+                                class="
+                                    text-sm
+
+                                    font-black
+
+                                    text-red-600
+                                "
+                            >
+
+                                Data belum berhasil dimuat
+
+                            </p>
+
+
+                            <p
+                                class="
+                                    mt-1
+
+                                    text-xs
+
+                                    text-slate-400
+                                "
+                            >
+
+                                Gunakan tombol Coba Lagi di atas.
+
+                            </p>
+
+                        </td>
+
+                    </tr>
+                `;
+
+        }
+
+
+
+        function hideError() {
+
+            const banner =
+                document.getElementById(
+                    "error-banner"
+                );
+
+
+            if (banner) {
+
+                banner.classList.add(
+                    "hidden"
+                );
+
+            }
+
+        }
+
+
+
+        // =====================================================
+        // CONNECTION STATUS
+        // =====================================================
+
+        function setConnectionStatus(
+            status
+        ) {
+
+            const container =
+                document.getElementById(
+                    "connection-status"
+                );
+
+
+            const dot =
+                document.getElementById(
+                    "connection-dot"
+                );
+
+
+            if (
+                !container ||
+                !dot
+            ) {
+
+                return;
+
+            }
+
+
+
+            if (
+                status ===
+                "online"
+            ) {
+
+                container.lastChild.textContent =
+                    " Terhubung real-time";
+
+
+                dot.className =
+                    "w-1.5 h-1.5 rounded-full bg-emerald-500";
+
+            }
+
+
+            else if (
+                status ===
+                "error"
+            ) {
+
+                container.lastChild.textContent =
+                    " Koneksi bermasalah";
+
+
+                dot.className =
+                    "w-1.5 h-1.5 rounded-full bg-red-500";
+
+            }
+
+
+            else {
+
+                container.lastChild.textContent =
+                    " Menghubungkan...";
+
+
+                dot.className =
+                    "w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse";
+
+            }
+
+        }
+
+
+
+        // =====================================================
+        // LAST UPDATED
+        // =====================================================
+
+        function updateLastUpdated() {
+
+            const element =
+                document.getElementById(
+                    "last-updated"
+                );
+
+
+            if (!element) {
+
+                return;
+
+            }
+
+
+
+            const now =
+                new Date();
+
+
+            const time =
+                new Intl.DateTimeFormat(
+                    "id-ID",
+
+                    {
+                        hour:
+                            "2-digit",
+
+                        minute:
+                            "2-digit",
+
+                        hour12:
+                            false,
+
+                        timeZone:
+                            "Asia/Jakarta"
+                    }
+                )
+                    .format(
+                        now
+                    );
+
+
+            element.textContent =
+                `Diperbarui otomatis • ${time} WIB`;
+
+        }
+
+
+
+        // =====================================================
+        // VIEWER NAME
+        // =====================================================
+
+        function resolveViewerName() {
+
+            /*
+            -------------------------------------------------
+            Prioritas 1:
+            Nama terakhir yang nantinya dapat disimpan oleh
+            app.js ketika peserta submit leaderboard.
+            -------------------------------------------------
+            */
+
+            try {
+
+                const localName =
+                    localStorage.getItem(
+                        "ruangtryout_last_participant_name"
+                    );
+
+
+                if (
+                    localName
+                ) {
+
+                    return localName;
+
+                }
+
+            }
+
+            catch (
+                error
+            ) {
+
+                // ignored
+
+            }
+
+
+
+            /*
+            -------------------------------------------------
+            Prioritas 2:
+            Google user apabila user sedang login.
+            -------------------------------------------------
+            */
+
+            if (
+                typeof auth !==
+                    "undefined" &&
+
+                auth.currentUser &&
+
+                auth.currentUser.displayName
+            ) {
+
+                return auth.currentUser.displayName;
+
+            }
+
+
+
+            return "";
+
+        }
+
+
+
+        // =====================================================
+        // NORMALIZE NAME
+        // =====================================================
+
+        function normalizeName(
+            value
+        ) {
+
+            return String(
+                value ||
+                ""
+            )
+
+                .trim()
+
+                .replace(
+                    /\s+/g,
+                    " "
+                )
+
+                .toLocaleLowerCase(
+                    "id-ID"
+                );
+
+        }
+
+
+
+        // =====================================================
+        // INITIALS
+        // =====================================================
+
+        function getInitials(
+            name
+        ) {
+
+            const words =
+                String(
+                    name ||
+                    "P"
+                )
+
+                    .trim()
+
+                    .split(
+                        /\s+/
+                    )
+
+                    .filter(
+                        Boolean
+                    );
+
+
+            if (
+                words.length ===
+                0
+            ) {
+
+                return "P";
+
+            }
+
+
+            if (
+                words.length ===
+                1
+            ) {
+
+                return words[0]
+                    .slice(
+                        0,
+                        2
+                    )
+                    .toUpperCase();
+
+            }
+
+
+            return (
+                words[0][0] +
+                words[
+                    words.length -
+                    1
+                ][0]
+            )
+                .toUpperCase();
+
+        }
+
+
+
+        // =====================================================
+        // ESCAPE HTML
+        // =====================================================
+
+        function escapeHtml(
+            value
+        ) {
+
+            return String(
+                value
+            )
+
+                .replaceAll(
+                    "&",
+                    "&amp;"
+                )
+
+                .replaceAll(
+                    "<",
+                    "&lt;"
+                )
+
+                .replaceAll(
+                    ">",
+                    "&gt;"
+                )
+
+                .replaceAll(
+                    '"',
+                    "&quot;"
+                )
+
+                .replaceAll(
+                    "'",
+                    "&#039;"
+                );
+
+        }
+
     </script>
+
 </body>
 </html>
