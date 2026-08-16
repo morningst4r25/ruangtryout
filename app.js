@@ -8,14 +8,16 @@
 // Features:
 // - Timer
 // - Answer navigation
-// - Large 10-column number grid
-// - Review marks
-// - Progress
+// - Large 10-column question grid
+// - Review / marked questions
+// - Progress indicator
 // - Autosave
-// - Resume
+// - Resume unfinished exam
 // - Keyboard shortcuts
 // - Confirmation dialogs
-// - Optional Firebase leaderboard
+// - Participant name popup
+// - Guest leaderboard submission
+// - Firebase Firestore leaderboard
 // =========================================================
 
 
@@ -61,6 +63,12 @@ let quizStarted = false;
 let isExamFinished = false;
 
 
+// Hasil ujian disimpan sementara
+// sampai peserta memasukkan nama.
+
+let pendingExamResult = null;
+
+
 const EXAM_DURATION_SECONDS =
     90 * 60;
 
@@ -85,7 +93,7 @@ document.addEventListener(
 
 
 
-        // Autosave on close/reload
+        // Autosave ketika reload / keluar
 
         window.addEventListener(
             'beforeunload',
@@ -94,7 +102,7 @@ document.addEventListener(
 
 
 
-        // Resize handling
+        // Adaptasi viewport
 
         window.addEventListener(
             'resize',
@@ -115,7 +123,8 @@ document.addEventListener(
 
 
 
-        // Login tidak diperlukan
+        // Langsung mulai.
+        // Login tidak diperlukan.
 
         startQuizProcess();
 
@@ -150,40 +159,27 @@ function showSystemError(
         <div
             class="
                 flex-1
-
                 flex
-
                 items-center
                 justify-center
-
                 p-8
-
                 text-center
             "
         >
 
-
             <div>
-
 
                 <div
                     class="
                         w-14
                         h-14
-
                         mx-auto
-
                         rounded-2xl
-
                         bg-red-500/10
-
                         border
                         border-red-500/20
-
                         text-red-400
-
                         flex
-
                         items-center
                         justify-center
                     "
@@ -192,13 +188,9 @@ function showSystemError(
                     <svg
                         width="24"
                         height="24"
-
                         viewBox="0 0 24 24"
-
                         fill="none"
-
                         stroke="currentColor"
-
                         stroke-width="2"
                     >
 
@@ -224,11 +216,8 @@ function showSystemError(
                 <p
                     class="
                         mt-5
-
                         text-lg
-
                         font-black
-
                         text-white
                     "
                 >
@@ -241,11 +230,8 @@ function showSystemError(
                 <p
                     class="
                         mt-2
-
                         max-w-md
-
                         text-sm
-
                         text-slate-400
                     "
                 >
@@ -260,27 +246,17 @@ function showSystemError(
 
                     class="
                         inline-flex
-
                         mt-5
-
                         bg-slate-800
-
                         hover:bg-slate-700
-
                         text-slate-200
-
                         text-xs
-
                         font-bold
-
                         px-4
                         py-2.5
-
                         rounded-xl
-
                         border
                         border-slate-700
-
                         transition
                     "
                 >
@@ -313,7 +289,7 @@ function startQuizProcess() {
 
 
     // =====================================================
-    // quizCategories
+    // FORMAT: quizCategories
     // =====================================================
 
     if (
@@ -333,7 +309,7 @@ function startQuizProcess() {
 
 
     // =====================================================
-    // questionsData
+    // FORMAT: questionsData
     // =====================================================
 
     else if (
@@ -353,7 +329,7 @@ function startQuizProcess() {
 
 
     // =====================================================
-    // questions
+    // FORMAT: questions
     // =====================================================
 
     else if (
@@ -407,7 +383,7 @@ function startQuizProcess() {
 
 
     // =====================================================
-    // RESUME
+    // CHECK SAVED EXAM
     // =====================================================
 
     const saved =
@@ -461,7 +437,7 @@ function startQuizProcess() {
 
 
 // =========================================================
-// MEANINGFUL PROGRESS
+// CHECK MEANINGFUL PROGRESS
 // =========================================================
 
 function hasMeaningfulProgress(
@@ -557,56 +533,38 @@ function showResumeScreen(
         <div
             class="
                 flex-1
-
                 flex
-
                 items-center
                 justify-center
-
                 p-6
             "
         >
 
-
             <div
                 class="
                     w-full
-
                     max-w-xl
-
                     bg-slate-950/40
-
                     border
                     border-slate-800
-
                     rounded-3xl
-
                     p-6
                     sm:p-8
-
                     text-center
                 "
             >
-
 
                 <div
                     class="
                         w-14
                         h-14
-
                         mx-auto
-
                         rounded-2xl
-
                         bg-amber-500/10
-
                         border
                         border-amber-500/20
-
                         text-amber-400
-
                         flex
-
                         items-center
                         justify-center
                     "
@@ -615,13 +573,9 @@ function showResumeScreen(
                     <svg
                         width="26"
                         height="26"
-
                         viewBox="0 0 24 24"
-
                         fill="none"
-
                         stroke="currentColor"
-
                         stroke-width="1.8"
                     >
 
@@ -646,11 +600,8 @@ function showResumeScreen(
                 <h2
                     class="
                         mt-5
-
                         text-2xl
-
                         font-black
-
                         text-white
                     "
                 >
@@ -664,9 +615,7 @@ function showResumeScreen(
                 <p
                     class="
                         mt-2
-
                         text-sm
-
                         text-slate-400
                     "
                 >
@@ -680,26 +629,18 @@ function showResumeScreen(
                 <div
                     class="
                         mt-6
-
                         grid
                         grid-cols-3
-
                         gap-3
                     "
                 >
 
-
-                    <!-- ANSWERED -->
-
                     <div
                         class="
                             bg-slate-900
-
                             border
                             border-slate-800
-
                             rounded-2xl
-
                             p-4
                         "
                     >
@@ -707,13 +648,9 @@ function showResumeScreen(
                         <span
                             class="
                                 text-[9px]
-
                                 uppercase
-
                                 font-black
-
                                 tracking-wider
-
                                 text-slate-500
                             "
                         >
@@ -726,11 +663,8 @@ function showResumeScreen(
                         <strong
                             class="
                                 block
-
                                 mt-1
-
                                 text-xl
-
                                 text-white
                             "
                         >
@@ -743,17 +677,12 @@ function showResumeScreen(
 
 
 
-                    <!-- QUESTION -->
-
                     <div
                         class="
                             bg-slate-900
-
                             border
                             border-slate-800
-
                             rounded-2xl
-
                             p-4
                         "
                     >
@@ -761,13 +690,9 @@ function showResumeScreen(
                         <span
                             class="
                                 text-[9px]
-
                                 uppercase
-
                                 font-black
-
                                 tracking-wider
-
                                 text-slate-500
                             "
                         >
@@ -780,11 +705,8 @@ function showResumeScreen(
                         <strong
                             class="
                                 block
-
                                 mt-1
-
                                 text-xl
-
                                 text-white
                             "
                         >
@@ -801,17 +723,12 @@ function showResumeScreen(
 
 
 
-                    <!-- TIME -->
-
                     <div
                         class="
                             bg-slate-900
-
                             border
                             border-slate-800
-
                             rounded-2xl
-
                             p-4
                         "
                     >
@@ -819,13 +736,9 @@ function showResumeScreen(
                         <span
                             class="
                                 text-[9px]
-
                                 uppercase
-
                                 font-black
-
                                 tracking-wider
-
                                 text-slate-500
                             "
                         >
@@ -838,13 +751,9 @@ function showResumeScreen(
                         <strong
                             class="
                                 block
-
                                 mt-1
-
                                 text-xl
-
                                 text-amber-400
-
                                 font-mono
                             "
                         >
@@ -862,42 +771,29 @@ function showResumeScreen(
                 <div
                     class="
                         mt-7
-
                         flex
-
                         flex-col
                         sm:flex-row
-
                         justify-center
-
                         gap-3
                     "
                 >
-
 
                     <button
                         onclick="resumeSavedQuiz()"
 
                         class="
                             bg-blue-600
-
                             hover:bg-blue-500
-
                             text-white
-
                             font-black
-
                             text-xs
                             sm:text-sm
-
                             px-6
                             py-3
-
                             rounded-xl
-
                             shadow-lg
                             shadow-blue-600/20
-
                             transition
                         "
                     >
@@ -913,24 +809,16 @@ function showResumeScreen(
 
                         class="
                             bg-slate-800
-
                             hover:bg-slate-700
-
                             text-slate-300
-
                             font-bold
-
                             text-xs
                             sm:text-sm
-
                             px-6
                             py-3
-
                             rounded-xl
-
                             border
                             border-slate-700
-
                             transition
                         "
                     >
@@ -1019,6 +907,10 @@ function resumeSavedQuiz() {
         false;
 
 
+    pendingExamResult =
+        null;
+
+
     renderQuizLayout();
 
 
@@ -1058,6 +950,10 @@ function startFreshQuiz() {
 
     isExamFinished =
         false;
+
+
+    pendingExamResult =
+        null;
 
 
     renderQuizLayout();
@@ -1139,62 +1035,41 @@ function renderQuizLayout() {
         <div
             class="
                 bg-slate-900
-
                 border-b
                 border-slate-800
-
                 px-4
                 sm:px-5
-
                 py-2.5
-
                 flex
-
                 items-center
                 justify-between
-
                 gap-4
-
                 shrink-0
             "
         >
 
 
-            <!-- LEFT -->
-
             <div class="min-w-0">
-
 
                 <div
                     class="
                         flex
-
                         items-center
-
                         flex-wrap
-
                         gap-2
-
                         mb-0.5
                     "
                 >
-
 
                     <span
                         class="
                             text-[9px]
                             sm:text-[10px]
-
                             font-black
-
                             text-blue-400
-
                             uppercase
-
                             tracking-[0.14em]
-
                             truncate
-
                             max-w-[240px]
                             sm:max-w-none
                         "
@@ -1211,25 +1086,16 @@ function renderQuizLayout() {
 
                         class="
                             inline-flex
-
                             px-2
                             py-0.5
-
                             rounded-md
-
                             bg-slate-800
-
                             border
                             border-slate-700
-
                             text-[8px]
-
                             font-black
-
                             text-slate-400
-
                             uppercase
-
                             tracking-wider
                         "
                     ></span>
@@ -1241,13 +1107,10 @@ function renderQuizLayout() {
                 <div
                     class="
                         flex
-
                         items-baseline
-
                         gap-2
                     "
                 >
-
 
                     <h2
                         id="question-number-title"
@@ -1255,11 +1118,8 @@ function renderQuizLayout() {
                         class="
                             text-sm
                             sm:text-base
-
                             font-black
-
                             text-white
-
                             tracking-tight
                         "
                     >
@@ -1274,9 +1134,7 @@ function renderQuizLayout() {
 
                         class="
                             text-[10px]
-
                             text-slate-500
-
                             font-semibold
                         "
                     >
@@ -1299,40 +1157,26 @@ function renderQuizLayout() {
                 class="
                     min-w-[92px]
                     sm:min-w-[105px]
-
                     bg-slate-800/80
-
                     border
                     border-slate-700
-
                     px-3
-
                     py-1.5
-
                     rounded-xl
-
                     text-right
-
                     transition-colors
-
                     shrink-0
                 "
             >
-
 
                 <span
                     class="
                         text-[7px]
                         sm:text-[8px]
-
                         text-slate-500
-
                         block
-
                         uppercase
-
                         tracking-wider
-
                         font-black
                     "
                 >
@@ -1348,13 +1192,9 @@ function renderQuizLayout() {
                     class="
                         text-sm
                         sm:text-base
-
                         font-black
-
                         text-emerald-400
-
                         font-mono
-
                         tabular-nums
                     "
                 >
@@ -1376,13 +1216,9 @@ function renderQuizLayout() {
         <div
             class="
                 relative
-
                 flex-1
-
                 min-h-0
-
                 flex
-
                 overflow-hidden
             "
         >
@@ -1397,35 +1233,25 @@ function renderQuizLayout() {
 
                 class="
                     flex-1
-
                     min-w-0
-
                     overflow-hidden
                 "
             >
-
 
                 <div
                     id="question-content"
 
                     class="
                         exam-question-content
-
                         h-full
-
                         w-full
-
                         max-w-none
-
                         mx-0
-
                         px-5
                         sm:px-6
                         lg:px-6
                         xl:px-7
-
                         py-3
-
                         flex
                         flex-col
                     "
@@ -1437,26 +1263,18 @@ function renderQuizLayout() {
                     <div
                         class="
                             exam-question-block
-
                             mb-3
-
                             shrink-0
                         "
                     >
 
-
                         <p
                             class="
                                 text-[8px]
-
                                 uppercase
-
                                 tracking-[0.18em]
-
                                 font-black
-
                                 text-slate-500
-
                                 mb-1.5
                             "
                         >
@@ -1471,15 +1289,11 @@ function renderQuizLayout() {
 
                             class="
                                 exam-question-text
-
                                 text-[13px]
                                 sm:text-sm
                                 xl:text-[15px]
-
                                 text-slate-100
-
                                 leading-6
-
                                 font-semibold
                             "
                         ></div>
@@ -1488,18 +1302,14 @@ function renderQuizLayout() {
 
 
 
-                    <!-- =================================================
-                         OPTIONS
-                    ================================================== -->
+                    <!-- OPTIONS -->
 
                     <div
                         id="options-container"
 
                         class="
                             exam-options
-
                             space-y-2.5
-
                             shrink-0
                         "
                     ></div>
@@ -1513,29 +1323,20 @@ function renderQuizLayout() {
                     <div
                         class="
                             exam-actions
-
                             mt-4
-
                             pt-3
-
                             border-t
                             border-slate-800/80
-
                             shrink-0
                         "
                     >
 
 
-                        <!-- NAV BUTTONS -->
-
                         <div
                             class="
                                 grid
-
                                 grid-cols-3
-
                                 gap-2.5
-
                                 items-center
                             "
                         >
@@ -1552,54 +1353,34 @@ function renderQuizLayout() {
 
                                 class="
                                     inline-flex
-
                                     items-center
                                     justify-center
-
                                     gap-1.5
-
                                     bg-slate-800
-
                                     hover:bg-slate-700
-
                                     disabled:hover:bg-slate-800
-
                                     text-slate-300
-
                                     text-[10px]
                                     sm:text-xs
-
                                     font-bold
-
                                     px-2
                                     sm:px-4
-
                                     py-2.5
-
                                     rounded-xl
-
                                     border
                                     border-slate-700
-
                                     transition
-
                                     disabled:opacity-30
-
                                     disabled:cursor-not-allowed
                                 "
                             >
 
-
                                 <svg
                                     width="13"
                                     height="13"
-
                                     viewBox="0 0 24 24"
-
                                     fill="none"
-
                                     stroke="currentColor"
-
                                     stroke-width="2"
                                 >
 
@@ -1633,52 +1414,33 @@ function renderQuizLayout() {
 
                                 class="
                                     inline-flex
-
                                     items-center
                                     justify-center
-
                                     gap-1.5
-
                                     bg-red-500/10
-
                                     hover:bg-red-500/15
-
                                     text-red-400
-
                                     hover:text-red-300
-
                                     border
                                     border-red-500/30
-
                                     text-[10px]
                                     sm:text-xs
-
                                     font-black
-
                                     px-2
                                     sm:px-4
-
                                     py-2.5
-
                                     rounded-xl
-
                                     transition-all
                                 "
                             >
 
-
                                 <svg
                                     class="hidden sm:block"
-
                                     width="13"
                                     height="13"
-
                                     viewBox="0 0 24 24"
-
                                     fill="none"
-
                                     stroke="currentColor"
-
                                     stroke-width="2"
                                 >
 
@@ -1714,43 +1476,27 @@ function renderQuizLayout() {
 
                                 class="
                                     inline-flex
-
                                     items-center
                                     justify-center
-
                                     gap-1.5
-
                                     bg-blue-600
-
                                     hover:bg-blue-500
-
                                     disabled:hover:bg-blue-600
-
                                     text-white
-
                                     text-[10px]
                                     sm:text-xs
-
                                     font-black
-
                                     px-2
                                     sm:px-4
-
                                     py-2.5
-
                                     rounded-xl
-
                                     shadow-lg
                                     shadow-blue-950/20
-
                                     transition
-
                                     disabled:opacity-30
-
                                     disabled:cursor-not-allowed
                                 "
                             >
-
 
                                 <span>
 
@@ -1762,13 +1508,9 @@ function renderQuizLayout() {
                                 <svg
                                     width="13"
                                     height="13"
-
                                     viewBox="0 0 24 24"
-
                                     fill="none"
-
                                     stroke="currentColor"
-
                                     stroke-width="2"
                                 >
 
@@ -1788,23 +1530,17 @@ function renderQuizLayout() {
 
 
 
-                        <!-- SECONDARY ACTION -->
+                        <!-- MARK + KEYBOARD INFO -->
 
                         <div
                             class="
                                 mt-2.5
-
                                 flex
-
                                 items-center
                                 justify-between
-
                                 gap-3
                             "
                         >
-
-
-                            <!-- MARK -->
 
                             <button
                                 id="mark-question-btn"
@@ -1815,46 +1551,29 @@ function renderQuizLayout() {
 
                                 class="
                                     inline-flex
-
                                     items-center
                                     justify-center
-
                                     gap-2
-
                                     px-3
-
                                     py-2
-
                                     rounded-lg
-
                                     bg-slate-800/70
-
                                     hover:bg-slate-800
-
                                     border
                                     border-slate-700
-
                                     text-[10px]
-
                                     font-bold
-
                                     text-slate-300
-
                                     transition-all
                                 "
                             >
 
-
                                 <svg
                                     width="13"
                                     height="13"
-
                                     viewBox="0 0 24 24"
-
                                     fill="none"
-
                                     stroke="currentColor"
-
                                     stroke-width="2"
                                 >
 
@@ -1881,37 +1600,25 @@ function renderQuizLayout() {
 
 
 
-                            <!-- KEYBOARD INFO -->
-
                             <div
                                 class="
                                     hidden
                                     xl:flex
-
                                     items-center
-
                                     gap-1.5
-
                                     text-[8px]
-
                                     font-semibold
-
                                     text-slate-600
                                 "
                             >
 
-
                                 <span
                                     class="
                                         px-1.5
-
                                         py-1
-
                                         rounded-md
-
                                         border
                                         border-slate-800
-
                                         bg-slate-950/50
                                     "
                                 >
@@ -1924,14 +1631,10 @@ function renderQuizLayout() {
                                 <span
                                     class="
                                         px-1.5
-
                                         py-1
-
                                         rounded-md
-
                                         border
                                         border-slate-800
-
                                         bg-slate-950/50
                                     "
                                 >
@@ -1944,14 +1647,10 @@ function renderQuizLayout() {
                                 <span
                                     class="
                                         px-1.5
-
                                         py-1
-
                                         rounded-md
-
                                         border
                                         border-slate-800
-
                                         bg-slate-950/50
                                     "
                                 >
@@ -1975,68 +1674,49 @@ function renderQuizLayout() {
                     <div
                         class="
                             lg:hidden
-
                             mt-auto
-
                             pt-2
-
                             shrink-0
                         "
                     >
 
-
                         <div
                             class="
                                 bg-slate-950/50
-
                                 border
                                 border-slate-800
-
                                 rounded-xl
-
                                 px-3
                                 py-2
-
                                 flex
-
                                 items-center
-
                                 gap-3
                             "
                         >
 
-
                             <div
                                 class="
                                     flex-1
-
                                     min-w-0
                                 "
                             >
 
-
                                 <div
                                     class="
                                         flex
-
                                         items-center
                                         justify-between
-
                                         gap-2
                                     "
                                 >
-
 
                                     <p
                                         id="mobile-progress-text"
 
                                         class="
                                             text-[9px]
-
                                             font-bold
-
                                             text-slate-300
-
                                             truncate
                                         "
                                     >
@@ -2049,7 +1729,6 @@ function renderQuizLayout() {
                                     <span
                                         class="
                                             text-[8px]
-
                                             text-slate-600
                                         "
                                     >
@@ -2065,30 +1744,21 @@ function renderQuizLayout() {
                                 <div
                                     class="
                                         mt-1.5
-
                                         h-1
-
                                         bg-slate-800
-
                                         rounded-full
-
                                         overflow-hidden
                                     "
                                 >
-
 
                                     <div
                                         id="mobile-progress-bar"
 
                                         class="
                                             h-full
-
                                             bg-blue-500
-
                                             rounded-full
-
                                             transition-all
-
                                             duration-300
                                         "
 
@@ -2108,30 +1778,18 @@ function renderQuizLayout() {
 
                                 class="
                                     shrink-0
-
                                     inline-flex
-
                                     items-center
                                     justify-center
-
                                     gap-1.5
-
                                     bg-blue-600
-
                                     hover:bg-blue-500
-
                                     text-white
-
                                     text-[9px]
-
                                     font-black
-
                                     px-3
-
                                     py-2
-
                                     rounded-lg
-
                                     transition
                                 "
                             >
@@ -2164,14 +1822,10 @@ function renderQuizLayout() {
                 class="
                     hidden
                     lg:hidden
-
                     fixed
                     inset-0
-
                     z-40
-
                     bg-black/60
-
                     backdrop-blur-[2px]
                 "
             ></button>
@@ -2212,7 +1866,6 @@ function renderQuizLayout() {
                     lg:translate-x-0
 
                     transition-transform
-
                     duration-300
 
                     bg-slate-950
@@ -2230,37 +1883,28 @@ function renderQuizLayout() {
             >
 
 
-                <!-- MOBILE DRAWER HEADER -->
+                <!-- MOBILE SIDEBAR HEADER -->
 
                 <div
                     class="
                         lg:hidden
-
                         h-12
-
                         px-4
-
                         flex
-
                         items-center
                         justify-between
-
                         border-b
                         border-slate-800
-
                         shrink-0
                     "
                 >
-
 
                     <div>
 
                         <p
                             class="
                                 text-[11px]
-
                                 font-black
-
                                 text-white
                             "
                         >
@@ -2273,9 +1917,7 @@ function renderQuizLayout() {
                         <p
                             class="
                                 mt-0.5
-
                                 text-[8px]
-
                                 text-slate-500
                             "
                         >
@@ -2295,18 +1937,12 @@ function renderQuizLayout() {
                         class="
                             w-8
                             h-8
-
                             rounded-lg
-
                             bg-slate-900
-
                             border
                             border-slate-800
-
                             text-slate-400
-
                             flex
-
                             items-center
                             justify-center
                         "
@@ -2327,62 +1963,44 @@ function renderQuizLayout() {
                 <div
                     class="
                         flex-1
-
                         min-h-0
-
                         px-4
-
                         xl:px-5
-
                         py-3
-
                         flex
                         flex-col
-
                         overflow-hidden
                     "
                 >
-
 
                     <!-- PROGRESS -->
 
                     <div class="shrink-0">
 
-
                         <div
                             class="
                                 flex
-
                                 items-center
                                 justify-between
-
                                 gap-3
                             "
                         >
 
-
                             <div
                                 class="
                                     flex
-
                                     items-baseline
-
                                     gap-2
                                 "
                             >
-
 
                                 <span
                                     class="
                                         text-[9px]
                                         xl:text-[10px]
-
                                         uppercase
-
                                         tracking-[0.15em]
-
                                         font-black
-
                                         text-slate-500
                                     "
                                 >
@@ -2399,9 +2017,7 @@ function renderQuizLayout() {
                                     class="
                                         text-xl
                                         xl:text-2xl
-
                                         font-black
-
                                         text-white
                                     "
                                 >
@@ -2415,11 +2031,8 @@ function renderQuizLayout() {
                                 <span
                                     class="
                                         text-[10px]
-
                                         xl:text-xs
-
                                         font-semibold
-
                                         text-slate-500
                                     "
                                 >
@@ -2438,20 +2051,13 @@ function renderQuizLayout() {
                                 class="
                                     text-[10px]
                                     xl:text-xs
-
                                     font-black
-
                                     text-blue-400
-
                                     bg-blue-500/10
-
                                     border
                                     border-blue-500/20
-
                                     rounded-lg
-
                                     px-2.5
-
                                     py-1.5
                                 "
                             >
@@ -2469,34 +2075,23 @@ function renderQuizLayout() {
                         <div
                             class="
                                 mt-2.5
-
                                 h-1.5
-
                                 bg-slate-800
-
                                 rounded-full
-
                                 overflow-hidden
                             "
                         >
-
 
                             <div
                                 id="progress-bar"
 
                                 class="
                                     h-full
-
                                     bg-gradient-to-r
-
                                     from-blue-600
-
                                     to-cyan-400
-
                                     rounded-full
-
                                     transition-all
-
                                     duration-300
                                 "
 
@@ -2512,48 +2107,32 @@ function renderQuizLayout() {
                         <div
                             class="
                                 mt-3
-
                                 grid
-
                                 grid-cols-2
-
                                 gap-2
                             "
                         >
 
-
-                            <!-- UNANSWERED -->
-
                             <div
                                 class="
                                     rounded-xl
-
                                     bg-slate-900
-
                                     border
                                     border-slate-800
-
                                     px-3
-
                                     py-2
-
                                     flex
-
                                     items-center
                                     justify-between
-
                                     gap-2
                                 "
                             >
-
 
                                 <span
                                     class="
                                         text-[9px]
                                         xl:text-[10px]
-
                                         text-slate-500
-
                                         font-bold
                                     "
                                 >
@@ -2568,9 +2147,7 @@ function renderQuizLayout() {
 
                                     class="
                                         text-sm
-
                                         text-slate-200
-
                                         font-black
                                     "
                                 >
@@ -2583,38 +2160,26 @@ function renderQuizLayout() {
 
 
 
-                            <!-- MARKED -->
-
                             <div
                                 class="
                                     rounded-xl
-
                                     bg-slate-900
-
                                     border
                                     border-slate-800
-
                                     px-3
-
                                     py-2
-
                                     flex
-
                                     items-center
                                     justify-between
-
                                     gap-2
                                 "
                             >
-
 
                                 <span
                                     class="
                                         text-[9px]
                                         xl:text-[10px]
-
                                         text-slate-500
-
                                         font-bold
                                     "
                                 >
@@ -2629,9 +2194,7 @@ function renderQuizLayout() {
 
                                     class="
                                         text-sm
-
                                         text-amber-400
-
                                         font-black
                                     "
                                 >
@@ -2651,35 +2214,24 @@ function renderQuizLayout() {
                         <div
                             class="
                                 mt-3
-
                                 pt-2.5
-
                                 border-t
                                 border-slate-800
-
                                 flex
-
                                 items-center
-
                                 flex-wrap
-
                                 gap-x-4
                                 gap-y-1.5
-
                                 text-[9px]
                                 xl:text-[10px]
-
                                 text-slate-500
                             "
                         >
 
-
                             <span
                                 class="
                                     flex
-
                                     items-center
-
                                     gap-1.5
                                 "
                             >
@@ -2688,9 +2240,7 @@ function renderQuizLayout() {
                                     class="
                                         w-2
                                         h-2
-
                                         rounded-sm
-
                                         bg-emerald-600
                                     "
                                 ></span>
@@ -2704,9 +2254,7 @@ function renderQuizLayout() {
                             <span
                                 class="
                                     flex
-
                                     items-center
-
                                     gap-1.5
                                 "
                             >
@@ -2715,11 +2263,8 @@ function renderQuizLayout() {
                                     class="
                                         w-2
                                         h-2
-
                                         rounded-sm
-
                                         bg-slate-800
-
                                         border
                                         border-slate-700
                                     "
@@ -2734,9 +2279,7 @@ function renderQuizLayout() {
                             <span
                                 class="
                                     flex
-
                                     items-center
-
                                     gap-1.5
                                 "
                             >
@@ -2745,11 +2288,8 @@ function renderQuizLayout() {
                                     class="
                                         w-2
                                         h-2
-
                                         rounded-sm
-
                                         bg-blue-600
-
                                         ring-1
                                         ring-blue-400/70
                                     "
@@ -2764,9 +2304,7 @@ function renderQuizLayout() {
                             <span
                                 class="
                                     flex
-
                                     items-center
-
                                     gap-1.5
                                 "
                             >
@@ -2775,9 +2313,7 @@ function renderQuizLayout() {
                                     class="
                                         w-2
                                         h-2
-
                                         rounded-sm
-
                                         bg-amber-500
                                     "
                                 ></span>
@@ -2792,24 +2328,17 @@ function renderQuizLayout() {
 
 
 
-                    <!-- =================================================
-                         LARGE QUESTION GRID
-                    ================================================== -->
+                    <!-- LARGE QUESTION GRID -->
 
                     <div
                         id="question-grid"
 
                         class="
                             mt-3
-
                             grid
-
                             grid-cols-10
-
                             gap-1.5
-
                             content-start
-
                             shrink-0
                         "
                     ></div>
@@ -2825,40 +2354,24 @@ function renderQuizLayout() {
 
                         class="
                             mt-3
-
                             w-full
-
                             shrink-0
-
                             inline-flex
-
                             items-center
                             justify-center
-
                             gap-2
-
                             bg-red-500/10
-
                             hover:bg-red-500/15
-
                             text-red-400
-
                             hover:text-red-300
-
                             border
                             border-red-500/30
-
                             text-[10px]
                             xl:text-xs
-
                             font-black
-
                             px-3
-
                             py-2.5
-
                             rounded-xl
-
                             transition-all
                         "
                     >
@@ -2884,43 +2397,29 @@ function renderQuizLayout() {
 
             class="
                 hidden
-
                 fixed
                 inset-0
-
                 z-[100]
-
                 bg-black/70
-
                 backdrop-blur-sm
-
                 p-4
-
                 items-center
                 justify-center
             "
         >
 
-
             <div
                 class="
                     w-full
-
                     max-w-md
-
                     bg-slate-900
-
                     border
                     border-slate-700
-
                     rounded-3xl
-
                     shadow-2xl
-
                     overflow-hidden
                 "
             >
-
 
                 <div
                     class="
@@ -2929,21 +2428,16 @@ function renderQuizLayout() {
                     "
                 >
 
-
                     <div
                         id="confirm-modal-icon"
 
                         class="
                             w-12
                             h-12
-
                             rounded-2xl
-
                             flex
-
                             items-center
                             justify-center
-
                             mb-5
                         "
                     ></div>
@@ -2955,11 +2449,8 @@ function renderQuizLayout() {
 
                         class="
                             text-xl
-
                             font-black
-
                             text-white
-
                             tracking-tight
                         "
                     ></h3>
@@ -2971,11 +2462,8 @@ function renderQuizLayout() {
 
                         class="
                             mt-2
-
                             text-sm
-
                             text-slate-400
-
                             leading-6
                         "
                     ></p>
@@ -2987,16 +2475,11 @@ function renderQuizLayout() {
 
                         class="
                             hidden
-
                             mt-5
-
                             rounded-2xl
-
                             bg-slate-950/60
-
                             border
                             border-slate-800
-
                             p-4
                         "
                     ></div>
@@ -3009,25 +2492,17 @@ function renderQuizLayout() {
                     class="
                         px-6
                         sm:px-7
-
                         py-4
-
                         border-t
                         border-slate-800
-
                         bg-slate-950/30
-
                         flex
-
                         flex-col-reverse
                         sm:flex-row
-
                         justify-end
-
                         gap-2.5
                     "
                 >
-
 
                     <button
                         type="button"
@@ -3036,24 +2511,15 @@ function renderQuizLayout() {
 
                         class="
                             px-5
-
                             py-2.5
-
                             rounded-xl
-
                             bg-slate-800
-
                             hover:bg-slate-700
-
                             border
                             border-slate-700
-
                             text-xs
-
                             font-bold
-
                             text-slate-300
-
                             transition
                         "
                     >
@@ -3071,15 +2537,10 @@ function renderQuizLayout() {
 
                         class="
                             px-5
-
                             py-2.5
-
                             rounded-xl
-
                             text-xs
-
                             font-black
-
                             transition
                         "
                     ></button>
@@ -3137,10 +2598,6 @@ function loadQuestion(
 
 
 
-    // =====================================================
-    // NUMBER
-    // =====================================================
-
     setText(
 
         'question-number-title',
@@ -3150,10 +2607,6 @@ function loadQuestion(
     );
 
 
-
-    // =====================================================
-    // SECTION
-    // =====================================================
 
     setText(
 
@@ -3166,10 +2619,6 @@ function loadQuestion(
     );
 
 
-
-    // =====================================================
-    // QUESTION
-    // =====================================================
 
     const questionText =
         document.getElementById(
@@ -3185,10 +2634,6 @@ function loadQuestion(
     }
 
 
-
-    // =====================================================
-    // OPTIONS
-    // =====================================================
 
     const optionsContainer =
         document.getElementById(
@@ -3236,10 +2681,6 @@ function loadQuestion(
 
 
 
-            // =================================================
-            // BUTTON
-            // =================================================
-
             const button =
                 document.createElement(
                     'button'
@@ -3263,10 +2704,6 @@ function loadQuestion(
             ].join(' ');
 
 
-
-            // =================================================
-            // LETTER
-            // =================================================
 
             const letter =
                 document.createElement(
@@ -3295,10 +2732,6 @@ function loadQuestion(
 
 
 
-            // =================================================
-            // TEXT
-            // =================================================
-
             const text =
                 document.createElement(
                     'span'
@@ -3325,10 +2758,6 @@ function loadQuestion(
 
 
 
-            // =================================================
-            // SELECTED CHECK
-            // =================================================
-
             if (isSelected) {
 
                 const check =
@@ -3346,13 +2775,9 @@ function loadQuestion(
                     <svg
                         width="14"
                         height="14"
-
                         viewBox="0 0 24 24"
-
                         fill="none"
-
                         stroke="currentColor"
-
                         stroke-width="2.5"
                     >
 
@@ -3391,10 +2816,6 @@ function loadQuestion(
 
 
 
-    // =====================================================
-    // PREVIOUS
-    // =====================================================
-
     const prev =
         document.getElementById(
             'prev-btn'
@@ -3409,10 +2830,6 @@ function loadQuestion(
     }
 
 
-
-    // =====================================================
-    // NEXT
-    // =====================================================
 
     const next =
         document.getElementById(
@@ -3726,17 +3143,11 @@ function renderQuestionGrid() {
 
 
 
-            // =================================================
-            // LARGE BUTTON
-            // =================================================
-
             let className =
 
                 'relative h-9 min-w-0 w-full rounded-lg text-[10px] sm:text-[11px] xl:text-xs font-black transition-all flex items-center justify-center border';
 
 
-
-            // ACTIVE
 
             if (current) {
 
@@ -3747,8 +3158,6 @@ function renderQuestionGrid() {
             }
 
 
-            // MARKED
-
             else if (marked) {
 
                 className +=
@@ -3758,8 +3167,6 @@ function renderQuestionGrid() {
             }
 
 
-            // ANSWERED
-
             else if (answered) {
 
                 className +=
@@ -3768,8 +3175,6 @@ function renderQuestionGrid() {
 
             }
 
-
-            // UNANSWERED
 
             else {
 
@@ -3789,8 +3194,6 @@ function renderQuestionGrid() {
                 index + 1;
 
 
-
-            // MARK DOT
 
             if (marked) {
 
@@ -4179,7 +3582,7 @@ function startTimer() {
 
 
 
-                // autosave every five seconds
+                // Autosave setiap 5 detik
 
                 if (
                     timeRemaining %
@@ -4192,6 +3595,8 @@ function startTimer() {
                 }
 
 
+
+                // Waktu habis
 
                 if (
                     timeRemaining <=
@@ -4300,9 +3705,7 @@ function updateTimerDisplay() {
 
 
 
-    // =====================================================
-    // < 10 MINUTES
-    // =====================================================
+    // < 10 MENIT
 
     if (
         timeRemaining <=
@@ -4342,9 +3745,7 @@ function updateTimerDisplay() {
 
 
 
-    // =====================================================
-    // 10 - 30 MINUTES
-    // =====================================================
+    // 10 - 30 MENIT
 
     else if (
         timeRemaining <=
@@ -4372,9 +3773,7 @@ function updateTimerDisplay() {
 
 
 
-    // =====================================================
     // NORMAL
-    // =====================================================
 
     else {
 
@@ -4519,30 +3918,21 @@ function requestSubmitExam() {
             <div
                 class="
                     grid
-
                     grid-cols-3
-
                     gap-3
-
                     text-center
                 "
             >
-
 
                 <div>
 
                     <span
                         class="
                             block
-
                             text-[8px]
-
                             uppercase
-
                             font-black
-
                             tracking-wider
-
                             text-slate-600
                         "
                     >
@@ -4555,11 +3945,8 @@ function requestSubmitExam() {
                     <strong
                         class="
                             block
-
                             mt-1
-
                             text-lg
-
                             text-emerald-400
                         "
                     >
@@ -4577,15 +3964,10 @@ function requestSubmitExam() {
                     <span
                         class="
                             block
-
                             text-[8px]
-
                             uppercase
-
                             font-black
-
                             tracking-wider
-
                             text-slate-600
                         "
                     >
@@ -4598,11 +3980,8 @@ function requestSubmitExam() {
                     <strong
                         class="
                             block
-
                             mt-1
-
                             text-lg
-
                             text-slate-300
                         "
                     >
@@ -4620,15 +3999,10 @@ function requestSubmitExam() {
                     <span
                         class="
                             block
-
                             text-[8px]
-
                             uppercase
-
                             font-black
-
                             tracking-wider
-
                             text-slate-600
                         "
                     >
@@ -4641,11 +4015,8 @@ function requestSubmitExam() {
                     <strong
                         class="
                             block
-
                             mt-1
-
                             text-lg
-
                             text-amber-400
                         "
                     >
@@ -4790,13 +4161,9 @@ function openConfirmModal(
         <svg
             width="23"
             height="23"
-
             viewBox="0 0 24 24"
-
             fill="none"
-
             stroke="currentColor"
-
             stroke-width="2"
         >
 
@@ -4848,7 +4215,7 @@ function openConfirmModal(
 
 
 // =========================================================
-// CLOSE MODAL
+// CLOSE CONFIRM MODAL
 // =========================================================
 
 function closeConfirmModal() {
@@ -4892,7 +4259,7 @@ function submitExam() {
 
 
 // =========================================================
-// FINISH EXAM
+// FINALIZE EXAM
 // =========================================================
 
 function finalizeExam(
@@ -4913,6 +4280,10 @@ function finalizeExam(
 
 
 
+    // =====================================================
+    // STOP TIMER
+    // =====================================================
+
     if (
         timerInterval
     ) {
@@ -4930,7 +4301,7 @@ function finalizeExam(
 
 
     // =====================================================
-    // CORRECT ANSWERS
+    // COUNT CORRECT ANSWERS
     // =====================================================
 
     const correctAnswers =
@@ -4971,7 +4342,7 @@ function finalizeExam(
 
 
     // =====================================================
-    // 0 - 100 SCORE
+    // SCORE 0 - 100
     // =====================================================
 
     const score =
@@ -5000,62 +4371,1026 @@ function finalizeExam(
 
 
 
+    // Ujian selesai.
+    // Autosave tidak diperlukan lagi.
+
     clearSavedProgress();
 
 
 
     // =====================================================
-    // OPTIONAL FIREBASE USER
+    // SAVE RESULT TEMPORARILY
     // =====================================================
 
-    const currentUser =
-        (
-            typeof auth !==
-            'undefined'
-        )
+    pendingExamResult = {
 
-            ? auth.currentUser
+        score:
+            score,
 
-            : null;
+        correctAnswers:
+            correctAnswers,
+
+        answered:
+            answered,
+
+        total:
+            currentQuestions.length,
+
+        autoSubmit:
+            autoSubmit
+
+    };
 
 
 
     // =====================================================
-    // SAVE ONLY WHEN LOGGED IN
+    // ASK PARTICIPANT NAME
+    // =====================================================
+
+    showParticipantNameModal();
+
+}
+
+
+
+// =========================================================
+// PARTICIPANT NAME POPUP
+// =========================================================
+
+function showParticipantNameModal() {
+
+    if (
+        !pendingExamResult
+    ) {
+
+        return;
+
+    }
+
+
+
+    // Hapus popup sebelumnya jika ada.
+
+    removeParticipantNameModal();
+
+
+
+    // Jika user sebelumnya login Google,
+    // gunakan displayName sebagai nilai awal.
+    // Login tetap tidak diwajibkan.
+
+    let defaultName = '';
+
+
+    if (
+        typeof auth !==
+            'undefined' &&
+
+        auth.currentUser &&
+
+        auth.currentUser.displayName
+    ) {
+
+        defaultName =
+            auth.currentUser.displayName;
+
+    }
+
+
+
+    const modal =
+        document.createElement(
+            'div'
+        );
+
+
+    modal.id =
+        'participant-name-modal';
+
+
+    modal.className = `
+
+        fixed
+        inset-0
+
+        z-[200]
+
+        bg-black/80
+
+        backdrop-blur-md
+
+        flex
+
+        items-center
+        justify-center
+
+        p-4
+    `;
+
+
+
+    modal.innerHTML = `
+
+        <div
+            class="
+                w-full
+
+                max-w-md
+
+                bg-slate-900
+
+                border
+                border-slate-700
+
+                rounded-3xl
+
+                shadow-2xl
+                shadow-black/40
+
+                overflow-hidden
+            "
+        >
+
+
+            <!-- =============================================
+                 MAIN CONTENT
+            ============================================== -->
+
+            <div
+                class="
+                    p-6
+                    sm:p-7
+                "
+            >
+
+
+                <!-- TROPHY ICON -->
+
+                <div
+                    class="
+                        w-14
+                        h-14
+
+                        rounded-2xl
+
+                        bg-blue-500/10
+
+                        border
+                        border-blue-500/20
+
+                        text-blue-400
+
+                        flex
+                        items-center
+                        justify-center
+
+                        mb-5
+                    "
+                >
+
+                    <svg
+                        width="27"
+                        height="27"
+
+                        viewBox="0 0 24 24"
+
+                        fill="none"
+
+                        stroke="currentColor"
+
+                        stroke-width="1.8"
+                    >
+
+                        <path
+                            d="M8 21h8"
+                        />
+
+                        <path
+                            d="M12 17v4"
+                        />
+
+                        <path
+                            d="M7 4h10"
+                        />
+
+                        <path
+                            d="M5 4v5a7 7 0 0 0 14 0V4"
+                        />
+
+                        <path
+                            d="M5 8H3a2 2 0 0 0 0 4h2"
+                        />
+
+                        <path
+                            d="M19 8h2a2 2 0 0 1 0 4h-2"
+                        />
+
+                    </svg>
+
+                </div>
+
+
+
+                <!-- TITLE -->
+
+                <h2
+                    class="
+                        text-xl
+                        sm:text-2xl
+
+                        font-black
+
+                        tracking-tight
+
+                        text-white
+                    "
+                >
+
+                    Masukkan Nama Peserta
+
+                </h2>
+
+
+
+                <!-- DESCRIPTION -->
+
+                <p
+                    class="
+                        mt-2
+
+                        text-sm
+
+                        leading-6
+
+                        text-slate-400
+                    "
+                >
+
+                    Masukkan nama yang ingin ditampilkan bersama skor Anda
+                    pada papan peringkat RuangTryout.
+
+                </p>
+
+
+
+                <!-- =============================================
+                     EXAM RESULT PREVIEW
+                ============================================== -->
+
+                <div
+                    class="
+                        mt-5
+
+                        bg-slate-950/60
+
+                        border
+                        border-slate-800
+
+                        rounded-2xl
+
+                        px-4
+                        py-3.5
+
+                        flex
+
+                        items-center
+                        justify-between
+
+                        gap-4
+                    "
+                >
+
+
+                    <div>
+
+                        <span
+                            class="
+                                text-[9px]
+
+                                uppercase
+
+                                tracking-[0.15em]
+
+                                font-black
+
+                                text-slate-600
+                            "
+                        >
+
+                            Hasil Ujian
+
+                        </span>
+
+
+                        <p
+                            class="
+                                mt-1
+
+                                text-xs
+
+                                font-bold
+
+                                text-slate-400
+                            "
+                        >
+
+                            ${escapeHtml(
+                                getCategoryDisplayName()
+                            )}
+
+                            &bull;
+
+                            ${pendingExamResult.correctAnswers}/${pendingExamResult.total}
+                            benar
+
+                        </p>
+
+                    </div>
+
+
+
+                    <div
+                        class="
+                            text-right
+
+                            shrink-0
+                        "
+                    >
+
+                        <span
+                            class="
+                                text-[8px]
+
+                                uppercase
+
+                                tracking-wider
+
+                                font-black
+
+                                text-slate-600
+                            "
+                        >
+
+                            Nilai
+
+                        </span>
+
+
+                        <strong
+                            class="
+                                block
+
+                                text-3xl
+
+                                leading-none
+
+                                font-black
+
+                                text-emerald-400
+                            "
+                        >
+
+                            ${pendingExamResult.score}
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =============================================
+                     NAME FIELD
+                ============================================== -->
+
+                <div
+                    class="
+                        mt-6
+                    "
+                >
+
+
+                    <label
+                        for="participant-name-input"
+
+                        class="
+                            block
+
+                            mb-2
+
+                            text-[10px]
+
+                            uppercase
+
+                            tracking-[0.12em]
+
+                            font-black
+
+                            text-slate-400
+                        "
+                    >
+
+                        Nama Peserta
+
+                    </label>
+
+
+                    <input
+                        id="participant-name-input"
+
+                        type="text"
+
+                        maxlength="40"
+
+                        autocomplete="name"
+
+                        placeholder="Masukkan nama Anda"
+
+                        class="
+                            w-full
+
+                            bg-slate-950
+
+                            border
+                            border-slate-700
+
+                            focus:border-blue-500
+
+                            focus:ring-2
+                            focus:ring-blue-500/20
+
+                            text-white
+
+                            placeholder:text-slate-600
+
+                            text-sm
+
+                            font-semibold
+
+                            px-4
+                            py-3.5
+
+                            rounded-xl
+
+                            outline-none
+
+                            transition-all
+                        "
+                    >
+
+
+
+                    <p
+                        id="participant-name-error"
+
+                        class="
+                            hidden
+
+                            mt-2
+
+                            text-[10px]
+
+                            font-semibold
+
+                            text-red-400
+                        "
+                    ></p>
+
+
+
+                    <div
+                        class="
+                            mt-3
+
+                            flex
+
+                            items-start
+
+                            gap-2
+                        "
+                    >
+
+                        <svg
+                            class="
+                                shrink-0
+
+                                mt-0.5
+
+                                text-slate-600
+                            "
+
+                            width="12"
+                            height="12"
+
+                            viewBox="0 0 24 24"
+
+                            fill="none"
+
+                            stroke="currentColor"
+
+                            stroke-width="2"
+                        >
+
+                            <circle
+                                cx="12"
+                                cy="12"
+                                r="9"
+                            />
+
+                            <path
+                                d="M12 11v5"
+                            />
+
+                            <path
+                                d="M12 8h.01"
+                            />
+
+                        </svg>
+
+
+                        <p
+                            class="
+                                text-[9px]
+
+                                leading-4
+
+                                text-slate-600
+                            "
+                        >
+
+                            Nama akan terlihat oleh pengguna lain di papan peringkat.
+                            Gunakan nama yang pantas, maksimal 40 karakter.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 ACTIONS
+            ============================================== -->
+
+            <div
+                class="
+                    px-6
+                    sm:px-7
+
+                    py-4
+
+                    bg-slate-950/40
+
+                    border-t
+                    border-slate-800
+
+                    flex
+
+                    flex-col-reverse
+                    sm:flex-row
+
+                    sm:items-center
+                    sm:justify-between
+
+                    gap-2.5
+                "
+            >
+
+
+                <!-- SKIP -->
+
+                <button
+                    id="skip-leaderboard-button"
+
+                    type="button"
+
+                    onclick="continueWithoutLeaderboard()"
+
+                    class="
+                        text-[10px]
+                        sm:text-xs
+
+                        font-bold
+
+                        text-slate-500
+
+                        hover:text-slate-300
+
+                        px-3
+                        py-2.5
+
+                        transition
+                    "
+                >
+
+                    Lewati Papan Peringkat
+
+                </button>
+
+
+
+                <!-- SAVE -->
+
+                <button
+                    id="save-leaderboard-button"
+
+                    type="button"
+
+                    onclick="submitParticipantName()"
+
+                    class="
+                        inline-flex
+
+                        items-center
+                        justify-center
+
+                        gap-2
+
+                        bg-blue-600
+
+                        hover:bg-blue-500
+
+                        disabled:bg-slate-700
+
+                        disabled:text-slate-500
+
+                        text-white
+
+                        text-xs
+                        sm:text-sm
+
+                        font-black
+
+                        px-5
+                        py-3
+
+                        rounded-xl
+
+                        shadow-lg
+                        shadow-blue-600/20
+
+                        transition-all
+                    "
+                >
+
+
+                    <svg
+                        width="15"
+                        height="15"
+
+                        viewBox="0 0 24 24"
+
+                        fill="none"
+
+                        stroke="currentColor"
+
+                        stroke-width="2"
+                    >
+
+                        <path
+                            d="M8 21h8"
+                        />
+
+                        <path
+                            d="M12 17v4"
+                        />
+
+                        <path
+                            d="M7 4h10"
+                        />
+
+                        <path
+                            d="M5 4v5a7 7 0 0 0 14 0V4"
+                        />
+
+                    </svg>
+
+
+                    <span
+                        id="save-leaderboard-button-text"
+                    >
+
+                        Simpan ke Leaderboard
+
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+    `;
+
+
+
+    document.body.appendChild(
+        modal
+    );
+
+
+
+    // =====================================================
+    // INPUT INITIALIZATION
+    // =====================================================
+
+    const input =
+        document.getElementById(
+            'participant-name-input'
+        );
+
+
+    if (input) {
+
+        input.value =
+            defaultName;
+
+
+        setTimeout(
+            () => {
+
+                input.focus();
+
+
+                if (
+                    defaultName
+                ) {
+
+                    input.select();
+
+                }
+
+            },
+
+            100
+        );
+
+
+
+        // ENTER = SAVE
+
+        input.addEventListener(
+            'keydown',
+
+            (
+                event
+            ) => {
+
+                if (
+                    event.key ===
+                    'Enter'
+                ) {
+
+                    event.preventDefault();
+
+
+                    submitParticipantName();
+
+                }
+
+            }
+        );
+
+    }
+
+}
+
+
+
+// =========================================================
+// SUBMIT PARTICIPANT NAME TO FIRESTORE
+// =========================================================
+
+async function submitParticipantName() {
+
+    if (
+        !pendingExamResult
+    ) {
+
+        return;
+
+    }
+
+
+
+    const input =
+        document.getElementById(
+            'participant-name-input'
+        );
+
+
+    const errorElement =
+        document.getElementById(
+            'participant-name-error'
+        );
+
+
+    const saveButton =
+        document.getElementById(
+            'save-leaderboard-button'
+        );
+
+
+    const saveButtonText =
+        document.getElementById(
+            'save-leaderboard-button-text'
+        );
+
+
+    if (!input) {
+
+        return;
+
+    }
+
+
+
+    // =====================================================
+    // NORMALIZE NAME
+    // =====================================================
+
+    let participantName =
+        input.value
+            .trim()
+            .replace(
+                /\s+/g,
+                ' '
+            );
+
+
+
+    // Izinkan huruf, angka, spasi,
+    // apostrof, titik, dan hyphen.
+
+    try {
+
+        participantName =
+            participantName.replace(
+                /[^\p{L}\p{M}\p{N}\s.'-]/gu,
+                ''
+            );
+
+    }
+
+    catch (
+        error
+    ) {
+
+        // Fallback browser lama.
+
+        participantName =
+            participantName.replace(
+                /[^a-zA-Z0-9\s.'-]/g,
+                ''
+            );
+
+    }
+
+
+
+    // =====================================================
+    // VALIDATION
     // =====================================================
 
     if (
-
-        currentUser &&
-
-        typeof db !==
-            'undefined' &&
-
-        typeof firebase !==
-            'undefined'
-
+        participantName.length <
+        2
     ) {
 
-        db.collection(
-            'leaderboard'
-        )
+        showParticipantNameError(
+            'Masukkan nama minimal 2 karakter.'
+        );
 
+
+        input.focus();
+
+
+        return;
+
+    }
+
+
+
+    if (
+        participantName.length >
+        40
+    ) {
+
+        showParticipantNameError(
+            'Nama maksimal 40 karakter.'
+        );
+
+
+        input.focus();
+
+
+        return;
+
+    }
+
+
+
+    // =====================================================
+    // FIREBASE AVAILABILITY
+    // =====================================================
+
+    if (
+        typeof db ===
+        'undefined' ||
+
+        typeof firebase ===
+        'undefined'
+    ) {
+
+        showParticipantNameError(
+            'Koneksi leaderboard belum tersedia. Silakan coba kembali.'
+        );
+
+
+        return;
+
+    }
+
+
+
+    // =====================================================
+    // LOADING
+    // =====================================================
+
+    if (
+        errorElement
+    ) {
+
+        errorElement.classList.add(
+            'hidden'
+        );
+
+    }
+
+
+    if (
+        saveButton
+    ) {
+
+        saveButton.disabled =
+            true;
+
+    }
+
+
+    if (
+        saveButtonText
+    ) {
+
+        saveButtonText.textContent =
+            'Menyimpan...';
+
+    }
+
+
+
+    try {
+
+
+        // =================================================
+        // SAVE TO FIRESTORE
+        // =================================================
+
+        await db
+            .collection(
+                'leaderboard'
+            )
             .add({
 
                 name:
-                    currentUser.displayName ||
-                    'Peserta',
-
-                photoURL:
-                    currentUser.photoURL ||
-                    '',
+                    participantName,
 
                 score:
-                    score,
+                    pendingExamResult.score,
+
+                // Disimpan juga untuk kompatibilitas
+                // apabila leaderboard memakai persentase.
+
+                percentage:
+                    pendingExamResult.score,
 
                 category:
-                    selectedCategory
-                        .toUpperCase(),
+                    selectedCategory.toUpperCase(),
+
+                correctAnswers:
+                    pendingExamResult.correctAnswers,
+
+                answered:
+                    pendingExamResult.answered,
+
+                totalQuestions:
+                    pendingExamResult.total,
+
+                photoURL:
+                    '',
 
                 timestamp:
                     firebase
@@ -5063,72 +5398,219 @@ function finalizeExam(
                         .FieldValue
                         .serverTimestamp()
 
-            })
+            });
 
 
-            .then(
-                () => {
 
-                    showResultScreen(
+        // =================================================
+        // SUCCESS
+        // =================================================
 
-                        score,
-
-                        correctAnswers,
-
-                        answered,
-
-                        autoSubmit
-
-                    );
-
-                }
-            )
+        const result =
+            {
+                ...pendingExamResult
+            };
 
 
-            .catch(
-                (
-                    error
-                ) => {
-
-                    console.error(
-                        error
-                    );
+        pendingExamResult =
+            null;
 
 
-                    showResultScreen(
+        removeParticipantNameModal();
 
-                        score,
 
-                        correctAnswers,
-
-                        answered,
-
-                        autoSubmit,
-
-                        true
-
-                    );
-
-                }
-            );
-
-    }
-
-    else {
 
         showResultScreen(
 
-            score,
+            result.score,
 
-            correctAnswers,
+            result.correctAnswers,
 
-            answered,
+            result.answered,
 
-            autoSubmit
+            result.autoSubmit,
+
+            false,
+
+            true,
+
+            participantName
 
         );
 
     }
+
+    catch (
+        error
+    ) {
+
+        console.error(
+            'Gagal menyimpan leaderboard:',
+            error
+        );
+
+
+        if (
+            saveButton
+        ) {
+
+            saveButton.disabled =
+                false;
+
+        }
+
+
+        if (
+            saveButtonText
+        ) {
+
+            saveButtonText.textContent =
+                'Coba Simpan Lagi';
+
+        }
+
+
+        let errorMessage =
+            'Nama dan skor belum berhasil disimpan. Silakan coba lagi.';
+
+
+
+        // Error umum Firestore ketika guest
+        // tidak memiliki izin write.
+
+        if (
+            error &&
+            (
+                error.code ===
+                    'permission-denied' ||
+
+                String(
+                    error.message || ''
+                )
+                    .toLowerCase()
+                    .includes(
+                        'permission'
+                    )
+            )
+        ) {
+
+            errorMessage =
+                'Leaderboard belum mengizinkan penyimpanan peserta tanpa login. Periksa Firestore Security Rules.';
+
+        }
+
+
+        showParticipantNameError(
+            errorMessage
+        );
+
+    }
+
+}
+
+
+
+// =========================================================
+// PARTICIPANT NAME ERROR
+// =========================================================
+
+function showParticipantNameError(
+    message
+) {
+
+    const element =
+        document.getElementById(
+            'participant-name-error'
+        );
+
+
+    if (!element) {
+
+        return;
+
+    }
+
+
+    element.textContent =
+        message;
+
+
+    element.classList.remove(
+        'hidden'
+    );
+
+}
+
+
+
+// =========================================================
+// REMOVE PARTICIPANT MODAL
+// =========================================================
+
+function removeParticipantNameModal() {
+
+    const modal =
+        document.getElementById(
+            'participant-name-modal'
+        );
+
+
+    if (modal) {
+
+        modal.remove();
+
+    }
+
+}
+
+
+
+// =========================================================
+// SKIP LEADERBOARD
+// =========================================================
+
+function continueWithoutLeaderboard() {
+
+    if (
+        !pendingExamResult
+    ) {
+
+        return;
+
+    }
+
+
+    const result =
+        {
+            ...pendingExamResult
+        };
+
+
+    pendingExamResult =
+        null;
+
+
+    removeParticipantNameModal();
+
+
+
+    showResultScreen(
+
+        result.score,
+
+        result.correctAnswers,
+
+        result.answered,
+
+        result.autoSubmit,
+
+        false,
+
+        false,
+
+        ''
+
+    );
 
 }
 
@@ -5148,7 +5630,11 @@ function showResultScreen(
 
     autoSubmit = false,
 
-    saveFailed = false
+    saveFailed = false,
+
+    savedToLeaderboard = false,
+
+    participantName = ''
 
 ) {
 
@@ -5175,23 +5661,17 @@ function showResultScreen(
         <div
             class="
                 flex-1
-
                 flex
-
                 items-center
                 justify-center
-
                 p-5
             "
         >
 
-
             <div
                 class="
                     w-full
-
                     max-w-2xl
-
                     text-center
                 "
             >
@@ -5201,23 +5681,15 @@ function showResultScreen(
                     class="
                         w-16
                         h-16
-
                         sm:w-20
                         sm:h-20
-
                         mx-auto
-
                         bg-emerald-500/10
-
                         text-emerald-400
-
                         border
                         border-emerald-500/20
-
                         rounded-3xl
-
                         flex
-
                         items-center
                         justify-center
                     "
@@ -5226,13 +5698,9 @@ function showResultScreen(
                     <svg
                         width="32"
                         height="32"
-
                         viewBox="0 0 24 24"
-
                         fill="none"
-
                         stroke="currentColor"
-
                         stroke-width="1.8"
                     >
 
@@ -5261,12 +5729,9 @@ function showResultScreen(
                 <h2
                     class="
                         mt-6
-
                         text-2xl
                         sm:text-3xl
-
                         font-black
-
                         text-white
                     "
                 >
@@ -5286,20 +5751,22 @@ function showResultScreen(
                 <p
                     class="
                         mt-2
-
                         text-xs
                         sm:text-sm
-
                         text-slate-400
                     "
                 >
 
                     ${
-                        saveFailed
+                        savedToLeaderboard
 
-                            ? 'Nilai berhasil dihitung. Penyimpanan leaderboard mengalami kendala.'
+                            ? `Skor ${escapeHtml(participantName)} berhasil disimpan ke papan peringkat.`
 
-                            : 'Hasil simulasi Anda telah dihitung.'
+                            : saveFailed
+
+                                ? 'Nilai berhasil dihitung, tetapi leaderboard mengalami kendala.'
+
+                                : 'Hasil simulasi Anda telah dihitung.'
                     }
 
                 </p>
@@ -5311,15 +5778,10 @@ function showResultScreen(
                 <div
                     class="
                         mt-7
-
                         max-w-lg
-
                         mx-auto
-
                         grid
-
                         grid-cols-3
-
                         gap-3
                     "
                 >
@@ -5330,12 +5792,9 @@ function showResultScreen(
                     <div
                         class="
                             bg-slate-950/50
-
                             border
                             border-slate-800
-
                             rounded-2xl
-
                             p-4
                         "
                     >
@@ -5343,11 +5802,8 @@ function showResultScreen(
                         <span
                             class="
                                 text-[9px]
-
                                 uppercase
-
                                 font-black
-
                                 text-slate-600
                             "
                         >
@@ -5360,14 +5816,10 @@ function showResultScreen(
                         <strong
                             class="
                                 block
-
                                 mt-1
-
                                 text-3xl
                                 sm:text-4xl
-
                                 font-black
-
                                 text-emerald-400
                             "
                         >
@@ -5385,12 +5837,9 @@ function showResultScreen(
                     <div
                         class="
                             bg-slate-950/50
-
                             border
                             border-slate-800
-
                             rounded-2xl
-
                             p-4
                         "
                     >
@@ -5398,11 +5847,8 @@ function showResultScreen(
                         <span
                             class="
                                 text-[9px]
-
                                 uppercase
-
                                 font-black
-
                                 text-slate-600
                             "
                         >
@@ -5415,14 +5861,10 @@ function showResultScreen(
                         <strong
                             class="
                                 block
-
                                 mt-1
-
                                 text-2xl
                                 sm:text-3xl
-
                                 font-black
-
                                 text-white
                             "
                         >
@@ -5440,12 +5882,9 @@ function showResultScreen(
                     <div
                         class="
                             bg-slate-950/50
-
                             border
                             border-slate-800
-
                             rounded-2xl
-
                             p-4
                         "
                     >
@@ -5453,11 +5892,8 @@ function showResultScreen(
                         <span
                             class="
                                 text-[9px]
-
                                 uppercase
-
                                 font-black
-
                                 text-slate-600
                             "
                         >
@@ -5470,14 +5906,10 @@ function showResultScreen(
                         <strong
                             class="
                                 block
-
                                 mt-1
-
                                 text-2xl
                                 sm:text-3xl
-
                                 font-black
-
                                 text-white
                             "
                         >
@@ -5495,40 +5927,27 @@ function showResultScreen(
                 <div
                     class="
                         mt-7
-
                         flex
-
                         flex-col
                         sm:flex-row
-
                         justify-center
-
                         gap-3
                     "
                 >
-
 
                     <a
                         href="leaderboard.html"
 
                         class="
                             bg-blue-600
-
                             hover:bg-blue-500
-
                             text-white
-
                             text-xs
                             sm:text-sm
-
                             font-black
-
                             px-6
-
                             py-3
-
                             rounded-xl
-
                             transition
                         "
                     >
@@ -5543,25 +5962,16 @@ function showResultScreen(
 
                         class="
                             bg-slate-800
-
                             hover:bg-slate-700
-
                             text-slate-300
-
                             text-xs
                             sm:text-sm
-
                             font-bold
-
                             px-6
-
                             py-3
-
                             rounded-xl
-
                             border
                             border-slate-700
-
                             transition
                         "
                     >
@@ -5576,6 +5986,39 @@ function showResultScreen(
 
         </div>
     `;
+
+}
+
+
+
+// =========================================================
+// CATEGORY DISPLAY NAME
+// =========================================================
+
+function getCategoryDisplayName() {
+
+    if (
+        selectedCategory ===
+        'cpns'
+    ) {
+
+        return 'CPNS & PPPK';
+
+    }
+
+
+    if (
+        selectedCategory ===
+        'utbk'
+    ) {
+
+        return 'UTBK / SNBT';
+
+    }
+
+
+    return selectedCategory
+        .toUpperCase();
 
 }
 
@@ -5734,6 +6177,26 @@ function handleExamKeyboard(
     event
 ) {
 
+    // =====================================================
+    // PARTICIPANT POPUP
+    // =====================================================
+
+    const participantModal =
+        document.getElementById(
+            'participant-name-modal'
+        );
+
+
+    if (
+        participantModal
+    ) {
+
+        return;
+
+    }
+
+
+
     if (
         !quizStarted ||
         isExamFinished
@@ -5793,7 +6256,7 @@ function handleExamKeyboard(
 
 
     // =====================================================
-    // A-D
+    // A - D
     // =====================================================
 
     if (
