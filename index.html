@@ -218,11 +218,52 @@
      STATS
 ========================================================= -->
 <section class="bg-slate-950 text-white">
-    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-8 grid grid-cols-2 lg:grid-cols-4 gap-y-8">
-        <div class="text-center lg:border-r lg:border-white/10 px-4"><div id="stat-attempts" class="text-2xl sm:text-3xl font-black tracking-tight">—</div><div class="text-[10px] sm:text-xs text-slate-400 mt-1">Hasil Tryout Tercatat</div></div>
-        <div class="text-center lg:border-r lg:border-white/10 px-4"><div id="stat-participants" class="text-2xl sm:text-3xl font-black tracking-tight">—</div><div class="text-[10px] sm:text-xs text-slate-400 mt-1">Nama Peserta</div></div>
-        <div class="text-center lg:border-r lg:border-white/10 px-4"><div id="stat-best" class="text-2xl sm:text-3xl font-black tracking-tight">—</div><div class="text-[10px] sm:text-xs text-slate-400 mt-1">Skor Tertinggi</div></div>
-        <div class="text-center px-4"><div class="text-2xl sm:text-3xl font-black tracking-tight">190</div><div class="text-[10px] sm:text-xs text-slate-400 mt-1">Soal + Pembahasan</div></div>
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-y-8">
+            <div class="text-center md:border-r md:border-white/10 px-4">
+                <div class="flex items-center justify-center gap-2">
+                    <span class="w-7 h-7 rounded-lg bg-blue-500/10 text-blue-300 flex items-center justify-center">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </span>
+                    <div id="stat-total-visitors" class="text-2xl sm:text-3xl font-black tracking-tight">—</div>
+                </div>
+                <div class="text-[10px] sm:text-xs text-slate-400 mt-1">Total Pengunjung</div>
+            </div>
+
+            <div class="text-center xl:border-r xl:border-white/10 px-4">
+                <div class="flex items-center justify-center gap-2">
+                    <span class="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-300 flex items-center justify-center">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                    </span>
+                    <div id="stat-today-visitors" class="text-2xl sm:text-3xl font-black tracking-tight">—</div>
+                </div>
+                <div class="text-[10px] sm:text-xs text-slate-400 mt-1">Pengunjung Hari Ini</div>
+            </div>
+
+            <div class="text-center md:border-r md:border-white/10 px-4">
+                <div id="stat-attempts" class="text-2xl sm:text-3xl font-black tracking-tight">—</div>
+                <div class="text-[10px] sm:text-xs text-slate-400 mt-1">Hasil Tryout Tercatat</div>
+            </div>
+
+            <div class="text-center xl:border-r xl:border-white/10 px-4">
+                <div id="stat-participants" class="text-2xl sm:text-3xl font-black tracking-tight">—</div>
+                <div class="text-[10px] sm:text-xs text-slate-400 mt-1">Nama Peserta</div>
+            </div>
+
+            <div class="text-center md:border-r md:border-white/10 px-4">
+                <div id="stat-best" class="text-2xl sm:text-3xl font-black tracking-tight">—</div>
+                <div class="text-[10px] sm:text-xs text-slate-400 mt-1">Skor Tertinggi</div>
+            </div>
+
+            <div class="text-center px-4">
+                <div class="text-2xl sm:text-3xl font-black tracking-tight">190</div>
+                <div class="text-[10px] sm:text-xs text-slate-400 mt-1">Soal + Pembahasan</div>
+            </div>
+        </div>
+
+        <p id="visitor-counter-note" class="mt-6 text-center text-[9px] sm:text-[10px] text-slate-600">
+            Statistik pengunjung dihitung per browser/perangkat dan diperbarui otomatis.
+        </p>
     </div>
 </section>
 
@@ -653,6 +694,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 <script src="firebase-config.js"></script>
+<script src="visitor-tracker.js"></script>
 <script src="site.js"></script>
 
 </body>
