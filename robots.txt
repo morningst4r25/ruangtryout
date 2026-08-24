@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /exam.html
+Disallow: /offline.html
+Disallow: /404.html
 
 Sitemap: https://www.ruangtryout.my.id/sitemap.xml
