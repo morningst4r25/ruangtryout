@@ -1,0 +1,112 @@
+name: Deploy (manual)
+
+# Deploy hanya dijalankan manual dari tab Actions.
+# Rahasia yang dibutuhkan di repo: FIREBASE_SERVICE_ACCOUNT
+#   (isi = JSON lengkap service account Firebase Admin, disimpan di
+#    Settings -> Secrets and variables -> Actions)
+# Variable opsional: FIREBASE_PROJECT_ID (Settings -> Variables)
+
+on:
+  workflow_dispatch:
+    inputs:
+      targets:
+        description: 'Yang di-deploy'
+        type: choice
+        default: 'functions,firestore:rules'
+        options:
+          - 'functions,firestore:rules'
+          - 'functions'
+          - 'firestore:rules'
+      project_id:
+        description: 'Firebase project id (kosongkan untuk memakai variable FIREBASE_PROJECT_ID)'
+        type: string
+        required: false
+      midtrans_production:
+        description: 'Set MIDTRANS_IS_PRODUCTION=true (pastikan secret Midtrans sudah key production)'
+        type: boolean
+        default: false
+      run_tests:
+        description: 'Jalankan unit test sebelum deploy'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Firebase deploy
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: functions/package-lock.json
+
+      - name: Siapkan kredensial service account
+        env:
+          SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: |
+          set -euo pipefail
+          if [ -z "${SERVICE_ACCOUNT:-}" ]; then
+            echo "::error::Secret FIREBASE_SERVICE_ACCOUNT belum diisi. Tambahkan JSON service account di Settings -> Secrets and variables -> Actions."
+            exit 1
+          fi
+          # Ditulis di luar direktori kerja agar tidak pernah ikut ter-commit/ter-upload.
+          printf '%s' "$SERVICE_ACCOUNT" > "$RUNNER_TEMP/firebase-service-account.json"
+          chmod 600 "$RUNNER_TEMP/firebase-service-account.json"
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/firebase-service-account.json" >> "$GITHUB_ENV"
+
+      - name: Tentukan project
+        env:
+          INPUT_PROJECT: ${{ inputs.project_id }}
+          VAR_PROJECT: ${{ vars.FIREBASE_PROJECT_ID }}
+        run: |
+          set -euo pipefail
+          PROJECT="${INPUT_PROJECT:-${VAR_PROJECT:-}}"
+          if [ -z "$PROJECT" ]; then
+            echo "::error::Isi input project_id atau set variable FIREBASE_PROJECT_ID."
+            exit 1
+          fi
+          echo "FIREBASE_PROJECT=$PROJECT" >> "$GITHUB_ENV"
+          echo "Target project: $PROJECT"
+
+      - name: Instal dependensi Functions
+        if: contains(inputs.targets, 'functions')
+        working-directory: functions
+        run: npm ci
+
+      - name: Unit test Functions
+        if: contains(inputs.targets, 'functions') && inputs.run_tests
+        working-directory: functions
+        run: npm test
+
+      - name: Tulis functions/.env sesuai mode Midtrans
+        if: contains(inputs.targets, 'functions')
+        env:
+          IS_PRODUCTION: ${{ inputs.midtrans_production }}
+        run: |
+          set -euo pipefail
+          {
+            echo "MIDTRANS_IS_PRODUCTION=$([ "$IS_PRODUCTION" = "true" ] && echo true || echo false)"
+            echo "APP_URL=${APP_URL:-https://www.ruangtryout.my.id}"
+          } > functions/.env
+          echo "MIDTRANS_IS_PRODUCTION=$([ "$IS_PRODUCTION" = "true" ] && echo true || echo false)"
+
+      - name: Deploy
+        env:
+          TARGETS: ${{ inputs.targets }}
+        run: |
+          set -euo pipefail
+          npx --yes firebase-tools@13.35.1 deploy \
+            --only "$TARGETS" \
+            --project "$FIREBASE_PROJECT" \
+            --non-interactive
