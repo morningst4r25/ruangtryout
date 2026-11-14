@@ -35,7 +35,7 @@ const OUT_DIR = path.join(SCRIPT_DIR, 'out');
 const BATCH_LIMIT = 400;
 
 const SECTION_RULES = {
-  cpns: [{ name: 'TWK', until: 30 }, { name: 'TIU', until: 75 }, { name: 'TKP', until: Infinity }],
+  cpns: [{ name: 'TWK', until: 45 }, { name: 'TIU', until: 90 }, { name: 'TKP', until: Infinity }],
   utbk: [{ name: 'Penalaran & Kuantitatif', until: 45 }, { name: 'Literasi', until: Infinity }]
 };
 
