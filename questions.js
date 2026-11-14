@@ -1,4 +1,4 @@
-// Bank soal latihan RuangTryout (110 CPNS + 100 UTBK)
+// Bank soal latihan RuangTryout (120 CPNS + 100 UTBK)
 const quizCategories = {
     cpns: {
         title: "CPNS & PPPK (Latihan)",
@@ -36,7 +36,7 @@ const quizCategories = {
             { question: "Pancasila ditetapkan resmi sebagai dasar negara Indonesia pada tanggal...", options: ["1 Juni 1945", "22 Juni 1945", "17 Agustus 1945", "18 Agustus 1945"], answer: 3, explanation: "Pancasila disahkan dalam sidang PPKI pada tanggal 18 Agustus 1945." },
             { question: "Kekuasaan kehakiman merupakan kekuasaan yang merdeka untuk menyelenggarakan peradilan guna menegakkan hukum dan keadilan, diatur dalam UUD 1945 Pasal...", options: ["Pasal 24 ayat 1", "Pasal 25 ayat 1", "Pasal 26 ayat 1", "Pasal 27 ayat 1"], answer: 0, explanation: "Pasal 24 ayat 1 menjamin kemerdekaan kekuasaan kehakiman." },
 
-            // ==================== TIU (31 - 65) ====================
+            // ==================== TIU (31 - 75) ====================
             { question: "Jika semua ASN profesional berpakaian rapi. Sebagian orang berpakaian rapi memiliki integritas tinggi. Kesimpulan yang tepat adalah...", options: ["Semua ASN berintegritas tinggi", "Sebagian ASN profesional mungkin memiliki integritas tinggi", "Tidak ada ASN yang berpakaian rapi", "Semua orang berpakaian rapi adalah ASN"], answer: 1, explanation: "Karena hanya sebagian orang berpakaian rapi berintegritas, maka hubungan dengan ASN bersifat sebagian/mungkin." },
             { question: "Proyek ditargetkan selesai 30 hari oleh 20 pekerja. Setelah 10 hari, pekerjaan terhenti 4 hari. Berapa tambahan pekerja agar selesai tepat waktu?", options: ["3 orang", "4 orang", "5 orang", "6 orang"], answer: 2, explanation: "Sisa beban = 20x20 = 400. Sisa waktu = 16 hari. Pekerja butuh = 400/16 = 25. Tambahan = 25 - 20 = 5 orang." },
             { question: "Deret angka: 3, 6, 12, 21, 33, ... Angka berikutnya adalah...", options: ["42", "45", "48", "51"], answer: 2, explanation: "Pola selisih +3, +6, +9, +12, maka berikutnya +15 (33 + 15 = 48)." },
@@ -73,7 +73,18 @@ const quizCategories = {
             { question: "PULAU : LAUT = BINTANG : ...", options: ["LANGIT", "MALAM", "ANGKASA", "BULAN"], answer: 0, explanation: "Pulau berada di Laut, Bintang berada di Langit." },
             { question: "Manakah nilai angka terkecil?", options: ["0,12", "0,09", "0,25", "0,019"], answer: 3, explanation: "0,019 adalah desimal paling kecil dibanding pilihan lain." },
 
-            // ==================== TKP (66 - 110) ====================
+            { question: "Deret angka: 7, 11, 16, 22, 29, ... Angka berikutnya adalah...", options: ["35", "37", "39", "41"], answer: 1, explanation: "Selisih bertambah satu: +4, +5, +6, +7, lalu +8 sehingga 29 + 8 = 37." },
+            { question: "Jika 3x + 6 = 21, nilai dari 2x - 1 adalah...", options: ["7", "8", "9", "10"], answer: 2, explanation: "3x = 15 maka x = 5. 2(5) - 1 = 9." },
+            { question: "DOKTER : PASIEN = GURU : ...", options: ["SEKOLAH", "MURID", "BUKU", "KELAS"], answer: 1, explanation: "Dokter melayani pasien, guru membimbing murid." },
+            { question: "Perbandingan A : B : C = 3 : 4 : 5. Jika jumlahnya 96, nilai B adalah...", options: ["24", "28", "32", "36"], answer: 2, explanation: "Jumlah bagian 12, satu bagian 8. B = 4 x 8 = 32." },
+            { question: "Semua siswa memakai seragam. Sebagian pemakai seragam membawa tas merah. Kesimpulan yang tepat adalah...", options: ["Semua siswa membawa tas merah", "Sebagian siswa mungkin membawa tas merah", "Tidak ada siswa yang membawa tas merah", "Semua pembawa tas merah adalah siswa"], answer: 1, explanation: "Karena hanya sebagian pemakai seragam bertas merah, hubungan dengan siswa bersifat mungkin." },
+            { question: "Sebuah pekerjaan selesai dalam 12 hari oleh 4 pekerja. Jika dikerjakan 6 pekerja dengan kecepatan sama, waktu yang dibutuhkan adalah...", options: ["6 hari", "7 hari", "8 hari", "10 hari"], answer: 2, explanation: "Total beban 4 x 12 = 48 orang-hari. 48 / 6 = 8 hari." },
+            { question: "Deret huruf: A, C, F, J, O, ... Huruf berikutnya adalah...", options: ["S", "T", "U", "V"], answer: 2, explanation: "Lompatan bertambah satu: +2, +3, +4, +5, lalu +6 dari O menghasilkan U." },
+            { question: "Harga sebuah barang Rp240.000 dan mendapat diskon 25%. Harga yang dibayar adalah...", options: ["Rp160.000", "Rp175.000", "Rp180.000", "Rp200.000"], answer: 2, explanation: "Diskon 25% = Rp60.000, sehingga harga bayar Rp180.000." },
+            { question: "Rata-rata nilai 6 siswa adalah 75. Seorang siswa baru dengan nilai 89 bergabung. Rata-rata nilai ketujuh siswa menjadi...", options: ["76", "77", "77,5", "78"], answer: 1, explanation: "Total lama 450, ditambah 89 menjadi 539. 539 / 7 = 77." },
+            { question: "A berada di utara B. C berada di selatan B. D berada di timur C. Posisi paling utara adalah...", options: ["A", "B", "C", "D"], answer: 0, explanation: "Urutan dari utara ke selatan: A, B, C; D sejajar C tetapi lebih ke timur. Terutara adalah A." },
+
+            // ==================== TKP (76 - 120) ====================
             { question: "Anggota senior kesulitan mengoperasikan sistem baru. Sikap Anda sebagai ketua tim adalah...", options: ["Mengambil alih tugasnya", "Meminta pimpinan menggantinya", "Mengatur sesi mentoring khusus dan membagi tugas sesuai kapasitasnya", "Membiarkannya"], answer: 2, explanation: "Mengatur mentoring dan pembagian tugas cermin kepemimpinan berempati dan efektif." },
             { question: "Warga menerobos antrean dan marah-marah di loket. Sikap Anda...", options: ["Membalas membentak", "Meminta tenang, mendengarkan empati, dan mengarahkan ke loket pengaduan", "Meninggalkan loket", "Mengusirnya"], answer: 1, explanation: "Pelayanan publik mengedepankan pengendalian diri dan komunikasi persuasif." },
             { question: "Rekan kerja memanfaatkan waktu WFA untuk urusan pribadi hingga target terganggu. Sikap Anda...", options: ["Melaporkan ke atasan", "Mengingatkan secara personal komitmen target tim dan menawarkan bantuan", "Apatis", "Mengerjakan tugasnya"], answer: 1, explanation: "Pendekatan persuasi rekan sejawat menjaga profesionalisme dan kekompakan tim." },

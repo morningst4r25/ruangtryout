@@ -97,9 +97,9 @@ function prepareQuestions(mode, seed) {
 }
 
 // Durasi simulasi penuh mengikuti jumlah soal tiap kategori, dengan tempo
-// yang sama seperti sebelumnya: CPNS 110 soal (~54 dtk/soal) dan UTBK 100 soal
-// (~60 dtk/soal). Angka 100 menit CPNS juga sesuai durasi SKD resmi.
-const FULL_DURATION_MINUTES = { cpns: 100, utbk: 100 };
+// yang sama seperti sebelumnya: CPNS 120 soal (~55 dtk/soal) dan UTBK 100 soal
+// (~60 dtk/soal).
+const FULL_DURATION_MINUTES = { cpns: 110, utbk: 100 };
 
 function durationFor(mode, count) {
   if (mode === 'full') return (FULL_DURATION_MINUTES[selectedCategory] || 90)*60;
@@ -111,7 +111,7 @@ function durationFor(mode, count) {
 function questionSection(q) {
   if (q.section) return q.section;
   const i=q.sourceIndex;
-  if (selectedCategory==='cpns') return i<30?'TWK':i<65?'TIU':'TKP';
+  if (selectedCategory==='cpns') return i<30?'TWK':i<75?'TIU':'TKP';
   return i<45?'Penalaran & Kuantitatif':'Literasi';
 }
 
