@@ -6,7 +6,7 @@ const selectedCategory = ['cpns','utbk'].includes((params.get('cat') || '').toLo
 const requestedMode = (params.get('mode') || 'full').toLowerCase();
 
 const HISTORY_KEY = 'ruangtryout_history_v1';
-const DATASET_VERSION = '2026-08-16-v2';
+let DATASET_VERSION = '2026-08-16-v2';
 const MODE_META = {
   full: {label:'Simulasi Lengkap', short:'Lengkap'},
   mini: {label:'Mini Tryout', short:'Mini'},
@@ -92,7 +92,7 @@ function prepareQuestions(mode, seed) {
     const order = shuffledIndices(q.options.length, `${seed}|option|${sourceIndex}`);
     const options = order.map(i => q.options[i]);
     const answer = order.indexOf(Number(q.answer));
-    return { question:q.question, options, answer, explanation:q.explanation || 'Pembahasan belum tersedia.', sourceIndex };
+    return { question:q.question, options, answer, explanation:q.explanation || 'Pembahasan belum tersedia.', section:q.section || questionSection(q), tier:q.tier || 'free', sourceIndex };
   });
 }
 
@@ -104,6 +104,7 @@ function durationFor(mode, count) {
 }
 
 function questionSection(q) {
+  if (q.section) return q.section;
   const i=q.sourceIndex;
   if (selectedCategory==='cpns') return i<30?'TWK':i<65?'TIU':'TKP';
   return i<40?'Penalaran & Kuantitatif':'Literasi';
@@ -117,10 +118,25 @@ function showSystemError(message) {
   el.innerHTML=`<div class="flex-1 flex items-center justify-center p-8 text-center"><div><div class="w-14 h-14 mx-auto rounded-2xl bg-red-500/10 border border-red-500/20 text-red-400 flex items-center justify-center text-2xl">!</div><h2 class="mt-5 text-lg font-black text-white">Terjadi kendala</h2><p class="mt-2 max-w-md text-sm text-slate-400">${escapeHtml(message)}</p><a href="index.html" class="inline-flex mt-5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-4 py-2.5 rounded-xl border border-slate-700">Kembali ke Beranda</a></div></div>`;
 }
 
-function startQuizProcess() {
-  quizStarted=true;
+async function loadQuestionBank(category) {
+  try {
+    if (window.RuangTryoutQuestionSource?.load) {
+      const bank = await window.RuangTryoutQuestionSource.load(category);
+      if (bank?.questions?.length) return bank;
+    }
+  } catch (error) {
+    console.warn('Bank soal Firestore gagal dimuat, memakai dataset lokal:', error);
+  }
+  return { questions: loadBaseQuestions(), datasetVersion: null, source: 'local', premiumLocked: 0 };
+}
+
+async function startQuizProcess() {
   activeMode=validMode(selectedCategory,requestedMode);
-  baseQuestions=loadBaseQuestions();
+  const bank=await loadQuestionBank(selectedCategory);
+  baseQuestions=bank.questions;
+  if(bank.datasetVersion) DATASET_VERSION=bank.datasetVersion;
+  window.RuangTryoutQuestionSource && (window.RuangTryoutQuestionSource.activeBank=bank);
+  quizStarted=true;
   if(!baseQuestions.length) return showSystemError(`Soal ${getCategoryDisplayName()} tidak ditemukan.`);
   const saved=loadSavedProgress();
   attemptId = saved?.attemptId || nowId();
@@ -152,7 +168,7 @@ function renderQuizLayout(){
   const total=currentQuestions.length;
   quizCard().innerHTML=`
   <div class="bg-slate-900 border-b border-slate-800 px-4 sm:px-5 py-2.5 flex items-center justify-between gap-4 shrink-0">
-    <div class="min-w-0"><div class="flex items-center flex-wrap gap-2 mb-0.5"><span class="text-[9px] sm:text-[10px] font-black text-blue-400 uppercase tracking-[.14em]">${escapeHtml(getCategoryDisplayName())}</span><span class="inline-flex px-2 py-0.5 rounded-md bg-slate-800 border border-slate-700 text-[8px] font-black text-slate-400 uppercase">${escapeHtml(getModeLabel())}</span><span id="question-section-label" class="inline-flex px-2 py-0.5 rounded-md bg-slate-800 border border-slate-700 text-[8px] font-black text-slate-400 uppercase"></span></div><div class="flex items-baseline gap-2"><h2 id="question-number-title" class="text-sm sm:text-base font-black text-white">Soal 01</h2><span class="text-[10px] text-slate-500 font-semibold">dari ${total}</span></div></div>
+    <div class="min-w-0"><div class="flex items-center flex-wrap gap-2 mb-0.5"><span class="text-[9px] sm:text-[10px] font-black text-blue-400 uppercase tracking-[.14em]">${escapeHtml(getCategoryDisplayName())}</span><span class="inline-flex px-2 py-0.5 rounded-md bg-slate-800 border border-slate-700 text-[8px] font-black text-slate-400 uppercase">${escapeHtml(getModeLabel())}</span><span id="plan-chip" class="inline-flex px-2 py-0.5 rounded-md bg-slate-800 border border-slate-700 text-[8px] font-black text-slate-400 uppercase">Gratis</span><span id="question-section-label" class="inline-flex px-2 py-0.5 rounded-md bg-slate-800 border border-slate-700 text-[8px] font-black text-slate-400 uppercase"></span></div><div class="flex items-baseline gap-2"><h2 id="question-number-title" class="text-sm sm:text-base font-black text-white">Soal 01</h2><span class="text-[10px] text-slate-500 font-semibold">dari ${total}</span></div></div>
     <div id="timer-card" class="min-w-[96px] bg-slate-800/80 border border-slate-700 px-3 py-1.5 rounded-xl text-right"><span class="text-[7px] text-slate-500 block uppercase tracking-wider font-black">Sisa Waktu</span><span id="timer-display" class="text-sm sm:text-base font-black text-emerald-400 font-mono tabular-nums"></span></div>
   </div>
   <div class="relative flex-1 min-h-0 flex overflow-hidden">
@@ -172,7 +188,7 @@ function renderQuizLayout(){
     </aside>
   </div>
   <div id="exam-confirm-modal" class="hidden fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm p-4 items-center justify-center"><div class="w-full max-w-md bg-slate-900 border border-slate-700 rounded-3xl shadow-2xl overflow-hidden"><div class="p-6 sm:p-7"><div id="confirm-modal-icon" class="w-12 h-12 rounded-2xl flex items-center justify-center mb-5 bg-red-500/10 border border-red-500/20 text-red-400">⚑</div><h3 id="confirm-modal-title" class="text-xl font-black text-white"></h3><p id="confirm-modal-description" class="mt-2 text-sm text-slate-400 leading-6"></p><div id="confirm-modal-summary" class="hidden mt-5 rounded-2xl bg-slate-950/60 border border-slate-800 p-4"></div></div><div class="px-6 sm:px-7 py-4 border-t border-slate-800 bg-slate-950/30 flex flex-col-reverse sm:flex-row justify-end gap-2.5"><button onclick="closeConfirmModal()" class="px-5 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-xs font-bold text-slate-300">Batal</button><button id="confirm-modal-action" class="px-5 py-2.5 rounded-xl text-xs font-black"></button></div></div></div>`;
-  injectExamStyles(); updateTimerDisplay();
+  injectExamStyles(); updateTimerDisplay(); renderPlusUpsell();
 }
 
 function injectExamStyles(){ if(document.getElementById('rt-exam-runtime-style'))return; const s=document.createElement('style'); s.id='rt-exam-runtime-style'; s.textContent=`.exam-nav{display:inline-flex;align-items:center;justify-content:center;gap:.35rem;padding:.65rem .5rem;border-radius:.75rem;font-size:.68rem;font-weight:800;transition:.2s}.exam-nav:disabled{opacity:.3;cursor:not-allowed}.sidebar-stat{border:1px solid #1e293b;background:#0f172a;border-radius:.75rem;padding:.5rem .75rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem}.sidebar-stat span{font-size:.6rem;color:#64748b;font-weight:700}.sidebar-stat strong{font-size:.875rem;color:#e2e8f0}.review-scroll{scrollbar-width:thin;scrollbar-color:#334155 #020617}.summary-label{display:block;font-size:.5rem;text-transform:uppercase;letter-spacing:.1em;font-weight:900;color:#64748b}.summary-value{display:block;margin-top:.25rem;font-size:1.2rem;font-weight:900;color:#e2e8f0}`; document.head.appendChild(s); }
@@ -241,7 +257,48 @@ function continueWithoutLeaderboard(){pendingExamResult=null;removeParticipantNa
 function showResultScreen(result,savedToLeaderboard=result?.leaderboardSaved||false,name=result?.participantName||''){
   const wrong=result.wrong.length,blank=result.blank.length; const grade=result.score>=85?['Sangat Baik','text-emerald-400']:result.score>=70?['Baik','text-blue-400']:result.score>=55?['Cukup','text-amber-400']:['Perlu Latihan','text-rose-400'];
   quizCard().innerHTML=`<div class="h-full overflow-y-auto review-scroll"><div class="min-h-full flex items-center justify-center p-5 sm:p-8"><div class="w-full max-w-3xl text-center"><div class="w-16 h-16 mx-auto bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-3xl flex items-center justify-center text-3xl">✓</div><h2 class="mt-5 text-2xl sm:text-3xl font-black text-white">${result.autoSubmit?'Waktu Habis':'Ujian Selesai'}</h2><p class="mt-2 text-xs sm:text-sm text-slate-400">${savedToLeaderboard?`Skor <strong class="text-slate-200">${escapeHtml(name)}</strong> tersimpan di leaderboard.`:'Gunakan hasil ini sebagai bahan evaluasi latihan berikutnya.'}</p><div class="mt-6 max-w-2xl mx-auto grid grid-cols-2 sm:grid-cols-5 gap-3">${resultBox('Skor',result.score,'text-emerald-400')}${resultBox('Benar',result.correct,'text-white')}${resultBox('Salah',wrong,'text-rose-400')}${resultBox('Kosong',blank,'text-slate-300')}${resultBox('Status',grade[0],grade[1],'text-sm')}</div><p class="mt-4 text-[10px] text-slate-500">Skor ini adalah skor latihan 0–100, bukan nilai resmi BKN/SNPMB.</p><div class="mt-7 flex flex-wrap justify-center gap-3"><button onclick="showReviewScreen('all')" class="bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-black px-5 py-3 rounded-xl">Tinjau Jawaban & Pembahasan</button>${wrong?'<button onclick="startWrongRetry()" class="bg-rose-500/10 hover:bg-rose-500/15 text-rose-300 border border-rose-500/30 text-xs sm:text-sm font-black px-5 py-3 rounded-xl">Ulangi Soal Salah</button>':''}<a href="progress.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs sm:text-sm font-bold px-5 py-3 rounded-xl">Perkembangan Saya</a>${activeMode==='full'?'<a href="leaderboard.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs sm:text-sm font-bold px-5 py-3 rounded-xl">Leaderboard</a>':''}<a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs sm:text-sm font-bold px-5 py-3 rounded-xl">Beranda</a></div></div></div></div>`;
+  renderResultPlusUpsell();
+
 }
+function bankInfo(){ const bank=window.RuangTryoutQuestionSource?.activeBank; return bank && Array.isArray(bank.questions) ? bank : null; }
+function planIsPlus(){ return !!bankInfo()?.isPlus; }
+function lockedQuestions(){ const list=bankInfo()?.lockedQuestions; return Array.isArray(list) ? list : []; }
+
+// Penanda "Plus" di UI ujian: status paket, nomor soal yang terkunci, dan CTA.
+function renderPlusUpsell(){
+  const chip=document.getElementById('plan-chip');
+  const isPlus=planIsPlus();
+  if(chip){
+    chip.textContent=isPlus?'Plus':'Gratis';
+    chip.className=`inline-flex px-2 py-0.5 rounded-md border text-[8px] font-black uppercase ${isPlus?'bg-emerald-500/10 border-emerald-500/30 text-emerald-300':'bg-slate-800 border-slate-700 text-slate-400'}`;
+  }
+  const host=document.querySelector('#question-sidebar .flex-1.min-h-0'); if(!host) return;
+  document.getElementById('plus-upsell')?.remove();
+  const locked=lockedQuestions();
+  const wrap=document.createElement('div'); wrap.id='plus-upsell'; wrap.className='mt-3 pt-3 border-t border-slate-800';
+  if(isPlus){
+    wrap.innerHTML='<div class="rounded-xl border border-emerald-500/25 bg-emerald-500/5 px-3 py-2.5"><div class="text-[9px] uppercase tracking-[.14em] font-black text-emerald-400">Akses Plus aktif</div><p class="mt-1 text-[9px] leading-4 text-slate-400">Seluruh bank soal terbuka, termasuk soal bertanda Plus.</p></div>';
+  } else if(locked.length){
+    const groups=new Map();
+    locked.forEach(item=>{ if(!groups.has(item.section)) groups.set(item.section,[]); groups.get(item.section).push(item); });
+    const shown=locked.slice(0,30), remaining=locked.length-shown.length;
+    wrap.innerHTML=`<div class="rounded-xl border border-amber-500/25 bg-amber-500/5 px-3 py-2.5"><div class="flex items-center justify-between gap-2"><span class="text-[9px] uppercase tracking-[.14em] font-black text-amber-400">Soal Plus</span><span class="text-[9px] font-black text-amber-300">${locked.length} terkunci</span></div><p class="mt-1 text-[9px] leading-4 text-slate-400">Nomor di bawah hanya tersedia untuk pengguna Plus. Soal gratis tetap bisa dikerjakan seperti biasa.</p><div class="mt-2 grid grid-cols-10 gap-1">${shown.map(item=>`<a href="harga.html" title="Soal ${item.number} • ${escapeHtml(item.section)} • khusus Plus" class="h-7 rounded-md border border-amber-500/30 bg-slate-900 text-amber-300 text-[9px] font-black flex items-center justify-center">🔒</a>`).join('')}</div>${remaining>0?`<p class="mt-1.5 text-[9px] font-bold text-slate-500">+${remaining} soal Plus lainnya</p>`:''}<div class="mt-2 flex flex-wrap gap-1.5">${[...groups.entries()].map(([section,items])=>`<span class="px-2 py-1 rounded-md bg-slate-900 border border-slate-800 text-[8px] font-black text-slate-400">${escapeHtml(section)} ${items.length}</span>`).join('')}</div><a href="harga.html" class="mt-2.5 flex items-center justify-center bg-amber-500 hover:bg-amber-400 text-slate-950 text-[10px] font-black px-3 py-2 rounded-lg">Lihat paket Plus →</a></div>`;
+  } else {
+    wrap.innerHTML='<a href="harga.html" class="flex items-center justify-between gap-2 px-3 py-2 rounded-xl border border-slate-800 bg-slate-900 text-[9px] font-bold text-slate-400"><span>Versi gratis aktif</span><span class="text-blue-400 font-black">Lihat Plus →</span></a>';
+  }
+  host.appendChild(wrap);
+}
+
+function renderResultPlusUpsell(){
+  if(planIsPlus()) return;
+  const locked=lockedQuestions(); if(!locked.length) return;
+  const host=quizCard()?.querySelector('.max-w-3xl'); if(!host) return;
+  const card=document.createElement('div');
+  card.className='mt-6 rounded-2xl border border-amber-500/25 bg-amber-500/5 p-5 text-left';
+  card.innerHTML=`<div class="text-[9px] uppercase tracking-[.14em] font-black text-amber-400">Bank soal Plus</div><p class="mt-2 text-xs leading-5 text-slate-300">Skor ini dihitung dari <strong class="text-white">${bankInfo()?.questions?.length||0} soal gratis</strong>. ${locked.length} soal lain di bank soal hanya tersedia untuk pengguna Plus.</p><a href="harga.html" class="mt-3 inline-flex bg-amber-500 hover:bg-amber-400 text-slate-950 text-[11px] font-black px-4 py-2.5 rounded-lg">Bandingkan paket Plus →</a>`;
+  host.appendChild(card);
+}
+
 function resultBox(label,value,color,extra=''){return `<div class="bg-slate-950/50 border border-slate-800 rounded-2xl p-4"><span class="text-[8px] uppercase font-black text-slate-600">${label}</span><strong class="block mt-1 ${extra||'text-2xl sm:text-3xl'} font-black ${color}">${escapeHtml(value)}</strong></div>`;}
 
 function showReviewScreen(filter='all'){

@@ -60,6 +60,38 @@ button, a { -webkit-tap-highlight-color: transparent; }
     *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
 
+/* Header account link (Pesanan + status Plus), disuntik oleh site.js */
+.rt-account-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  color: #334155;
+  font-size: .7rem;
+  font-weight: 800;
+  padding: .55rem .8rem;
+  border-radius: .75rem;
+  white-space: nowrap;
+  transition: border-color .2s ease, color .2s ease, background .2s ease;
+}
+.rt-account-link:hover { border-color: #bfdbfe; color: #2563eb; }
+.rt-plus-chip {
+  display: none;
+  align-items: center;
+  background: #d1fae5;
+  color: #047857;
+  border-radius: 999px;
+  font-size: .5rem;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: .16rem .4rem;
+}
+.rt-plus-chip.is-on { display: inline-flex; }
+header[data-rt-dark] .rt-account-link { background: #0f172a; border-color: #1e293b; color: #cbd5e1; }
+header[data-rt-dark] .rt-account-link:hover { border-color: #3b82f6; color: #fff; }
+
 /* Brand shadows formerly configured through Tailwind CDN */
 .shadow-premium { box-shadow: 0 25px 70px rgba(15, 23, 42, 0.10); }
 .shadow-card { box-shadow: 0 10px 35px rgba(15, 23, 42, 0.06); }

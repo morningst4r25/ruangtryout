@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ruangtryout-v50';
+const CACHE_NAME = 'ruangtryout-ac59a38595';
 const CORE = [
   '/', '/index.html', '/offline.html', '/tailwind.css', '/style.css', '/site.js', '/questions.js', '/app.js',
   '/manifest.json', '/logoRTO.webp', '/maskotRTO.webp', '/icon-192.png', '/icon-512.png', '/icon-maskable-192.png', '/icon-maskable-512.png',

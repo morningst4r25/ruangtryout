@@ -3,6 +3,34 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     // =====================================================
+    // HELPERS
+    // =====================================================
+    // Plus access is granted by a trusted backend (Cloud Function /
+    // Admin SDK) through custom claims. The client can never set them.
+    //   plus: true                 -> lifetime / manual grant
+    //   plusUntil: <epoch detik>   -> expires on its own
+    function isPlusReader() {
+      return request.auth != null && (
+        request.auth.token.plus == true ||
+        (request.auth.token.plusUntil is number &&
+          request.auth.token.plusUntil * 1000 > request.time.toMillis())
+      );
+    }
+
+    function isPublishedQuestion() {
+      return resource.data.published == true;
+    }
+
+    // Readable when published AND (free tier OR a Plus subscriber).
+    // `allow list` requires every query to be provably safe, so clients must
+    // ask only for `tier == 'free'` unless the user holds the Plus claim.
+    function canReadQuestion() {
+      return isPublishedQuestion() && (
+        resource.data.tier == 'free' || isPlusReader()
+      );
+    }
+
+    // =====================================================
     // LEADERBOARD
     // =====================================================
     match /leaderboard/{attemptId} {
@@ -131,9 +159,52 @@ service cloud.firestore {
         request.resource.data.lastDayVisitId == request.resource.data.day + '_' +
           getAfter(/databases/$(database)/documents/siteVisitorDays/$(request.resource.data.lastDayVisitId)).data.visitorId &&
         request.resource.data.updatedAt == request.time &&
-        getAfter(/databases/$(database)/documents/siteVisitorDays/$(request.resource.data.lastDayVisitId)).data.createdAt == request.time;
+                  getAfter(/databases/$(database)/documents/siteVisitorDays/$(request.resource.data.lastDayVisitId)).data.createdAt == request.time;
 
       allow delete: if false;
+    }
+
+    // =====================================================
+    // QUESTION BANK (premium foundation)
+    // Written only by the Admin SDK migration script; never by clients.
+    // Free tier: readable by everyone. Plus tier: only Plus claims.
+    // =====================================================
+    match /questions/{questionId} {
+      allow get, list: if canReadQuestion();
+      allow create, update, delete: if false;
+    }
+
+    // Index of question document ids per category. Contains no answer keys,
+    // so it is public; the question documents themselves stay gated above.
+    match /questionMeta/{category} {
+      allow get, list: if true;
+      allow create, update, delete: if false;
+    }
+
+    // =====================================================
+    // ORDERS & ENTITLEMENTS (Plus)
+    // Written only by Cloud Functions (Admin SDK). A client may read its own
+    // order and entitlement; nothing else.
+    // =====================================================
+    match /orders/{orderId} {
+      allow get: if request.auth != null && resource.data.uid == request.auth.uid;
+
+      // Riwayat pesanan: query wajib difilter uid sendiri dan dibatasi,
+      // sehingga tidak ada cara membaca order milik pengguna lain.
+      allow list: if
+        request.auth != null &&
+        resource.data.uid == request.auth.uid &&
+        request.query.limit is int &&
+        request.query.limit > 0 &&
+        request.query.limit <= 50;
+
+      allow create, update, delete: if false;
+    }
+
+    match /entitlements/{uid} {
+      allow get: if request.auth != null && request.auth.uid == uid;
+      allow list: if false;
+      allow create, update, delete: if false;
     }
   }
 }

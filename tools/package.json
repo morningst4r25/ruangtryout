@@ -1,0 +1,14 @@
+{
+  "name": "ruangtryout-tools",
+  "private": true,
+  "type": "module",
+  "description": "Skrip bantu RuangTryout: versi aset, hook git, dan validasi Firestore rules.",
+  "scripts": {
+    "check:rules": "node check-rules.mjs",
+    "test": "node --test rules.test.mjs"
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "^6.0.0",
+    "firebase": "^13.3.0"
+  }
+}
