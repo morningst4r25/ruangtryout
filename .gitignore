@@ -1,0 +1,17 @@
+node_modules/
+
+# Env Functions (server key Midtrans tidak boleh masuk repo)
+functions/.env
+functions/.env.*
+
+# Output pratinjau migrasi bank soal (lihat PREMIUM_CONTENT_SETUP.md)
+tools/out/
+
+# Log emulator Firebase (dibuat saat cek rules lokal/CI)
+firestore-debug.log
+firebase-debug.log
+ui-debug.log
+
+# Kredensial Firebase Admin tidak boleh masuk repo
+service-account*.json
+*-firebase-adminsdk-*.json

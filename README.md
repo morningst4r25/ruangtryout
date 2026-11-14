@@ -15,8 +15,33 @@ Platform latihan CPNS/PPPK dan UTBK/SNBT berbasis web statis + Firebase Firestor
 ## Deploy
 Semua file dapat di-host sebagai static site (mis. GitHub Pages/Netlify). Pastikan custom domain mengarah ke folder root.
 
+### Versi aset
+Semua `style.css`, `tailwind.css`, dan script lokal direferensikan dengan `?v=<hash>` yang diturunkan dari isi aset. Versi hanya berubah bila isi aset berubah.
+- `node tools/bump-assets.mjs` — samakan versi di seluruh `*.html` dan `CACHE_NAME` di `sw.js`.
+- `node tools/bump-assets.mjs --check` — exit 1 bila belum sinkron (cocok untuk CI).
+- `node tools/install-hooks.mjs` — pasang hook pre-commit sekali per clone: hook otomatis menjalankan bump dan ikut men-stage berkas yang versinya berubah setiap kali commit menyentuh `*.html`, `sw.js`, atau aset lokal. Direktori `.git` tidak ikut ter-commit, jadi pasang ulang setelah clone baru; lewati sekali jalan dengan `git commit --no-verify`.
+
+CI (`.github/workflows/ci.yml`) menjalankan `node tools/bump-assets.mjs --check` dan `npm test` di `functions/` pada setiap push dan pull request.
+
 ### Firestore Rules
 File `firestore.rules` berisi rule minimum untuk leaderboard guest. Rule harus diterapkan melalui Firebase Console/CLI; menaruh file di hosting tidak otomatis menerapkannya.
+
+Validasi sintaks rule tanpa menyentuh project sungguhan (butuh Java untuk emulator):
+
+```sh
+cd tools && npm ci && cd ..
+npx firebase-tools emulators:exec --only firestore --project demo-ruangtryout "node tools/check-rules.mjs"
+```
+
+Skrip mengirim `firestore.rules` ke emulator, sehingga error kompilasi tampil dengan nomor baris sebelum `firebase deploy`.
+
+Unit test pagar akses (soal Plus, order, entitlement) memakai emulator yang sama:
+
+```sh
+npx firebase-tools emulators:exec --only firestore --project demo-ruangtryout "npm --prefix tools test"
+```
+
+CI menjalankan keduanya: kompilasi rules lalu unit test akses.
 
 > Catatan keamanan: validasi Firestore membatasi bentuk/rentang data, tetapi skor masih dihitung di browser. Untuk leaderboard yang benar-benar anti-cheat, verifikasi hasil harus dipindahkan ke backend/Cloud Function + App Check.
 
@@ -27,6 +52,7 @@ File `firestore.rules` berisi rule minimum untuk leaderboard guest. Rule harus d
 - `progress.html` — dashboard lokal
 - `materi.html` + `materi-*.html` — library belajar
 - `site.js` — PWA/homepage helpers
+- `tools/` — `bump-assets.mjs` (versi aset), `git-hooks/` + `install-hooks.mjs` (hook pre-commit)
 - `manifest.json`, `sw.js`, `offline.html` — PWA
 - `privacy.html`, `terms.html`, `contact.html`, `about.html` — trust/legal
 

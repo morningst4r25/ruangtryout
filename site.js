@@ -137,6 +137,83 @@
     if (el) el.textContent = new Intl.DateTimeFormat('id-ID',{weekday:'long',day:'numeric',month:'long'}).format(new Date());
   }
 
+  // ---------------------------------------------------------
+  // Header: tautan "Pesanan" + status Plus.
+  // Dipasang dari satu tempat agar konsisten di semua halaman.
+  // ---------------------------------------------------------
+  const PLUS_CACHE_KEY = 'ruangtryout_plus_until_v1';
+
+  function readPlusCache() {
+    try {
+      const until = Number(localStorage.getItem(PLUS_CACHE_KEY));
+      return Number.isFinite(until) && until > Date.now() ? until : 0;
+    } catch { return 0; }
+  }
+  function writePlusCache(untilMs) {
+    try {
+      if (Number.isFinite(untilMs) && untilMs > Date.now()) localStorage.setItem(PLUS_CACHE_KEY, String(untilMs));
+      else localStorage.removeItem(PLUS_CACHE_KEY);
+    } catch { /* localStorage penuh/diblokir */ }
+  }
+
+  function markPlusChip(untilMs) {
+    const chip = document.querySelector('[data-rt-plus-chip]');
+    if (!chip) return;
+    const active = Number(untilMs) > Date.now();
+    chip.classList.toggle('is-on', active);
+    chip.setAttribute('aria-hidden', String(!active));
+    chip.title = active
+      ? `Plus aktif sampai ${new Intl.DateTimeFormat('id-ID', { day:'numeric', month:'long', year:'numeric' }).format(new Date(untilMs))}`
+      : '';
+  }
+
+  function mountAccountLink() {
+    const header = document.querySelector('header');
+    if (!header || header.querySelector('[data-rt-account]')) return;
+    // Halaman yang sudah punya tautan Pesanan di navigasinya tidak perlu pill tambahan.
+    if (header.querySelector('a[href="pesanan.html"]')) return;
+
+    const link = document.createElement('a');
+    link.href = 'pesanan.html';
+    link.setAttribute('data-rt-account', '');
+    link.className = 'rt-account-link';
+    link.setAttribute('aria-label', 'Pesanan Plus dan status langganan');
+    link.innerHTML = '<span>Pesanan</span><span class="rt-plus-chip" data-rt-plus-chip aria-hidden="true">Plus</span>';
+
+    // Sisipkan sebelum kontrol paling kanan (biasanya CTA / tombol keluar).
+    const bar = header.querySelector('div');
+    if (!bar || bar.children.length < 2) { header.appendChild(link); return; }
+    bar.insertBefore(link, bar.lastElementChild);
+  }
+
+  function refreshPlusChip() {
+    // Tampilkan status dari cache lebih dulu supaya tidak berkedip.
+    markPlusChip(readPlusCache());
+    if (typeof auth === 'undefined' || !auth || typeof db === 'undefined' || !db) return;
+
+    const apply = async user => {
+      if (!user) { writePlusCache(0); markPlusChip(0); return; }
+      try {
+        const snap = await db.collection('entitlements').doc(user.uid).get();
+        const until = snap.exists && snap.data().plusUntil?.toDate ? snap.data().plusUntil.toDate().getTime() : 0;
+        writePlusCache(until);
+        markPlusChip(until);
+      } catch (error) {
+        // Rules belum siap / offline: biarkan cache yang tampil.
+        console.warn('[RuangTryout] Status Plus tidak bisa diperiksa:', error?.message || error);
+      }
+    };
+
+    if (typeof auth.onAuthStateChanged === 'function') auth.onAuthStateChanged(apply);
+    else apply(auth.currentUser);
+  }
+
+  // Ujian layar penuh sengaja tidak diberi navigasi tambahan.
+  if (!/\/exam\.html$/.test(location.pathname)) {
+    mountAccountLink();
+    refreshPlusChip();
+  }
+
   renderResume(); renderLocalProgress(); renderDaily(); renderRemoteStats();
-  window.RuangTryoutSite = { showToast, readJSON };
+  window.RuangTryoutSite = { showToast, readJSON, markPlusChip };
 })();

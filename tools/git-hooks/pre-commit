@@ -1,0 +1,58 @@
+#!/bin/sh
+# Pre-commit hook RuangTryout: menyamakan ?v= aset dan CACHE_NAME di sw.js
+# secara otomatis, lalu ikut men-stage berkas hasilnya ke commit.
+#
+# Dipasang oleh: node tools/install-hooks.mjs
+# Lewati sekali jalan: git commit --no-verify
+
+set -u
+
+root=$(git rev-parse --show-toplevel) || exit 0
+cd "$root" || exit 0
+
+# Repo tanpa skrip versi (mis. worktree lain) tidak dipaksa.
+[ -f tools/bump-assets.mjs ] || exit 0
+
+# Hanya jalankan bila ada perubahan yang relevan di staging.
+relevant=$(git diff --cached --name-only --diff-filter=ACMR |
+  grep -E '(\.html$|^sw\.js$|^(tailwind|style)\.css$|^(site|app|questions|question-source|plus|pesanan|visitor-tracker|firebase-config)\.js$)' || true)
+
+if [ -z "$relevant" ]; then
+  exit 0
+fi
+
+if ! command -v node >/dev/null 2>&1; then
+  echo "pre-commit: node tidak ditemukan, versi aset tidak diperiksa." >&2
+  exit 0
+fi
+
+changed=$(node tools/bump-assets.mjs --changed)
+status=$?
+
+if [ "$status" -ne 0 ]; then
+  cat >&2 <<'EOF'
+
+Commit dibatalkan: skrip versi aset gagal dijalankan.
+Perbaiki error di atas (atau lewati dengan: git commit --no-verify).
+EOF
+  exit 1
+fi
+
+if [ -n "$changed" ]; then
+  printf '%s\n' "$changed" | while IFS= read -r file; do
+    [ -n "$file" ] && git add -- "$file"
+  done
+
+  echo "Versi aset diperbarui otomatis dan ditambahkan ke commit:"
+  printf '%s\n' "$changed" | sed 's/^/  - /'
+fi
+
+# Jaring pengaman: pastikan hasilnya benar-benar sinkron sebelum commit lanjut.
+if ! node tools/bump-assets.mjs --check >/dev/null; then
+  cat >&2 <<'EOF'
+
+Commit dibatalkan: versi aset masih belum sinkron setelah pembaruan otomatis.
+Jalankan manual: node tools/bump-assets.mjs && git add -A
+EOF
+  exit 1
+fi
