@@ -107,7 +107,7 @@ function questionSection(q) {
   if (q.section) return q.section;
   const i=q.sourceIndex;
   if (selectedCategory==='cpns') return i<30?'TWK':i<65?'TIU':'TKP';
-  return i<40?'Penalaran & Kuantitatif':'Literasi';
+  return i<45?'Penalaran & Kuantitatif':'Literasi';
 }
 
 function loadSavedProgress() { return readJSON(getStorageKey(), null); }

@@ -36,7 +36,7 @@ const BATCH_LIMIT = 400;
 
 const SECTION_RULES = {
   cpns: [{ name: 'TWK', until: 30 }, { name: 'TIU', until: 65 }, { name: 'TKP', until: Infinity }],
-  utbk: [{ name: 'Penalaran & Kuantitatif', until: 40 }, { name: 'Literasi', until: Infinity }]
+  utbk: [{ name: 'Penalaran & Kuantitatif', until: 45 }, { name: 'Literasi', until: Infinity }]
 };
 
 function parseArgs(argv) {
