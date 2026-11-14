@@ -1,0 +1,74 @@
+name: Deploy Vercel
+
+# Deploy produksi ke Vercel lewat Vercel CLI, jadi tidak perlu klik
+# "Redeploy" di dashboard setiap `main` berubah.
+#
+# Yang perlu disiapkan di repo (Settings -> Secrets and variables -> Actions):
+#   Secret   VERCEL_TOKEN        Account Settings -> Tokens di Vercel
+#   Variable VERCEL_ORG_ID       id tim/akun Vercel
+#   Variable VERCEL_PROJECT_ID   id project Vercel untuk ruangtryout.my.id
+# Keduanya terlihat di `.vercel/project.json` setelah menjalankan `vercel link`.
+#
+# Workflow ini hanya mengunggah situs statis. Firestore Rules, Cloud Functions,
+# dan secret Midtrans tetap lewat workflow "Deploy (manual)".
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vercel-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Vercel production
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Periksa kredensial Vercel
+        id: creds
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          ORG_ID: ${{ vars.VERCEL_ORG_ID }}
+          PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          set -euo pipefail
+          present=true
+          [ -n "${VERCEL_TOKEN:-}" ] || present=false
+          [ -n "${ORG_ID:-}" ] || present=false
+          [ -n "${PROJECT_ID:-}" ] || present=false
+
+          echo "present=$present" >> "$GITHUB_OUTPUT"
+
+          if [ "$present" = "false" ]; then
+            message="Vercel deploy belum bisa jalan: isi secret VERCEL_TOKEN serta variable VERCEL_ORG_ID dan VERCEL_PROJECT_ID."
+            if [ "$EVENT" = "workflow_dispatch" ]; then
+              echo "::error::$message"
+              exit 1
+            fi
+            echo "::warning::$message Deploy otomatis dilewati untuk push ini."
+          fi
+
+      - name: Deploy ke produksi
+        if: steps.creds.outputs.present == 'true'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
+        run: |
+          set -euo pipefail
+          npx --yes vercel@latest deploy \
+            --prod \
+            --yes \
+            --token "$VERCEL_TOKEN" 2>&1 | tee "$RUNNER_TEMP/vercel-deploy.log"

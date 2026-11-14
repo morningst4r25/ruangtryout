@@ -35,6 +35,8 @@ Jalankan berurutan dari root repo, di mesin yang bisa membuka browser untuk
 `firebase login` (bukan dari sandbox cloud tanpa browser). Ganti
 `<project-id>` dengan id project Firebase Anda.
 
+> **Situs statis (Vercel):** frontend ter-deploy otomatis lewat `.github/workflows/vercel-deploy.yml` setiap push ke `main`, memakai secret `VERCEL_TOKEN` + variable `VERCEL_ORG_ID`/`VERCEL_PROJECT_ID`. Tanpa ketiganya workflow hanya memberi peringatan dan tidak mengubah produksi. Deploy backend tetap langkah manual di bawah.
+
 ### 1. Prasyarat
 
 - Node.js 20 (sama dengan `firebase.json` → `runtime: nodejs20`).

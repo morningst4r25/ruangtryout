@@ -1,5 +1,8 @@
 node_modules/
 
+# Konfigurasi project Vercel hasil `vercel link` (lokal, jangan di-commit)
+.vercel/
+
 # Env Functions (server key Midtrans tidak boleh masuk repo)
 functions/.env
 functions/.env.*

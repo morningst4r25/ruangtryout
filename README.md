@@ -25,7 +25,9 @@ Semua `style.css`, `tailwind.css`, dan script lokal direferensikan dengan `?v=<h
 
 CI (`.github/workflows/ci.yml`) menjalankan `node tools/bump-assets.mjs --check` dan `npm test` di `functions/` pada setiap push dan pull request.
 
-Deploy produksi dijalankan manual lewat `.github/workflows/deploy.yml` (Actions → Deploy (manual)) memakai secret `FIREBASE_SERVICE_ACCOUNT`; langkah persiapannya ada di `PREMIUM_CONTENT_SETUP.md`.
+Situs statis ter-deploy ke Vercel otomatis lewat `.github/workflows/vercel-deploy.yml` setiap `main` berubah (secret `VERCEL_TOKEN`, variable `VERCEL_ORG_ID` + `VERCEL_PROJECT_ID`).
+
+Deploy backend (Functions + rules) dijalankan manual lewat `.github/workflows/deploy.yml` (Actions → Deploy (manual)) memakai secret `FIREBASE_SERVICE_ACCOUNT`; langkah persiapannya ada di `PREMIUM_CONTENT_SETUP.md`.
 
 ### Firestore Rules
 File `firestore.rules` berisi rule minimum untuk leaderboard guest. Rule harus diterapkan melalui Firebase Console/CLI; menaruh file di hosting tidak otomatis menerapkannya.
