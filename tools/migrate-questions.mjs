@@ -28,16 +28,12 @@ import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import process from 'node:process';
+import { SECTION_RULES, sectionFor } from './question-sections.mjs';
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(SCRIPT_DIR, '..');
 const OUT_DIR = path.join(SCRIPT_DIR, 'out');
 const BATCH_LIMIT = 400;
-
-const SECTION_RULES = {
-  cpns: [{ name: 'TWK', until: 45 }, { name: 'TIU', until: 90 }, { name: 'TKP', until: Infinity }],
-  utbk: [{ name: 'Penalaran & Kuantitatif', until: 45 }, { name: 'Literasi', until: Infinity }]
-};
 
 function parseArgs(argv) {
   const args = { apply: false, prune: false, freePerSection: 0, project: null, out: path.join(OUT_DIR, 'questions.json') };
@@ -62,12 +58,6 @@ function parseArgs(argv) {
     process.exit(1);
   }
   return args;
-}
-
-function sectionFor(category, index) {
-  const rules = SECTION_RULES[category] || [];
-  for (const rule of rules) if (index < rule.until) return rule.name;
-  return rules.length ? rules[rules.length - 1].name : 'Umum';
 }
 
 /** Muat quizCategories langsung dari questions.js tanpa mengeksekusi file sebagai modul. */

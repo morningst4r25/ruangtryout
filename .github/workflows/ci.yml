@@ -25,6 +25,19 @@ jobs:
       - name: Cek ?v= aset dan CACHE_NAME sw.js sinkron
         run: node tools/bump-assets.mjs --check
 
+  questions:
+    name: Bank soal
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validasi bank soal (duplikat, kunci jawaban, opsi kembar)
+        run: node tools/validate-questions.mjs
+
   rules:
     name: Firestore Rules
     runs-on: ubuntu-latest

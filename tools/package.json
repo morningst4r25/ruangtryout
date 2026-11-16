@@ -2,9 +2,10 @@
   "name": "ruangtryout-tools",
   "private": true,
   "type": "module",
-  "description": "Skrip bantu RuangTryout: versi aset, hook git, dan validasi Firestore rules.",
+  "description": "Skrip bantu RuangTryout: versi aset, hook git, validasi bank soal, dan validasi Firestore rules.",
   "scripts": {
     "check:rules": "node check-rules.mjs",
+    "validate:questions": "node validate-questions.mjs",
     "test": "node --test rules.test.mjs"
   },
   "devDependencies": {
